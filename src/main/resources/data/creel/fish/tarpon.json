@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "grade": "open",
+  "min_depth": 6,
+  "weight": 10,
+  "places": {
+    "swamp": [
+      "warm"
+    ],
+    "coast": [
+      "temperate",
+      "warm"
+    ],
+    "ocean": [
+      "warm"
+    ]
+  }
+}

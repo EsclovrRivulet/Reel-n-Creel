@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "creel:fish_morsel",
+    "creel:raw_fish",
+    "creel:cooked_fish_morsel",
+    "creel:fish_steak"
+  ]
+}

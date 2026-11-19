@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:fishing_rod",
+    "minecraft:diamond",
+    "minecraft:leather"
+  ],
+  "result": {
+    "id": "creel:big_game_rod"
+  }
+}

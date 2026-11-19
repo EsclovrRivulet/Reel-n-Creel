@@ -1,0 +1,17 @@
+{
+  "_about": "Natural spawns of each listed type stop while this many are loaded per player (vanilla's pool of 20 is unchanged). A value may be {\"cap\": n, \"also\": [types]}: those types count toward the cap too. Our salmon run counts toward vanilla's salmon, so the two compete for 10. Empty this file to switch the caps off.",
+  "minecraft:cod": 10,
+  "minecraft:salmon": {
+    "cap": 0,
+    "also": [
+      "creel:steelhead",
+      "creel:atlantic_salmon",
+      "creel:king_salmon",
+      "creel:coho_salmon",
+      "creel:chum_salmon",
+      "creel:pink_salmon",
+      "creel:masu_salmon"
+    ]
+  },
+  "_salmon": "Salmon's cap is 0: vanilla's spawner places no salmon; the mod's spawner places them as one kind of the salmon run, with the same chance as each of ours (budget 'salmon' in budgets.json). Set it back to a number to let vanilla's spawner place salmon again up to that cap."
+}

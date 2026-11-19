@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "grade": "open",
+  "min_depth": 1,
+  "weight": 10,
+  "places": {
+    "highland": [
+      "cold",
+      "cool"
+    ]
+  }
+}

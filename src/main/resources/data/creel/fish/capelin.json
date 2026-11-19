@@ -1,0 +1,20 @@
+{
+  "enabled": true,
+  "grade": "narrow",
+  "min_depth": 1,
+  "weight": 10,
+  "places": {
+    "coast": [
+      "cold",
+      "cool"
+    ],
+    "ocean": [
+      "cold",
+      "cool"
+    ],
+    "deep_sea": [
+      "cold",
+      "cool"
+    ]
+  }
+}

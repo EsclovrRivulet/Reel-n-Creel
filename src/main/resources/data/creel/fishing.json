@@ -1,0 +1,179 @@
+{
+  "_about": "Reel n Creel's fishing rods (docs/FISHING.md). Each rod hooks fish of two size tiers only: 'classes' [lower, upper], drawn by 'chances' [lower, upper], counting only a tier that has a species suiting the water at the bobber (one tier alone gets every bite; none, and nothing bites). Each level of Luck of the Sea multiplies the upper tier's chance by 'luck_of_the_sea'. 'cast' is the rod's throw against vanilla's. 'reel_speed' is how fast a reeled fish of each tier comes in, in blocks per tick. Holding use with no line out charges the cast over 'cast.charge_ticks', and the bobber's launch is vanilla's times the rod's cast times a power from 'cast.min_power' (a tap) to 'cast.full_power' (full charge). Holding use with the line out and nothing on it winds the bobber in at 'wind_speed' blocks per tick. (0.17.0) 'treasure' per rod is the chance of a treasure with a landed fish (the 'treasure' block), and 'trades' what fishermen buy. A datapack may override this file; /reload applies it.",
+  "rods": {
+    "panfish_rod": {
+      "classes": [
+        "tiny",
+        "small"
+      ],
+      "chances": [
+        65,
+        35
+      ],
+      "cast": 0.8,
+      "treasure": 0.015
+    },
+    "trout_rod": {
+      "classes": [
+        "small",
+        "medium"
+      ],
+      "chances": [
+        65,
+        35
+      ],
+      "cast": 1.0,
+      "treasure": 0.025
+    },
+    "salmon_rod": {
+      "classes": [
+        "medium",
+        "large"
+      ],
+      "chances": [
+        65,
+        35
+      ],
+      "cast": 1.15,
+      "treasure": 0.035
+    },
+    "surf_rod": {
+      "classes": [
+        "large",
+        "very_large"
+      ],
+      "chances": [
+        65,
+        35
+      ],
+      "cast": 1.4,
+      "treasure": 0.05
+    },
+    "big_game_rod": {
+      "classes": [
+        "very_large",
+        "giant"
+      ],
+      "chances": [
+        65,
+        35
+      ],
+      "cast": 1.0,
+      "treasure": 0.05
+    }
+  },
+  "luck_of_the_sea": 1.3,
+  "reel_speed": {
+    "tiny": 0.12,
+    "small": 0.12,
+    "medium": 0.105,
+    "large": 0.09,
+    "very_large": 0.075,
+    "giant": 0.06
+  },
+  "cast": {
+    "charge_ticks": 20,
+    "min_power": 0.35,
+    "full_power": 1.0
+  },
+  "wind_speed": 0.15,
+  "fight": {
+    "_about": "The fight: after the first reel a hooked fish RESTs (calm), and at the end of every stage ROLLS what it does next and for how long: from REST it rests on a little or PULLs; from a PULL it RUNs (taking line: danger, do not reel) or settles back to REST, more likely to run when fresh and when the player reeled through the pull; a RUN always eases off through a PULL-level easing before a rest. Its running time may never pass run_cap of the fight so far. Its stamina (running_ticks by tier times size_scale by size) drains in pulls and runs, faster reeled against; spent, it finishes its stage and is beaten. While the player reels, the reel clicks at the fish's state's gap (click_ticks: rest, pull, run); only reeling a running fish can snap the line: snap_reel_ticks reeled ticks in one run (each tick let go takes one back). A fighting fish is reeled in at a pace that brings it to the bank about as it tires (reel_pace, pace_tail_ticks); a resting fish at the bank with land_below of its stamina or less is landed, a fresher one bolts into a pull. Ticks are game ticks (20 a second). Each number is described in docs/FISHING.md, 'The fight'.",
+    "running_ticks": {
+      "tiny": 0,
+      "small": 165,
+      "medium": 260,
+      "large": 365,
+      "very_large": 470,
+      "giant": 575
+    },
+    "size_scale": {
+      "small": 0.85,
+      "ordinary": 1.0,
+      "large": 1.1,
+      "trophy": 1.2
+    },
+    "rest_ticks": [
+      30,
+      90
+    ],
+    "rest_more_ticks": [
+      15,
+      30
+    ],
+    "rest_again": 0.25,
+    "pull_ticks": [
+      20,
+      60
+    ],
+    "run_ticks": [
+      30,
+      70
+    ],
+    "length_skew": 2.0,
+    "ease_ticks": 20,
+    "warn_ticks": 15,
+    "run_chance": [
+      0.35,
+      0.75
+    ],
+    "provoke": 0.2,
+    "provoke_share": [
+      0.3,
+      0.6
+    ],
+    "run_cap": {
+      "tiny": 0.3,
+      "small": 0.3,
+      "medium": 0.3,
+      "large": 0.3,
+      "very_large": 0.25,
+      "giant": 0.25
+    },
+    "rest_recover": 0.25,
+    "reeled_drain": 2.0,
+    "run_speed": 1.2,
+    "tired_speed": 0.6,
+    "rest_drag": 0.6,
+    "run_reel_gain": 0.1,
+    "pull_reel_gain": 0.5,
+    "beaten_reel_gain": 1.5,
+    "end_of_line": 30.0,
+    "snap_damage": 3,
+    "click_ticks": {
+      "rest": 17,
+      "pull": 9,
+      "run": 4
+    },
+    "click_pitch": {
+      "rest": 1.8,
+      "pull": 1.9,
+      "run": 2.0
+    },
+    "click_volume": 0.35,
+    "land_below": 0.5,
+    "reel_pace": 0.45,
+    "pace_tail_ticks": 20,
+    "snap_reel_ticks": 25
+  },
+  "treasure": {
+    "_about": "(0.17.0) When a fish is landed with one of these rods there is a chance of a treasure as well, thrown to the player: the rod's 'treasure' above, times (1 + luck_of_the_sea x the rod's Luck of the Sea level). What comes is the loot table data/creel/loot_table/gameplay/fishing/treasure.json. A lost fish gives nothing.",
+    "luck_of_the_sea": 0.4
+  },
+  "trades": {
+    "_about": "(0.17.0) Every fisherman villager buys these for emeralds, as extra offers on top of vanilla's (added the first time a player interacts with him, kept at every level, never taking a vanilla offer's place; an offer already there for the same item and an emerald is left as it is). 'buys': the item and how many of it pay 1 emerald. 'max_uses' (before a restock), 'xp' (the villager's trade xp) and 'price_multiplier' (reputation and demand) are vanilla's for a novice sell trade. A change applies to fishermen that do not have the offer yet.",
+    "buys": [
+      {
+        "item": "creel:raw_fish",
+        "count": 1
+      },
+      {
+        "item": "creel:fish_morsel",
+        "count": 4
+      }
+    ],
+    "max_uses": 16,
+    "xp": 2,
+    "price_multiplier": 0.05
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": "creel:fish_morsel",
+  "result": {
+    "id": "creel:cooked_fish_morsel"
+  }
+}

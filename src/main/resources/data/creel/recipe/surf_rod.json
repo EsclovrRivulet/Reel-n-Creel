@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:fishing_rod",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:string",
+    "minecraft:string"
+  ],
+  "result": {
+    "id": "creel:surf_rod"
+  }
+}

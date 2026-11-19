@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "creel:item/chum_salmon_spawn_egg"
+  }
+}

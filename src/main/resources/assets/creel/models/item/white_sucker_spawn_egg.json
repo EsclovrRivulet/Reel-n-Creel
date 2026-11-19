@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "creel:item/white_sucker_spawn_egg"
+  }
+}

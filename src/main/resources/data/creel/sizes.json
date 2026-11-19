@@ -1,0 +1,13 @@
+{
+  "_about": "How big each fish of the mod is (docs/SIZES.md). A fish rolls its size once, when it first appears, and keeps it. scale multiplies the fish's hitbox and model; weight is the chance against the others; wobble is the random spread round every scale (0.04 = plus or minus 4%). tiers gives a size tier weights of its own (tiny, small, medium, large, very_large, giant); the giant tier has no trophy, its share goes to large. Health is the tier's health x scale^1.5, rounded. Change a number and /reload; fish already in the world keep their size.",
+  "wobble": 0.04,
+  "sizes": {
+    "small": { "scale": 0.8, "weight": 15 },
+    "ordinary": { "scale": 1.0, "weight": 60 },
+    "large": { "scale": 1.25, "weight": 20 },
+    "trophy": { "scale": 1.5, "weight": 5 }
+  },
+  "tiers": {
+    "giant": { "large": 25, "trophy": 0 }
+  }
+}

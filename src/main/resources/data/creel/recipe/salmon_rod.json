@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:fishing_rod",
+    "minecraft:copper_ingot",
+    "minecraft:gold_ingot"
+  ],
+  "result": {
+    "id": "creel:salmon_rod"
+  }
+}

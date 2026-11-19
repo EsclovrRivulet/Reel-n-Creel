@@ -1,0 +1,37 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "still_life:muskeg",
+      "required": false
+    },
+    {
+      "id": "still_life:frozen_muskeg",
+      "required": false
+    },
+    {
+      "id": "still_life:snowy_muskeg",
+      "required": false
+    },
+    {
+      "id": "still_life:aspen_swamp",
+      "required": false
+    },
+    {
+      "id": "still_life:bayou",
+      "required": false
+    },
+    {
+      "id": "still_life:temperate_rainforest_wetlands",
+      "required": false
+    },
+    {
+      "id": "still_life:flooded_prairie",
+      "required": false
+    },
+    {
+      "id": "still_life:flooded_tropical_deciduous_rainforest",
+      "required": false
+    }
+  ]
+}

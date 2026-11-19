@@ -1,0 +1,20 @@
+# Gradle
+.gradle/
+build/
+
+# The game, when run from the project
+run/
+
+# Editors
+.idea/
+*.iml
+.vscode/
+out/
+bin/
+.classpath
+.project
+.settings/
+
+# System
+.DS_Store
+Thumbs.db

@@ -1,0 +1,384 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "cases": [
+      {
+        "when": "perch",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/perch"
+        }
+      },
+      {
+        "when": "yellow_perch",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/yellow_perch"
+        }
+      },
+      {
+        "when": "walleye",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/walleye"
+        }
+      },
+      {
+        "when": "smallmouth_bass",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/smallmouth_bass"
+        }
+      },
+      {
+        "when": "largemouth_bass",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/largemouth_bass"
+        }
+      },
+      {
+        "when": "white_bass",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/white_bass"
+        }
+      },
+      {
+        "when": "striped_bass",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/striped_bass"
+        }
+      },
+      {
+        "when": "yelloweye_rockfish",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/yelloweye_rockfish"
+        }
+      },
+      {
+        "when": "lingcod",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/lingcod"
+        }
+      },
+      {
+        "when": "rainbow_trout",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/rainbow_trout"
+        }
+      },
+      {
+        "when": "steelhead",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/steelhead"
+        }
+      },
+      {
+        "when": "cutthroat_trout",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/cutthroat_trout"
+        }
+      },
+      {
+        "when": "brown_trout",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/brown_trout"
+        }
+      },
+      {
+        "when": "brook_trout",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/brook_trout"
+        }
+      },
+      {
+        "when": "tiger_trout",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/tiger_trout"
+        }
+      },
+      {
+        "when": "lake_trout",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/lake_trout"
+        }
+      },
+      {
+        "when": "arctic_char",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/arctic_char"
+        }
+      },
+      {
+        "when": "atlantic_salmon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/atlantic_salmon"
+        }
+      },
+      {
+        "when": "king_salmon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/king_salmon"
+        }
+      },
+      {
+        "when": "coho_salmon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/coho_salmon"
+        }
+      },
+      {
+        "when": "chum_salmon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/chum_salmon"
+        }
+      },
+      {
+        "when": "pink_salmon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/pink_salmon"
+        }
+      },
+      {
+        "when": "masu_salmon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/masu_salmon"
+        }
+      },
+      {
+        "when": "arctic_grayling",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/arctic_grayling"
+        }
+      },
+      {
+        "when": "lake_whitefish",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/lake_whitefish"
+        }
+      },
+      {
+        "when": "mountain_whitefish",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/mountain_whitefish"
+        }
+      },
+      {
+        "when": "bluegill_sunfish",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/bluegill_sunfish"
+        }
+      },
+      {
+        "when": "rock_bass",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/rock_bass"
+        }
+      },
+      {
+        "when": "crappie",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/crappie"
+        }
+      },
+      {
+        "when": "northern_pike",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/northern_pike"
+        }
+      },
+      {
+        "when": "muskie",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/muskie"
+        }
+      },
+      {
+        "when": "channel_catfish",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/channel_catfish"
+        }
+      },
+      {
+        "when": "bullhead_catfish",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/bullhead_catfish"
+        }
+      },
+      {
+        "when": "burbot",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/burbot"
+        }
+      },
+      {
+        "when": "white_sucker",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/white_sucker"
+        }
+      },
+      {
+        "when": "shorthead_redhorse",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/shorthead_redhorse"
+        }
+      },
+      {
+        "when": "northern_pikeminnow",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/northern_pikeminnow"
+        }
+      },
+      {
+        "when": "creek_chub",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/creek_chub"
+        }
+      },
+      {
+        "when": "longnose_dace",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/longnose_dace"
+        }
+      },
+      {
+        "when": "common_carp",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/common_carp"
+        }
+      },
+      {
+        "when": "pacific_herring",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/pacific_herring"
+        }
+      },
+      {
+        "when": "american_shad",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/american_shad"
+        }
+      },
+      {
+        "when": "threadfin_shad",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/threadfin_shad"
+        }
+      },
+      {
+        "when": "goldeye",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/goldeye"
+        }
+      },
+      {
+        "when": "capelin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/capelin"
+        }
+      },
+      {
+        "when": "white_sturgeon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/white_sturgeon"
+        }
+      },
+      {
+        "when": "mahi_mahi",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/mahi_mahi"
+        }
+      },
+      {
+        "when": "bluefin_tuna",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/bluefin_tuna"
+        }
+      },
+      {
+        "when": "yellowfin_tuna",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/yellowfin_tuna"
+        }
+      },
+      {
+        "when": "sailfish",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/sailfish"
+        }
+      },
+      {
+        "when": "tarpon",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/tarpon"
+        }
+      },
+      {
+        "when": "barracuda",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/barracuda"
+        }
+      },
+      {
+        "when": "alligator_gar",
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_bucket/alligator_gar"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "creel:item/fish_bucket/perch"
+    }
+  }
+}

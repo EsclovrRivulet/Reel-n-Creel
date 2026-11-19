@@ -1,0 +1,128 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/big_game_rod"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "property": "minecraft:fishing_rod/cast",
+      "on_false": {
+        "type": "minecraft:range_dispatch",
+        "property": "creel:rod_bend",
+        "entries": [
+          {
+            "threshold": -2.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_bend_m2"
+            }
+          },
+          {
+            "threshold": -1.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_bend_m1"
+            }
+          },
+          {
+            "threshold": 0.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "creel:item/big_game_rod_held_bend_m2"
+        }
+      },
+      "on_true": {
+        "type": "minecraft:range_dispatch",
+        "property": "creel:rod_bend",
+        "entries": [
+          {
+            "threshold": -2.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_m2"
+            }
+          },
+          {
+            "threshold": -1.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_m1"
+            }
+          },
+          {
+            "threshold": 0.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast"
+            }
+          },
+          {
+            "threshold": 1.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_1"
+            }
+          },
+          {
+            "threshold": 2.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_2"
+            }
+          },
+          {
+            "threshold": 3.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_3"
+            }
+          },
+          {
+            "threshold": 4.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_4"
+            }
+          },
+          {
+            "threshold": 5.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_5"
+            }
+          },
+          {
+            "threshold": 6.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "creel:item/big_game_rod_held_cast_bend_6"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "creel:item/big_game_rod_held_cast_bend_m2"
+        }
+      }
+    }
+  }
+}
