@@ -1,0 +1,41 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "still_life:montane_meadows",
+      "required": false
+    },
+    {
+      "id": "still_life:blooming_montane_meadows",
+      "required": false
+    },
+    {
+      "id": "still_life:temperate_rainforest_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:alpine_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:forested_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:temperate_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:arid_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:haze_mountain",
+      "required": false
+    }
+  ]
+}

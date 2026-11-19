@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "grade": "narrow",
+  "min_depth": 1,
+  "weight": 10,
+  "places": {
+    "fresh": [
+      "warm"
+    ],
+    "highland": [
+      "temperate"
+    ],
+    "swamp": [
+      "temperate",
+      "warm"
+    ]
+  }
+}

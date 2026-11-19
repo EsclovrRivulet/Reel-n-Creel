@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "grade": "open",
+  "min_depth": 2,
+  "weight": 10,
+  "places": {
+    "fresh": [
+      "cold",
+      "cool",
+      "temperate"
+    ],
+    "highland": [
+      "cold",
+      "cool",
+      "temperate"
+    ],
+    "coast": [
+      "cold"
+    ],
+    "ocean": [
+      "cold"
+    ]
+  }
+}

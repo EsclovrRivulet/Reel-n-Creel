@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "creel:panfish_rod",
+    "creel:trout_rod",
+    "creel:salmon_rod",
+    "creel:surf_rod",
+    "creel:big_game_rod"
+  ]
+}

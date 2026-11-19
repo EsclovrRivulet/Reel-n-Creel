@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "grade": "open",
+  "min_depth": 4,
+  "weight": 10,
+  "places": {
+    "coast": [
+      "cool",
+      "temperate"
+    ],
+    "deep_sea": [
+      "cold",
+      "cool",
+      "temperate"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:fishing_rod",
+    "minecraft:copper_ingot"
+  ],
+  "result": {
+    "id": "creel:panfish_rod"
+  }
+}

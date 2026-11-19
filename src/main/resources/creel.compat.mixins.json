@@ -1,0 +1,8 @@
+{
+  "required": false,
+  "package": "io.github.esclovrrivulet.creel.mixin.compat",
+  "plugin": "io.github.esclovrrivulet.creel.mixin.compat.CompatPlugin",
+  "compatibilityLevel": "JAVA_25",
+  "client": ["PunchyBlacklistMixin"],
+  "injectors": { "defaultRequire": 0 }
+}

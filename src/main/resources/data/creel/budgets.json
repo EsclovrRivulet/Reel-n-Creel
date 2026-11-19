@@ -1,0 +1,46 @@
+{
+  "_about": "Reel n Creel spawn budgets (docs/HABITAT.md section 4). For each size class: max, the most of its fish within 64 blocks of a player; school, [min, max] fish per school. A school is placed whole or not at all: when less room is left than the school drawn, it is drawn down to the room left, never below min. A species' own school in data/creel/fish/<id>.json overrides the class's; solitary fish always come alone. A datapack may override this file; /reload applies it.",
+  "tiny_and_small": {
+    "max": 15,
+    "school": [
+      3,
+      6
+    ]
+  },
+  "medium": {
+    "max": 10,
+    "school": [
+      2,
+      5
+    ]
+  },
+  "large": {
+    "max": 10,
+    "school": [
+      2,
+      3
+    ]
+  },
+  "very_large": {
+    "max": 3,
+    "school": [
+      1,
+      1
+    ]
+  },
+  "giant": {
+    "max": 3,
+    "school": [
+      1,
+      1
+    ]
+  },
+  "salmon": {
+    "max": 15,
+    "school": [
+      2,
+      4
+    ]
+  },
+  "_salmon": "salmon: the salmon run, our salmon and the steelhead whatever their size, counted together with vanilla's salmon, so the two kinds compete for one budget; vanilla's salmon are also held to 10 by data/creel/vanilla_caps.json, which counts ours"
+}

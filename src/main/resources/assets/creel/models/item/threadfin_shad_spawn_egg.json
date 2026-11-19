@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "creel:item/threadfin_shad_spawn_egg"
+  }
+}

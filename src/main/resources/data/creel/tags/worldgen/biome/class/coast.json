@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "still_life:arctic_snowy_beach",
+      "required": false
+    },
+    {
+      "id": "still_life:snowy_beach",
+      "required": false
+    },
+    {
+      "id": "still_life:dry_temperate_beach",
+      "required": false
+    },
+    {
+      "id": "still_life:humid_temperate_beach",
+      "required": false
+    },
+    {
+      "id": "still_life:warm_temperate_beach",
+      "required": false
+    },
+    {
+      "id": "still_life:subtropical_beach",
+      "required": false
+    }
+  ]
+}

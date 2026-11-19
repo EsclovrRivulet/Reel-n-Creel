@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "grade": "narrow",
+  "min_depth": 1,
+  "weight": 10,
+  "places": {
+    "fresh": [
+      "cool"
+    ],
+    "swamp": [
+      "cold",
+      "cool"
+    ]
+  }
+}

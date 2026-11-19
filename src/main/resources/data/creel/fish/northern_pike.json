@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "grade": "open",
+  "min_depth": 4,
+  "weight": 10,
+  "places": {
+    "fresh": [
+      "cool"
+    ],
+    "swamp": [
+      "cold",
+      "cool"
+    ]
+  }
+}
