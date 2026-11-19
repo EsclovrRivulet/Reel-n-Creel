@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.18.0, for Minecraft 26.3
+
+- A NeoForge build, beside the Fabric one. Both come from the same code and play the same.
+- The mod's entry in the mod list now links to the source and the issue tracker.
+- No change to fish, rods or fishing.
+
 ## 0.17.1 (beta), for Minecraft 26.3
 
 The first public release.

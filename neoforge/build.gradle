@@ -1,0 +1,76 @@
+plugins {
+	id 'net.neoforged.moddev' version "${moddev_version}"
+}
+
+// The NeoForge build of the mod: the loader-neutral code, assets and data in ../common, with the NeoForge entry points and glue here,
+// compiled together into one jar. Its shape follows NeoForge's own ModDevGradle template (github.com/NeoForgeMDKs).
+
+// The mod's version (and its description) are set in one place for both loaders: fabric/src/main/resources/fabric.mod.json.
+def modJson = new groovy.json.JsonSlurper().parse(rootProject.file('fabric/src/main/resources/fabric.mod.json'))
+version = modJson.version
+group = 'io.github.esclovrrivulet.creel'
+
+base {
+	archivesName = 'reel-n-creel-neoforge'
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir rootProject.file('common/src/main/java')
+		}
+		resources {
+			srcDir rootProject.file('common/src/main/resources')
+		}
+	}
+}
+
+neoForge {
+	// To change the version see the gradle.properties file
+	version = project.neo_version
+
+	runs {
+		client {
+			client()
+		}
+		server {
+			server()
+			programArgument '--nogui'
+		}
+	}
+
+	mods {
+		creel {
+			sourceSet(sourceSets.main)
+		}
+	}
+}
+
+// META-INF/neoforge.mods.toml is filled in from fabric.mod.json and gradle.properties
+def modProperties = [
+	mod_version            : modJson.version,
+	mod_description        : modJson.description,
+	neo_version            : project.neo_version,
+	minecraft_version_range: project.minecraft_version_range,
+]
+processResources {
+	inputs.properties modProperties
+	filesMatching('META-INF/neoforge.mods.toml') {
+		expand modProperties
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.encoding = 'UTF-8'
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	// the licence travels with the jar
+	from(rootProject.file('LICENSE'))
+}

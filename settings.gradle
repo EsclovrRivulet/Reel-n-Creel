@@ -10,3 +10,8 @@ pluginManagement {
 }
 
 rootProject.name = 'reel-n-creel'
+
+// common/ is not a project of its own: each loader's project compiles it in with its own code (see fabric/build.gradle and
+// neoforge/build.gradle). ./gradlew build builds both loaders.
+include 'fabric'
+include 'neoforge'

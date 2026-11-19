@@ -1,0 +1,34 @@
+# The NeoForge build's mod file. The placeholders are filled in by neoforge/build.gradle: the version and the description from
+# fabric/src/main/resources/fabric.mod.json (set in one place for both loaders), the NeoForge and Minecraft versions from gradle.properties.
+license="CC-BY-SA-4.0"
+issueTrackerURL="https://github.com/EsclovrRivulet/Reel-n-Creel/issues"
+
+[[mods]]
+modId="creel"
+version="${mod_version}"
+displayName="Reel n Creel"
+displayURL="https://github.com/EsclovrRivulet/Reel-n-Creel"
+logoFile="assets/creel/icon.png"
+logoBlur=false
+authors="EsclovrRivulet"
+description='''${mod_description}'''
+
+[[mixins]]
+config="creel.mixins.json"
+
+[[mixins]]
+config="creel.neoforge.mixins.json"
+
+[[dependencies.creel]]
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.creel]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
