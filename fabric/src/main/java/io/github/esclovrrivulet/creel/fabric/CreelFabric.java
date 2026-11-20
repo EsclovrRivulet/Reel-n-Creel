@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 public class CreelFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        CreelMod.registerBlocks((id, block) -> Registry.register(BuiltInRegistries.BLOCK, id, block));      // 0.22.0: Fish Spawn
         CreelMod.registerEntityTypes((id, type) -> Registry.register(BuiltInRegistries.ENTITY_TYPE, id, type));
         for (CreelMod.SpawnPlacement p : CreelMod.spawnPlacements()) {
             registerSpawnPlacement(p);

@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import io.github.esclovrrivulet.creel.client.HeldRodMark;
 import io.github.esclovrrivulet.creel.client.RodAnim;
 import io.github.esclovrrivulet.creel.client.RodPose;
+import io.github.esclovrrivulet.creel.client.StickRodTable;
 
 /** Client only, cosmetic, optional. Where each item layer is submitted, for our rods held in a hand:
  *  - just after the layer's display transform is applied, our rods' own animation turns the rod (client.RodAnim): there, every other
@@ -28,7 +29,8 @@ public abstract class ItemLayerRenderStateMixin {
     @Inject(method = "submit", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;applyTransform(Lcom/mojang/blaze3d/vertex/PoseStack$Pose;)V",
         shift = At.Shift.AFTER), require = 0, expect = 0)
     private void creel$animateRod(PoseStack poseStack, SubmitNodeCollector collector, int light, int overlay, int outline, CallbackInfo ci) {
-        if ((Object) this.this$0 instanceof HeldRodMark mark && mark.creel$rod() != null) {
+        // (0.24.0) vanilla's Fishing Rod is marked only for its pose: never animated by us
+        if ((Object) this.this$0 instanceof HeldRodMark mark && mark.creel$rod() != null && mark.creel$rod() != StickRodTable.FISHING_ROD) {
             RodAnim.apply(mark.creel$playerId(), mark.creel$rod(), mark.creel$context(), poseStack.last());
         }
     }

@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import io.github.esclovrrivulet.creel.client.HeldRodMark;
 import io.github.esclovrrivulet.creel.client.RodFlex;
+import io.github.esclovrrivulet.creel.client.StickRodTable;
+import net.minecraft.world.item.Items;
 import io.github.esclovrrivulet.creel.fishing.CastingRodItem;
 
 /** Client only, cosmetic, optional: when an item render state is filled for one of our rods held in a hand (first or third person) by
@@ -33,6 +35,11 @@ public abstract class ItemModelResolverMixin {
         if (hand && living instanceof Player player && stack.getItem() instanceof CastingRodItem rod) {
             mark.creel$markRod(rod.rod(), context, player.getId());
             mark.creel$markStep(RodFlex.drawn(player, stack));      // 0.13.0: the bent step just picked for this rod
+        } else if (hand && living instanceof Player player && stack.is(Items.FISHING_ROD)) {
+            // (0.24.0) vanilla's Fishing Rod, held as our model: marked so its pose is captured (the line leaves its tip guide); it is
+            // never animated or bent (mixin.ItemLayerRenderStateMixin)
+            mark.creel$markRod(StickRodTable.FISHING_ROD, context, player.getId());
+            mark.creel$markStep(0);
         } else {
             mark.creel$markRod(null, null, -1);
             mark.creel$markStep(0);

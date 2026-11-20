@@ -10,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
@@ -145,7 +146,7 @@ public class CastingHook extends FishingHook {
         Vec3 d = player.position().subtract(this.position()).multiply(1, 0, 1);
         double h = d.length();
         if (h <= LAND_DISTANCE || (h <= LAND_AT_BANK && this.windBlocked)) {     // in reach, or held against the bank below the player
-            this.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL,
+            this.level().playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL,
                 1.0F, 0.4F / (this.random.nextFloat() * 0.4F + 0.8F));
             this.discard();
             return false;
@@ -156,8 +157,8 @@ public class CastingHook extends FishingHook {
         this.move(MoverType.SELF, d.scale(step / h));
         this.windBlocked = this.position().subtract(before).horizontalDistance() < step * 0.5;      // the bank stopped it
         if (this.reelTicks++ % 5 == 0) {
-            this.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS,
-                0.2F, 1.5F + this.random.nextFloat() * 0.2F);
+            this.level().playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS,
+                0.35F, 1.5F + this.random.nextFloat() * 0.2F);
         }
         return true;
     }
@@ -419,6 +420,15 @@ public class CastingHook extends FishingHook {
             f.setSize(size, Sizes.scale(size), true);
         }
         return true;
+    }
+
+    /** for tests (0.19.0: FishTest's vanilla cod and salmon landed into a bucket): the bite now with a vanilla fish of that type, on the
+     *  line as a fish of that tier; returns whether it is on the line */
+    public boolean forceBite(EntityType<? extends AbstractFish> type, Tier tier) {
+        if (!(this.level() instanceof ServerLevel level) || this.line != Line.WAITING) {
+            return false;
+        }
+        return this.bite(level, new Conjure.Catch(null, type, tier));
     }
 
     /** a fish is made at the bobber from the reading, takes it with vanilla's splash, bubbles and sound, and is on the line */
@@ -735,7 +745,7 @@ public class CastingHook extends FishingHook {
         AbstractFish f = this.fish;
         this.letGo();
         pushAway(f, owner);
-        this.level().playSound(null, owner.getX(), owner.getY(), owner.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.8F,
+        this.level().playSound(null, owner.getX(), owner.getEyeY(), owner.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.8F,
             0.8F + this.random.nextFloat() * 0.4F);
         snapSounds++;
         InteractionHand hand = this.rodHand(owner);
@@ -840,8 +850,8 @@ public class CastingHook extends FishingHook {
         f.setYBodyRot(yaw);
         // the reel's creak, steady (as 0.13.0): the fish's state is told by the click below
         if (this.reelTicks++ % 5 == 0) {
-            this.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS,
-                0.2F, 1.5F + this.random.nextFloat() * 0.2F);
+            this.level().playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS,
+                0.35F, 1.5F + this.random.nextFloat() * 0.2F);
         }
         this.click(player, cfg);
         return true;
@@ -860,12 +870,13 @@ public class CastingHook extends FishingHook {
         this.lastClick = this.tickCount;
         this.clicks++;
         float pitch = (float) cfg.clickPitch(this.line);
-        this.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.NOTE_BLOCK_HAT, SoundSource.PLAYERS,
+        this.level().playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.NOTE_BLOCK_HAT, SoundSource.PLAYERS,
             (float) cfg.clickVolume(), pitch);
     }
 
     /** lifted out in a short arc to the player's feet, alive; the line is gone, the rod loses 1, the catch counts; (0.17.0) and the chance
-     *  of a treasure is rolled (Treasure) */
+     *  of a treasure is rolled (Treasure); (0.19.0) unless the hand without the rod takes it: a water bucket, a shulker box or a bundle
+     *  (CatchInto), when there is no arc */
     private void land(Player player) {
         AbstractFish f = this.fish;
         this.letGo();
@@ -881,6 +892,30 @@ public class CastingHook extends FishingHook {
         if (this.level() instanceof ServerLevel level) {
             level.sendParticles(ParticleTypes.SPLASH, f.getX(), f.getY(), f.getZ(), 6, f.getBbWidth() * 0.5, 0.0, f.getBbWidth() * 0.5, 0.0);
         }
+        InteractionHand hand = this.rodHand(player);
+        // (0.19.0) into the other hand's bucket, box or bundle: then it is gone and is not flung (from a boat it would fall back in)
+        boolean taken = this.level() instanceof ServerLevel level && CatchInto.take(level, player, hand, f);
+        if (!taken) {
+            this.fling(f, player);
+        }
+        this.level().playSound(null, f.getX(), f.getY(), f.getZ(), SoundEvents.FISHING_BOBBER_SPLASH, SoundSource.NEUTRAL, 0.3F, 1.2F);
+        this.level().playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL,
+            1.0F, 0.4F / (this.random.nextFloat() * 0.4F + 0.8F));
+        // (0.17.0) the treasure: one roll, here only (a fish lost never gets here), thrown from the fish to the player; before the rod
+        // is worn, so the loot sees the rod as it was
+        if (this.level() instanceof ServerLevel level) {
+            Treasure.roll(level, this, f, player, hand != null ? player.getItemInHand(hand) : ItemStack.EMPTY);
+        }
+        if (hand != null) {
+            player.getItemInHand(hand).hurtAndBreak(1, player, hand);
+        }
+        player.awardStat(Stats.FISH_CAUGHT, 1);
+        this.landed = f;
+        this.discard();
+    }
+
+    /** (0.19.0: split out of land, unchanged) the short arc to the player's feet, alive, and the landed fish's mark */
+    private void fling(AbstractFish f, Player player) {
         Vec3 d = player.position().subtract(f.position());
         // up to a block above the higher of the two, and down at the player's feet: the flight's length in ticks by the game's own air
         // physics (gravity 0.08, drag 0.98 up and down, 0.91 sideways), and the sideways speed that covers the distance in that time,
@@ -899,21 +934,6 @@ public class CastingHook extends FishingHook {
         if (f instanceof FishEntity fe) {
             fe.markLanded();        // 0.12.4: it flops on in the block it comes down on, not back into the water (FishEntity.getFlopSound)
         }
-        this.level().playSound(null, f.getX(), f.getY(), f.getZ(), SoundEvents.FISHING_BOBBER_SPLASH, SoundSource.NEUTRAL, 0.3F, 1.2F);
-        this.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL,
-            1.0F, 0.4F / (this.random.nextFloat() * 0.4F + 0.8F));
-        InteractionHand hand = this.rodHand(player);
-        // (0.17.0) the treasure: one roll, here only (a fish lost never gets here), thrown from the fish to the player; before the rod
-        // is worn, so the loot sees the rod as it was
-        if (this.level() instanceof ServerLevel level) {
-            Treasure.roll(level, this, f, player, hand != null ? player.getItemInHand(hand) : ItemStack.EMPTY);
-        }
-        if (hand != null) {
-            player.getItemInHand(hand).hurtAndBreak(1, player, hand);
-        }
-        player.awardStat(Stats.FISH_CAUGHT, 1);
-        this.landed = f;
-        this.discard();
     }
 
     /** our rod reels the line in with use only when nothing is on it (a fish on it is reeled by holding use); as vanilla, then */

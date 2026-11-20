@@ -1,0 +1,6 @@
+{
+  "parent": "creel:block/fish_spawn/template_spawn",
+  "textures": {
+    "tex": "creel:block/fish_spawn/orange_1"
+  }
+}

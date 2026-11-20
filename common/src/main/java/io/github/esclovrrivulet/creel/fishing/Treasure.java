@@ -49,13 +49,18 @@ public final class Treasure {
         LootTable table = level.getServer().reloadableRegistries().getLootTable(TABLE);
         int thrown = 0;
         for (ItemStack stack : table.getRandomItems(params(level, fish.position(), rod, hook, hook.luck() + player.getLuck()))) {
-            ItemEntity item = new ItemEntity(level, fish.getX(), fish.getY(), fish.getZ(), stack);
-            // vanilla's own throw of fishing loot (FishingHook.retrieve)
-            double dx = player.getX() - fish.getX(), dy = player.getY() - fish.getY(), dz = player.getZ() - fish.getZ();
-            item.setDeltaMovement(dx * 0.1, dy * 0.1 + Math.sqrt(Math.sqrt(dx * dx + dy * dy + dz * dz)) * 0.08, dz * 0.1);
-            level.addFreshEntity(item);
+            toss(level, fish, player, stack);
             thrown++;
         }
         return thrown;
+    }
+
+    /** an item thrown from where the entity is to the player with vanilla's own throw of fishing loot (FishingHook.retrieve: 0.1 of the
+     *  way, plus a lift of the fourth root of the distance times 0.08); (0.19.0) shared with CatchInto, for drops that do not fit */
+    static void toss(ServerLevel level, Entity from, Player player, ItemStack stack) {
+        ItemEntity item = new ItemEntity(level, from.getX(), from.getY(), from.getZ(), stack);
+        double dx = player.getX() - from.getX(), dy = player.getY() - from.getY(), dz = player.getZ() - from.getZ();
+        item.setDeltaMovement(dx * 0.1, dy * 0.1 + Math.sqrt(Math.sqrt(dx * dx + dy * dy + dz * dz)) * 0.08, dz * 0.1);
+        level.addFreshEntity(item);
     }
 }

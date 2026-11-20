@@ -23,7 +23,7 @@ import io.github.esclovrrivulet.creel.CreelMod;
 /** The NeoForge entry point: NeoForge's registry events and game events wired to the loader-neutral steps and event bodies in CreelMod
  *  (common/), as fabric.CreelFabric wires Fabric's, so ids, registration order and behaviour are those of the Fabric build.
  *
- *  Registration: NeoForge fires one RegisterEvent per registry, entity types before items (vanilla's own order of its registries), so
+ *  Registration: NeoForge fires one RegisterEvent per registry, blocks first (0.22.0: Fish Spawn), entity types before items (vanilla's own order of its registries), so
  *  the spawn eggs find their types; the creative tab's registry comes later still. Nothing here refers to a client class: the client's
  *  part is CreelNeoForgeClient, which NeoForge loads only on the client.
  *
@@ -56,6 +56,7 @@ public class CreelNeoForge {
     }
 
     private static void register(RegisterEvent event) {
+        event.register(Registries.BLOCK, helper -> CreelMod.registerBlocks(helper::register));      // 0.22.0: Fish Spawn (blocks come first)
         event.register(Registries.ENTITY_TYPE, helper -> CreelMod.registerEntityTypes(helper::register));
         event.register(Registries.ITEM, helper -> {
             if (CreelMod.FISH.isEmpty()) {

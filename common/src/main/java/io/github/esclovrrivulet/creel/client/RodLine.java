@@ -9,6 +9,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.FishingRodItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -24,8 +26,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-/** The fishing line of our rods (client only; mixin.FishingHookRendererMixin): where it leaves the rod, and how it is drawn. Vanilla's
- *  rod keeps vanilla's line in every respect.
+/** The fishing line of our rods (client only; mixin.FishingHookRendererMixin): where it leaves the rod, and how it is drawn. (0.24.0:
+ *  and of vanilla's own Fishing Rod, see the end.)
  *
  *  WHERE IT STARTS. Where the rod's tip was actually drawn (RodPose: the pose our rod is drawn with, captured as it is submitted), so it
  *  follows the rod through our animation and the view bobbing. When no recent pose is known (another player's rod, a hand drawn some
@@ -41,7 +43,11 @@ import java.util.WeakHashMap;
  *  line is a little dimmer and cooler in the dark (the bobber's light, the night). Each kept cell is drawn as a square facing the
  *  camera, at the cell's place on screen and the curve's depth there, CELL_PX across on screen. The
  *  projection is rebuilt here from the camera (its position, rotation and field of view) and the window, which is what the world is
- *  drawn with (the view bobbing aside). */
+ *  drawn with (the view bobbing aside).
+ *
+ *  (0.24.0) Vanilla's own Fishing Rod, held in the hand as our model (tools/stick_rods.py), has this line and our bobber too, from its
+ *  model's tip guide (StickRodTable.FISHING_ROD; lineRod); only the drawing: its casting, its sag (always vanilla's slack curve) and
+ *  everything else stay vanilla's. Any other rod's line stays vanilla's (or its mod's) in every respect. */
 public final class RodLine {
     private RodLine() {}
 
@@ -91,15 +97,40 @@ public final class RodLine {
         return player.getItemHeldByArm(holdingArm(player)).getItem() instanceof CastingRodItem rod ? rod.rod() : null;
     }
 
-    /** the line's start for our rod in the holding arm: where its tip was drawn, else vanilla's (or another mod's) start, unchanged */
-    public static Vec3 start(Player player, float swing, float partialTick, Vec3 vanilla) {
+    /** (0.24.0) the arm vanilla's line leaves from when no rod of ours is in the main hand: vanilla's own rule
+     *  (FishingHookRenderer.getHoldingArm: the main arm when the main hand holds a fishing rod item of any kind, else the other) */
+    public static HumanoidArm vanillaArm(Player player) {
+        return player.getMainHandItem().getItem() instanceof FishingRodItem ? player.getMainArm() : player.getMainArm().getOpposite();
+    }
+
+    /** (0.24.0) whether the line is vanilla's own Fishing Rod's (exactly Items.FISHING_ROD in the arm vanilla's line leaves from): its
+     *  line and bobber are drawn as ours, from our model's tip guide (tools/stick_rods.py). Another mod's rod, even one extending
+     *  vanilla's rod class, is not */
+    public static boolean vanillaRodHeld(Player player) {
+        return player.getItemHeldByArm(vanillaArm(player)).is(Items.FISHING_ROD);
+    }
+
+    /** (0.24.0) the rod whose line is drawn as ours: one of our rods in the holding arm, else vanilla's Fishing Rod
+     *  (StickRodTable.FISHING_ROD), else null (vanilla's line, or another mod's, untouched) */
+    public static RodTable.Rod lineRod(Player player) {
         RodTable.Rod rod = rodHeld(player);
+        if (rod != null) {
+            return rod;
+        }
+        return vanillaRodHeld(player) ? StickRodTable.FISHING_ROD : null;
+    }
+
+    /** the line's start for our rod (0.24.0: or vanilla's Fishing Rod) in the holding arm: where its tip was drawn, else vanilla's (or
+     *  another mod's) start, unchanged */
+    public static Vec3 start(Player player, float swing, float partialTick, Vec3 vanilla) {
+        RodTable.Rod rod = lineRod(player);
         if (rod == null) {
             return vanilla;
         }
         Minecraft mc = Minecraft.getInstance();
         boolean firstPerson = mc.options.getCameraType().isFirstPerson() && player == mc.player;
-        Vec3 drawn = RodPose.tip(player, rod, holdingArm(player), firstPerson, partialTick);
+        HumanoidArm arm = rod == StickRodTable.FISHING_ROD ? vanillaArm(player) : holdingArm(player);
+        Vec3 drawn = RodPose.tip(player, rod, arm, firstPerson, partialTick);
         return drawn != null ? drawn : vanilla;
     }
 

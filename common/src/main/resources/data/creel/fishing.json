@@ -1,5 +1,5 @@
 {
-  "_about": "Reel n Creel's fishing rods (docs/FISHING.md). Each rod hooks fish of two size tiers only: 'classes' [lower, upper], drawn by 'chances' [lower, upper], counting only a tier that has a species suiting the water at the bobber (one tier alone gets every bite; none, and nothing bites). Each level of Luck of the Sea multiplies the upper tier's chance by 'luck_of_the_sea'. 'cast' is the rod's throw against vanilla's. 'reel_speed' is how fast a reeled fish of each tier comes in, in blocks per tick. Holding use with no line out charges the cast over 'cast.charge_ticks', and the bobber's launch is vanilla's times the rod's cast times a power from 'cast.min_power' (a tap) to 'cast.full_power' (full charge). Holding use with the line out and nothing on it winds the bobber in at 'wind_speed' blocks per tick. (0.17.0) 'treasure' per rod is the chance of a treasure with a landed fish (the 'treasure' block), and 'trades' what fishermen buy. A datapack may override this file; /reload applies it.",
+  "_about": "Reel n Creel's fishing rods (docs/FISHING.md). Each rod hooks fish of its own size tiers only: 'classes', lowest first (two for most rods, all six for the Ol' Mariner; any number of 1 or more), drawn by 'chances', one for each class in the same order, counting only a tier that has a species suiting the water at the bobber (one tier alone gets every bite; none, and nothing bites). Luck of the Sea shifts the bite up: with n classes, the class at place i (0 the lowest) has its chance multiplied by luck_of_the_sea ^ (level x i / (n - 1)), so for a two-class rod each level multiplies the upper tier's chance by 'luck_of_the_sea'. 'cast' is the rod's throw against vanilla's. 'reel_speed' is how fast a reeled fish of each tier comes in, in blocks per tick. Holding use with no line out charges the cast over 'cast.charge_ticks', and the bobber's launch is vanilla's times the rod's cast times a power from 'cast.min_power' (a tap) to 'cast.full_power' (full charge). Holding use with the line out and nothing on it winds the bobber in at 'wind_speed' blocks per tick. (0.17.0) 'treasure' per rod is the chance of a treasure with a landed fish (the 'treasure' block), and 'trades' what fishermen buy. A datapack may override this file; /reload applies it.",
   "rods": {
     "panfish_rod": {
       "classes": [
@@ -60,6 +60,26 @@
       ],
       "cast": 1.0,
       "treasure": 0.05
+    },
+    "mariner_rod": {
+      "classes": [
+        "tiny",
+        "small",
+        "medium",
+        "large",
+        "very_large",
+        "giant"
+      ],
+      "chances": [
+        24,
+        24,
+        22,
+        16,
+        9,
+        5
+      ],
+      "cast": 1.0,
+      "treasure": 0.035
     }
   },
   "luck_of_the_sea": 1.3,
@@ -150,7 +170,7 @@
       "pull": 1.9,
       "run": 2.0
     },
-    "click_volume": 0.35,
+    "click_volume": 0.6,
     "land_below": 0.5,
     "reel_pace": 0.45,
     "pace_tail_ticks": 20,

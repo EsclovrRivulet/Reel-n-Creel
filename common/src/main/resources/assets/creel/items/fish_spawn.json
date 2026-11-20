@@ -1,0 +1,100 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:block_state",
+    "block_state_property": "species",
+    "cases": [
+      {
+        "when": [
+          "rainbow_trout",
+          "steelhead",
+          "cutthroat_trout",
+          "brown_trout",
+          "brook_trout",
+          "tiger_trout",
+          "lake_trout",
+          "arctic_char",
+          "atlantic_salmon",
+          "king_salmon",
+          "coho_salmon",
+          "chum_salmon",
+          "pink_salmon",
+          "masu_salmon"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_spawn/orange"
+        }
+      },
+      {
+        "when": [
+          "smallmouth_bass",
+          "largemouth_bass",
+          "arctic_grayling",
+          "lake_whitefish",
+          "mountain_whitefish",
+          "bluegill_sunfish",
+          "rock_bass",
+          "crappie",
+          "northern_pike",
+          "muskie",
+          "channel_catfish",
+          "bullhead_catfish",
+          "white_sucker",
+          "shorthead_redhorse"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_spawn/amber"
+        }
+      },
+      {
+        "when": [
+          "perch",
+          "yellow_perch",
+          "walleye",
+          "yelloweye_rockfish",
+          "lingcod",
+          "burbot"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_spawn/cream"
+        }
+      },
+      {
+        "when": [
+          "northern_pikeminnow",
+          "creek_chub",
+          "longnose_dace",
+          "pacific_herring",
+          "american_shad",
+          "threadfin_shad",
+          "goldeye",
+          "capelin",
+          "mahi_mahi",
+          "barracuda"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_spawn/clear"
+        }
+      },
+      {
+        "when": [
+          "white_bass",
+          "striped_bass",
+          "common_carp"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "creel:item/fish_spawn/green"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "creel:item/fish_spawn/cream"
+    }
+  }
+}

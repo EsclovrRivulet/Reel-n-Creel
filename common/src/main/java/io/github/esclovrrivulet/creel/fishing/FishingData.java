@@ -27,17 +27,34 @@ import java.util.Map;
 import java.util.Optional;
 
 /** The rods' fishing numbers (docs/FISHING.md), read from data/creel/fishing.json whenever data packs load (server start and /reload);
- *  a datapack may override the file. Per rod: the two size tiers it hooks ("classes", lower then upper), their chances ("chances"),
+ *  a datapack may override the file. Per rod: the size tiers it hooks ("classes", lowest first: two for the five rods, 0.21.0 all
+ *  six for the Ol' Mariner; a list of any length of 1 or more), their chances ("chances", one for each class, in the same order),
  *  and its throw against vanilla's ("cast"). For all rods: what each level of Luck of the Sea multiplies the upper tier's chance by
- *  ("luck_of_the_sea"), and how fast a reeled fish of each tier comes in, in blocks per tick ("reel_speed"). (0.17.0) Per rod the chance
+ *  on a two-class rod ("luck_of_the_sea"; biteWeight has the rule for any number of classes), and how fast a reeled fish of each tier comes in, in blocks per tick ("reel_speed"). (0.17.0) Per rod the chance
  *  of a treasure with a landed fish ("treasure"); the share of it each Luck of the Sea level adds ("treasure": "luck_of_the_sea"); what
  *  fishermen buy ("trades"). A rod or key missing from
  *  the file, or a bad file, keeps the defaults (RodTable, generated from tools/rod_proto.py, and the numbers below). */
 public final class FishingData {
     private static final Logger LOG = LoggerFactory.getLogger("creel");
 
-    /** one rod's numbers */
-    public record RodData(Tier lower, Tier upper, double lowerChance, double upperChance, double cast, double treasure) {}
+    /** one rod's numbers. (0.21.0) Its classes are a list, lowest first, each with its chance at the same place (were two, lower and
+     *  upper, with lowerChance and upperChance); lower() and upper() are the first and the last, so a two-class rod reads as before */
+    public record RodData(List<Tier> classes, List<Double> chances, double cast, double treasure) {
+        public RodData {
+            classes = List.copyOf(classes);
+            chances = List.copyOf(chances);
+        }
+
+        /** the lowest class the rod hooks */
+        public Tier lower() {
+            return this.classes.getFirst();
+        }
+
+        /** the highest class the rod hooks */
+        public Tier upper() {
+            return this.classes.getLast();
+        }
+    }
 
     /** (0.17.0) one offer a fisherman makes on top of vanilla's: count of the item for 1 emerald */
     public record Buy(Identifier item, int count) {}
@@ -145,7 +162,7 @@ public final class FishingData {
             cap.put(t, t == Tier.VERY_LARGE || t == Tier.GIANT ? 0.25 : 0.3);
         }
         return new Fight(run, scale, 30, 90, 15, 30, 0.25, 20, 60, 30, 70, 2.0, 20, 15, 0.35, 0.75, 0.2, 0.3, 0.6, cap, 0.25, 2.0, 1.2,
-            0.6, 0.6, 0.1, 0.5, 1.5, 30.0, 3, 17, 9, 4, 1.8, 1.9, 2.0, 0.35, 0.5, 0.45, 20, 25);
+            0.6, 0.6, 0.1, 0.5, 1.5, 30.0, 3, 17, 9, 4, 1.8, 1.9, 2.0, 0.6, 0.5, 0.45, 20, 25);
     }
 
     private static final Map<Tier, Double> REEL = Map.of(Tier.TINY, 0.12, Tier.SMALL, 0.12, Tier.MEDIUM, 0.105, Tier.LARGE, 0.09,
@@ -153,7 +170,7 @@ public final class FishingData {
 
     /** (0.17.0) the treasure chance with a landed fish, by rod (the owner's) */
     private static final Map<String, Double> TREASURE = Map.of("panfish_rod", 0.015, "trout_rod", 0.025, "salmon_rod", 0.035,
-        "surf_rod", 0.05, "big_game_rod", 0.05);
+        "surf_rod", 0.05, "big_game_rod", 0.05, "mariner_rod", 0.035);
 
     /** (0.17.0) the owner's prices: 1 raw fish or 4 fish morsels for an emerald, 16 uses, vanilla's novice sell trade's xp and multiplier */
     private static Trades defaultTrades() {
@@ -164,7 +181,11 @@ public final class FishingData {
     private static Table defaults() {
         Map<String, RodData> rods = new LinkedHashMap<>();
         for (RodTable.Rod r : RodTable.ALL) {
-            rods.put(r.id(), new RodData(r.lower(), r.upper(), 65, 35, r.cast(), TREASURE.getOrDefault(r.id(), 0.0)));
+            List<Double> chances = new ArrayList<>();
+            for (double c : r.chances()) {
+                chances.add(c);
+            }
+            rods.put(r.id(), new RodData(r.classes(), chances, r.cast(), TREASURE.getOrDefault(r.id(), 0.0)));
         }
         return new Table(rods, 1.3, new EnumMap<>(REEL), new Handling(20, 0.35, 1.0, 0.15), defaultFight(), 0.4, defaultTrades());
     }
@@ -194,15 +215,21 @@ public final class FishingData {
         return d != null ? d : DEFAULTS.rods().get(id);
     }
 
-    /** the chance of a tier biting on that rod with that much Luck of the Sea; 0 for a tier the rod does not hook */
+    /** the chance of a tier biting on that rod with that much Luck of the Sea; 0 for a tier the rod does not hook. (0.21.0) With n
+     *  classes, the class at place i (0 the lowest) has its chance times luck_of_the_sea ^ (luck x i / (n - 1)): the lowest is never
+     *  changed and the highest is multiplied by the whole luck_of_the_sea a level, the ones between by a share of it, so Luck of the
+     *  Sea shifts every rod's bite up. With two classes that is the rule before exactly: the lower as it is, the upper times
+     *  luck_of_the_sea ^ luck */
     public static double biteWeight(RodData rod, Tier t, int luck) {
-        if (t == rod.lower()) {
-            return rod.lowerChance();
+        int i = rod.classes().indexOf(t);
+        if (i < 0) {
+            return 0;
         }
-        if (t == rod.upper()) {
-            return rod.upperChance() * Math.pow(current.luckUpper(), Math.max(0, luck));
+        double c = rod.chances().get(i);
+        if (i == 0) {
+            return c;
         }
-        return 0;
+        return c * Math.pow(current.luckUpper(), Math.max(0, luck) * (double) i / (rod.classes().size() - 1));
     }
 
     /** (0.17.0) the chance of a treasure with a fish landed on that rod with that much Luck of the Sea: the rod's own chance times
@@ -234,8 +261,11 @@ public final class FishingData {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, RodData> e : t.rods().entrySet()) {
             RodData r = e.getValue();
-            sb.append(sb.isEmpty() ? "" : "; ").append(e.getKey()).append(' ').append(key(r.lower())).append(' ').append(r.lowerChance())
-                .append(" / ").append(key(r.upper())).append(' ').append(r.upperChance()).append(", cast x").append(r.cast());
+            sb.append(sb.isEmpty() ? "" : "; ").append(e.getKey());
+            for (int i = 0; i < r.classes().size(); i++) {
+                sb.append(i == 0 ? " " : " / ").append(key(r.classes().get(i))).append(' ').append(r.chances().get(i));
+            }
+            sb.append(", cast x").append(r.cast());
         }
         sb.append("; treasure");
         for (Map.Entry<String, RodData> e : t.rods().entrySet()) {
@@ -255,17 +285,26 @@ public final class FishingData {
                     throw new IllegalArgumentException("rods." + id + ": no such rod");
                 }
                 JsonObject o = rj.getAsJsonObject(id);
-                Tier lo = base.lower(), hi = base.upper();
-                double cl = base.lowerChance(), cu = base.upperChance(), cast = base.cast(), treasure = base.treasure();
+                List<Tier> classes = base.classes();
+                List<Double> chances = base.chances();
+                double cast = base.cast(), treasure = base.treasure();
+                // (0.21.0) lists of any length of 1 or more, classes and chances the same length (a two-entry pair reads as before)
                 if (o.has("classes")) {
-                    JsonArray a = o.getAsJsonArray("classes");
-                    lo = tier(a.get(0).getAsString());
-                    hi = tier(a.get(1).getAsString());
+                    List<Tier> read = new ArrayList<>();
+                    for (JsonElement e : o.getAsJsonArray("classes")) {
+                        read.add(tier(e.getAsString()));
+                    }
+                    classes = read;
                 }
                 if (o.has("chances")) {
-                    JsonArray a = o.getAsJsonArray("chances");
-                    cl = a.get(0).getAsDouble();
-                    cu = a.get(1).getAsDouble();
+                    List<Double> read = new ArrayList<>();
+                    for (JsonElement e : o.getAsJsonArray("chances")) {
+                        read.add(e.getAsDouble());
+                    }
+                    chances = read;
+                }
+                if (classes.isEmpty() || classes.size() != chances.size()) {
+                    throw new IllegalArgumentException("rods." + id + ": classes must have 1 or more entries, and chances one for each class");
                 }
                 if (o.has("cast")) {
                     cast = o.get("cast").getAsDouble();
@@ -273,10 +312,10 @@ public final class FishingData {
                 if (o.has("treasure")) {
                     treasure = o.get("treasure").getAsDouble();
                 }
-                if (cl < 0 || cu < 0 || cast <= 0 || !unit(treasure)) {
+                if (chances.stream().anyMatch(c -> c < 0) || cast <= 0 || !unit(treasure)) {
                     throw new IllegalArgumentException("rods." + id + ": chances must be 0 or more, cast above 0, treasure 0..1");
                 }
-                rods.put(id, new RodData(lo, hi, cl, cu, cast, treasure));
+                rods.put(id, new RodData(classes, chances, cast, treasure));
             }
         }
         double luck = json.has("luck_of_the_sea") ? json.get("luck_of_the_sea").getAsDouble() : DEFAULTS.luckUpper();

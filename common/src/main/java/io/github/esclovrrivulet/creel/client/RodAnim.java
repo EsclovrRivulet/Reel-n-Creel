@@ -55,10 +55,12 @@ public final class RodAnim {
      *  while winding (the raised pose, the highest of the three). The hand's own field of view (70) draws the rod, so the player's
      *  field of view does not change this. Measured in the visual test (RodPose's read-out, test/visual/rods_fp_tip.txt): unleaned,
      *  the winding tip sat at y 0.65 (Pebble Spinner), 1.53 (Kingfisher Drift, Amberleaf Caster), 1.61 (Mistral Pier) and 1.10
-     *  (Tidebreaker) of the half-height. The charge goes back from here; the longest rods' tips may leave the view during it. */
+     *  (Tidebreaker) of the half-height. The charge goes back from here; the longest rods' tips may leave the view during it.
+     *  (0.21.0) The Ol' Mariner (44 px, between the Tidebreaker's 37 and the Kingfisher Drift's 46) takes the Kingfisher Drift's 15,
+     *  checked in the visual test (test/visual/rods_fp_tip.txt). */
     public static float restTilt(RodTable.Rod rod) {
         return switch (rod.id()) {
-            case "trout_rod", "salmon_rod" -> -15.0F;
+            case "trout_rod", "salmon_rod", "mariner_rod" -> -15.0F;
             case "surf_rod" -> -16.5F;
             case "big_game_rod" -> -6.0F;
             default -> 0.0F;            // the Pebble Spinner fits as it is

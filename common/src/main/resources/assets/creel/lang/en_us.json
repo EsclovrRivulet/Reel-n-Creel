@@ -120,9 +120,13 @@
   "item.creel.salmon_rod.catches": "Catches medium and large fish",
   "item.creel.surf_rod.catches": "Catches large and very large fish",
   "item.creel.big_game_rod.catches": "Catches very large and giant fish",
+  "item.creel.mariner_rod.catches": "Catches fish of every size",
+  "block.creel.fish_spawn": "Fish Spawn",
+  "block.creel.fish_spawn.of": "%s Spawn",
   "item.creel.panfish_rod": "Pebble Spinner",
   "item.creel.trout_rod": "Kingfisher Drift",
   "item.creel.salmon_rod": "Amberleaf Caster",
   "item.creel.surf_rod": "Mistral Pier",
-  "item.creel.big_game_rod": "Tidebreaker"
+  "item.creel.big_game_rod": "Tidebreaker",
+  "item.creel.mariner_rod": "Ol' Mariner"
 }

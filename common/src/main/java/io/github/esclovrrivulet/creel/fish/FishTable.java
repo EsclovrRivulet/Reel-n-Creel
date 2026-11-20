@@ -115,111 +115,111 @@ public final class FishTable {
 
     public static final List<Species> ALL = List.of(
         // European Perch: the model 18 px long, its body 5 px deep
-        new Species("perch", "perch_spawn_egg", 0.78F, 0.5265F, 0.312F, 0.2028F, 0.3159F, PERCOID, 12, true, 3.0F, Tier.SMALL, ""),
+        new Species("perch", "perch_spawn_egg", 0.78F, 0.5265F, 0.312F, 0.2028F, 0.3159F, PERCOID, 12, true, 3.0F, Tier.SMALL, "", "cream"),
         // Yellow Perch: the model 19 px long, its body 5 px deep
-        new Species("yellow_perch", "yellow_perch_spawn_egg", 0.74F, 0.5272F, 0.296F, 0.1924F, 0.3163F, PERCOID, 12, true, 3.0F, Tier.SMALL, ""),
+        new Species("yellow_perch", "yellow_perch_spawn_egg", 0.74F, 0.5272F, 0.296F, 0.1924F, 0.3163F, PERCOID, 12, true, 3.0F, Tier.SMALL, "", "cream"),
         // Walleye: the model 22 px long, its body 4 px deep
-        new Species("walleye", "walleye_spawn_egg", 0.86F, 0.7095F, 0.2752F, 0.1789F, 0.4257F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("walleye", "walleye_spawn_egg", 0.86F, 0.7095F, 0.2752F, 0.1789F, 0.4257F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, "", "cream"),
         // Smallmouth Bass: the model 19 px long, its body 5 px deep
-        new Species("smallmouth_bass", "smallmouth_bass_spawn_egg", 1.0F, 0.7125F, 0.4F, 0.26F, 0.4275F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("smallmouth_bass", "smallmouth_bass_spawn_egg", 1.0F, 0.7125F, 0.4F, 0.26F, 0.4275F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, "", "amber"),
         // Largemouth Bass: the model 19 px long, its body 5 px deep
-        new Species("largemouth_bass", "largemouth_bass_spawn_egg", 1.0F, 0.7125F, 0.4F, 0.26F, 0.4275F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("largemouth_bass", "largemouth_bass_spawn_egg", 1.0F, 0.7125F, 0.4F, 0.26F, 0.4275F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, "", "amber"),
         // White Bass: the model 18 px long, its body 6 px deep
-        new Species("white_bass", "white_bass_spawn_egg", 1.06F, 0.7155F, 0.5088F, 0.3307F, 0.4293F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("white_bass", "white_bass_spawn_egg", 1.06F, 0.7155F, 0.5088F, 0.3307F, 0.4293F, PERCOID, 12, true, 5.0F, Tier.MEDIUM, "", "green"),
         // Striped Bass: the model 24 px long, its body 5 px deep
-        new Species("striped_bass", "striped_bass_spawn_egg", 1.33F, 1.197F, 0.532F, 0.3458F, 0.7182F, PERCOID, 12, true, 8.0F, Tier.LARGE, ""),
+        new Species("striped_bass", "striped_bass_spawn_egg", 1.33F, 1.197F, 0.532F, 0.3458F, 0.7182F, PERCOID, 12, true, 8.0F, Tier.LARGE, "", "green"),
         // Yelloweye Rockfish: the model 19 px long, its body 6 px deep
-        new Species("yelloweye_rockfish", "yelloweye_rockfish_spawn_egg", 1.68F, 1.197F, 0.8064F, 0.5242F, 0.7182F, PERCOID, 12, true, 8.0F, Tier.LARGE, ""),
+        new Species("yelloweye_rockfish", "yelloweye_rockfish_spawn_egg", 1.68F, 1.197F, 0.8064F, 0.5242F, 0.7182F, PERCOID, 12, true, 8.0F, Tier.LARGE, "", "cream"),
         // Lingcod: the model 25 px long, its body 4 px deep
-        new Species("lingcod", "lingcod_spawn_egg", 1.28F, 1.2F, 0.4096F, 0.2662F, 0.72F, PERCOID, 12, true, 8.0F, Tier.LARGE, ""),
+        new Species("lingcod", "lingcod_spawn_egg", 1.28F, 1.2F, 0.4096F, 0.2662F, 0.72F, PERCOID, 12, true, 8.0F, Tier.LARGE, "", "cream"),
         // Rainbow Trout: the model 19 px long, its body 4 px deep
-        new Species("rainbow_trout", "rainbow_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("rainbow_trout", "rainbow_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "orange"),
         // Steelhead: the model 19 px long, its body 4 px deep
-        new Species("steelhead", "steelhead_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon"),
+        new Species("steelhead", "steelhead_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon", "orange"),
         // Cutthroat Trout: the model 19 px long, its body 4 px deep
-        new Species("cutthroat_trout", "cutthroat_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("cutthroat_trout", "cutthroat_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "orange"),
         // Brown Trout: the model 19 px long, its body 4 px deep
-        new Species("brown_trout", "brown_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("brown_trout", "brown_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "orange"),
         // Brook Trout: the model 19 px long, its body 4 px deep
-        new Species("brook_trout", "brook_trout_spawn_egg", 0.74F, 0.5272F, 0.2368F, 0.1539F, 0.3163F, SALMONID, 12, true, 3.0F, Tier.SMALL, ""),
+        new Species("brook_trout", "brook_trout_spawn_egg", 0.74F, 0.5272F, 0.2368F, 0.1539F, 0.3163F, SALMONID, 12, true, 3.0F, Tier.SMALL, "", "orange"),
         // Tiger Trout: the model 19 px long, its body 4 px deep
-        new Species("tiger_trout", "tiger_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("tiger_trout", "tiger_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "orange"),
         // Lake Trout: the model 19 px long, its body 4 px deep
-        new Species("lake_trout", "lake_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("lake_trout", "lake_trout_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "orange"),
         // Arctic Char: the model 19 px long, its body 4 px deep
-        new Species("arctic_char", "arctic_char_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("arctic_char", "arctic_char_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "orange"),
         // Atlantic Salmon: the model 19 px long, its body 4 px deep
-        new Species("atlantic_salmon", "atlantic_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon"),
+        new Species("atlantic_salmon", "atlantic_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon", "orange"),
         // King Salmon: the model 19 px long, its body 4 px deep
-        new Species("king_salmon", "king_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon"),
+        new Species("king_salmon", "king_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon", "orange"),
         // Coho Salmon: the model 19 px long, its body 4 px deep
-        new Species("coho_salmon", "coho_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon"),
+        new Species("coho_salmon", "coho_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon", "orange"),
         // Chum Salmon: the model 19 px long, its body 4 px deep
-        new Species("chum_salmon", "chum_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon"),
+        new Species("chum_salmon", "chum_salmon_spawn_egg", 1.68F, 1.197F, 0.5376F, 0.3494F, 0.7182F, SALMONID, 12, true, 8.0F, Tier.LARGE, "salmon", "orange"),
         // Pink Salmon: the model 19 px long, its body 4 px deep
-        new Species("pink_salmon", "pink_salmon_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 13, true, 5.0F, Tier.MEDIUM, "salmon"),
+        new Species("pink_salmon", "pink_salmon_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 13, true, 5.0F, Tier.MEDIUM, "salmon", "orange"),
         // Masu Salmon: the model 19 px long, its body 4 px deep
-        new Species("masu_salmon", "masu_salmon_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "salmon"),
+        new Species("masu_salmon", "masu_salmon_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "salmon", "orange"),
         // Arctic Grayling: the model 19 px long, its body 4 px deep
-        new Species("arctic_grayling", "arctic_grayling_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("arctic_grayling", "arctic_grayling_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "amber"),
         // Lake Whitefish: the model 19 px long, its body 4 px deep
-        new Species("lake_whitefish", "lake_whitefish_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("lake_whitefish", "lake_whitefish_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SALMONID, 12, true, 5.0F, Tier.MEDIUM, "", "amber"),
         // Mountain Whitefish: the model 19 px long, its body 4 px deep
-        new Species("mountain_whitefish", "mountain_whitefish_spawn_egg", 0.74F, 0.5272F, 0.2368F, 0.1539F, 0.3163F, SALMONID, 12, true, 3.0F, Tier.SMALL, ""),
+        new Species("mountain_whitefish", "mountain_whitefish_spawn_egg", 0.74F, 0.5272F, 0.2368F, 0.1539F, 0.3163F, SALMONID, 12, true, 3.0F, Tier.SMALL, "", "amber"),
         // Bluegill Sunfish: the model 14 px long, its body 6 px deep
-        new Species("bluegill_sunfish", "bluegill_sunfish_spawn_egg", 1.0F, 0.525F, 0.48F, 0.312F, 0.315F, SUNFISH, 12, true, 3.0F, Tier.SMALL, ""),
+        new Species("bluegill_sunfish", "bluegill_sunfish_spawn_egg", 1.0F, 0.525F, 0.48F, 0.312F, 0.315F, SUNFISH, 12, true, 3.0F, Tier.SMALL, "", "amber"),
         // Rock Bass: the model 12 px long, its body 6 px deep
-        new Species("rock_bass", "rock_bass_spawn_egg", 0.75F, 0.3375F, 0.36F, 0.234F, 0.2025F, SUNFISH, 12, true, 2.0F, Tier.TINY, ""),
+        new Species("rock_bass", "rock_bass_spawn_egg", 0.75F, 0.3375F, 0.36F, 0.234F, 0.2025F, SUNFISH, 12, true, 2.0F, Tier.TINY, "", "amber"),
         // Crappie: the model 14 px long, its body 6 px deep
-        new Species("crappie", "crappie_spawn_egg", 1.0F, 0.525F, 0.48F, 0.312F, 0.315F, SUNFISH, 12, true, 3.0F, Tier.SMALL, ""),
+        new Species("crappie", "crappie_spawn_egg", 1.0F, 0.525F, 0.48F, 0.312F, 0.315F, SUNFISH, 12, true, 3.0F, Tier.SMALL, "", "amber"),
         // Northern Pike: the model 26 px long, its body 4 px deep
-        new Species("northern_pike", "northern_pike_spawn_egg", 1.23F, 1.1992F, 0.3936F, 0.2558F, 0.7195F, PIKE, 11, false, 8.0F, Tier.LARGE, ""),
+        new Species("northern_pike", "northern_pike_spawn_egg", 1.23F, 1.1992F, 0.3936F, 0.2558F, 0.7195F, PIKE, 11, false, 8.0F, Tier.LARGE, "", "amber"),
         // Muskie: the model 26 px long, its body 4 px deep
-        new Species("muskie", "muskie_spawn_egg", 1.54F, 1.4F, 0.4928F, 0.3203F, 0.84F, PIKE, 11, false, 12.0F, Tier.VERY_LARGE, ""),
+        new Species("muskie", "muskie_spawn_egg", 1.54F, 1.4F, 0.4928F, 0.3203F, 0.84F, PIKE, 11, false, 12.0F, Tier.VERY_LARGE, "", "amber"),
         // Channel Catfish: the model 26 px long, its body 4 px deep
-        new Species("channel_catfish", "channel_catfish_spawn_egg", 1.23F, 1.1992F, 0.3936F, 0.2558F, 0.7195F, CATFISH, 20, true, 8.0F, Tier.LARGE, ""),
+        new Species("channel_catfish", "channel_catfish_spawn_egg", 1.23F, 1.1992F, 0.3936F, 0.2558F, 0.7195F, CATFISH, 20, true, 8.0F, Tier.LARGE, "", "amber"),
         // Bullhead Catfish: the model 15 px long, its body 4 px deep
-        new Species("bullhead_catfish", "bullhead_catfish_spawn_egg", 0.93F, 0.5231F, 0.2976F, 0.1934F, 0.3139F, CATFISH, 20, true, 3.0F, Tier.SMALL, ""),
+        new Species("bullhead_catfish", "bullhead_catfish_spawn_egg", 0.93F, 0.5231F, 0.2976F, 0.1934F, 0.3139F, CATFISH, 20, true, 3.0F, Tier.SMALL, "", "amber"),
         // Burbot: the model 19 px long, its body 3 px deep
-        new Species("burbot", "burbot_spawn_egg", 1.0F, 0.7125F, 0.24F, 0.156F, 0.4275F, CATFISH, 15, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("burbot", "burbot_spawn_egg", 1.0F, 0.7125F, 0.24F, 0.156F, 0.4275F, CATFISH, 15, true, 5.0F, Tier.MEDIUM, "", "cream"),
         // White Sucker: the model 19 px long, its body 4 px deep
-        new Species("white_sucker", "white_sucker_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SUCKER, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("white_sucker", "white_sucker_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SUCKER, 12, true, 5.0F, Tier.MEDIUM, "", "amber"),
         // Shorthead Redhorse: the model 19 px long, its body 4 px deep
-        new Species("shorthead_redhorse", "shorthead_redhorse_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SUCKER, 12, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("shorthead_redhorse", "shorthead_redhorse_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SUCKER, 12, true, 5.0F, Tier.MEDIUM, "", "amber"),
         // Northern Pikeminnow: the model 19 px long, its body 4 px deep
-        new Species("northern_pikeminnow", "northern_pikeminnow_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SUCKER, 11, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("northern_pikeminnow", "northern_pikeminnow_spawn_egg", 1.0F, 0.7125F, 0.32F, 0.208F, 0.4275F, SUCKER, 11, true, 5.0F, Tier.MEDIUM, "", "clear"),
         // Creek Chub: the model 12 px long, its body 4 px deep
-        new Species("creek_chub", "creek_chub_spawn_egg", 0.75F, 0.3375F, 0.24F, 0.156F, 0.2025F, SUCKER, 11, true, 2.0F, Tier.TINY, ""),
+        new Species("creek_chub", "creek_chub_spawn_egg", 0.75F, 0.3375F, 0.24F, 0.156F, 0.2025F, SUCKER, 11, true, 2.0F, Tier.TINY, "", "clear"),
         // Longnose Dace: the model 12 px long, its body 3 px deep
-        new Species("longnose_dace", "longnose_dace_spawn_egg", 0.75F, 0.3375F, 0.2F, 0.13F, 0.2025F, SUCKER, 12, true, 2.0F, Tier.TINY, ""),
+        new Species("longnose_dace", "longnose_dace_spawn_egg", 0.75F, 0.3375F, 0.2F, 0.13F, 0.2025F, SUCKER, 12, true, 2.0F, Tier.TINY, "", "clear"),
         // Common Carp: the model 19.2742 px long, its body 6 px deep
-        new Species("common_carp", "common_carp_spawn_egg", 1.0F, 0.7228F, 0.48F, 0.312F, 0.4337F, SUCKER, 16, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("common_carp", "common_carp_spawn_egg", 1.0F, 0.7228F, 0.48F, 0.312F, 0.4337F, SUCKER, 16, true, 5.0F, Tier.MEDIUM, "", "green"),
         // Pacific Herring: the model 14 px long, its body 3 px deep
-        new Species("pacific_herring", "pacific_herring_spawn_egg", 1.0F, 0.525F, 0.24F, 0.156F, 0.315F, HERRING, 11, true, 3.0F, Tier.SMALL, ""),
+        new Species("pacific_herring", "pacific_herring_spawn_egg", 1.0F, 0.525F, 0.24F, 0.156F, 0.315F, HERRING, 11, true, 3.0F, Tier.SMALL, "", "clear"),
         // American Shad: the model 17 px long, its body 5 px deep
-        new Species("american_shad", "american_shad_spawn_egg", 1.12F, 0.714F, 0.448F, 0.2912F, 0.4284F, HERRING, 11, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("american_shad", "american_shad_spawn_egg", 1.12F, 0.714F, 0.448F, 0.2912F, 0.4284F, HERRING, 11, true, 5.0F, Tier.MEDIUM, "", "clear"),
         // Threadfin Shad: the model 10 px long, its body 3 px deep
-        new Species("threadfin_shad", "threadfin_shad_spawn_egg", 0.9F, 0.3375F, 0.216F, 0.1404F, 0.2025F, HERRING, 11, true, 2.0F, Tier.TINY, ""),
+        new Species("threadfin_shad", "threadfin_shad_spawn_egg", 0.9F, 0.3375F, 0.216F, 0.1404F, 0.2025F, HERRING, 11, true, 2.0F, Tier.TINY, "", "clear"),
         // Goldeye: the model 16 px long, its body 4 px deep
-        new Species("goldeye", "goldeye_spawn_egg", 1.19F, 0.714F, 0.3808F, 0.2475F, 0.4284F, HERRING, 11, true, 5.0F, Tier.MEDIUM, ""),
+        new Species("goldeye", "goldeye_spawn_egg", 1.19F, 0.714F, 0.3808F, 0.2475F, 0.4284F, HERRING, 11, true, 5.0F, Tier.MEDIUM, "", "clear"),
         // Capelin: the model 12 px long, its body 2 px deep
-        new Species("capelin", "capelin_spawn_egg", 0.75F, 0.3375F, 0.2F, 0.13F, 0.2025F, HERRING, 12, true, 2.0F, Tier.TINY, ""),
+        new Species("capelin", "capelin_spawn_egg", 0.75F, 0.3375F, 0.2F, 0.13F, 0.2025F, HERRING, 12, true, 2.0F, Tier.TINY, "", "clear"),
         // White Sturgeon: the model 44 px long, its body 6 px deep
-        new Species("white_sturgeon", "white_sturgeon_spawn_egg", 1.27F, 1.4F, 0.6096F, 0.3962F, 0.84F, STURGEON, 12, false, 20.0F, Tier.GIANT, ""),
+        new Species("white_sturgeon", "white_sturgeon_spawn_egg", 1.27F, 1.4F, 0.6096F, 0.3962F, 0.84F, STURGEON, 12, false, 20.0F, Tier.GIANT, "", ""),
         // Mahi-mahi: the model 34 px long, its body 8 px deep
-        new Species("mahi_mahi", "mahi_mahi_spawn_egg", 1.18F, 1.4F, 0.7552F, 0.4909F, 0.84F, MAHI, 18, true, 12.0F, Tier.VERY_LARGE, ""),
+        new Species("mahi_mahi", "mahi_mahi_spawn_egg", 1.18F, 1.4F, 0.7552F, 0.4909F, 0.84F, MAHI, 18, true, 12.0F, Tier.VERY_LARGE, "", "clear"),
         // Bluefin Tuna: the model 43 px long, its body 12 px deep
-        new Species("bluefin_tuna", "bluefin_tuna_spawn_egg", 1.3F, 1.4F, 1.248F, 0.8112F, 0.84F, TUNA, 17, true, 20.0F, Tier.GIANT, ""),
+        new Species("bluefin_tuna", "bluefin_tuna_spawn_egg", 1.3F, 1.4F, 1.248F, 0.8112F, 0.84F, TUNA, 17, true, 20.0F, Tier.GIANT, "", ""),
         // Yellowfin Tuna: the model 43 px long, its body 10 px deep
-        new Species("yellowfin_tuna", "yellowfin_tuna_spawn_egg", 1.3F, 1.4F, 1.04F, 0.676F, 0.84F, TUNA, 17, true, 20.0F, Tier.GIANT, ""),
+        new Species("yellowfin_tuna", "yellowfin_tuna_spawn_egg", 1.3F, 1.4F, 1.04F, 0.676F, 0.84F, TUNA, 17, true, 20.0F, Tier.GIANT, "", ""),
         // Sailfish: the model 46 px long, its body 6 px deep
-        new Species("sailfish", "sailfish_spawn_egg", 1.22F, 1.4F, 0.5856F, 0.3806F, 0.84F, BILLFISH, 16, false, 20.0F, Tier.GIANT, ""),
+        new Species("sailfish", "sailfish_spawn_egg", 1.22F, 1.4F, 0.5856F, 0.3806F, 0.84F, BILLFISH, 16, false, 20.0F, Tier.GIANT, "", ""),
         // Tarpon: the model 44 px long, its body 10 px deep
-        new Species("tarpon", "tarpon_spawn_egg", 1.27F, 1.4F, 1.016F, 0.6604F, 0.84F, TARPON, 14, true, 20.0F, Tier.GIANT, ""),
+        new Species("tarpon", "tarpon_spawn_egg", 1.27F, 1.4F, 1.016F, 0.6604F, 0.84F, TARPON, 14, true, 20.0F, Tier.GIANT, "", ""),
         // Barracuda: the model 30 px long, its body 4 px deep
-        new Species("barracuda", "barracuda_spawn_egg", 1.33F, 1.4F, 0.4256F, 0.2766F, 0.84F, PIKE, 13, false, 12.0F, Tier.VERY_LARGE, ""),
+        new Species("barracuda", "barracuda_spawn_egg", 1.33F, 1.4F, 0.4256F, 0.2766F, 0.84F, PIKE, 13, false, 12.0F, Tier.VERY_LARGE, "", "clear"),
         // Alligator Gar: the model 42 px long, its body 6 px deep
-        new Species("alligator_gar", "alligator_gar_spawn_egg", 1.33F, 1.4F, 0.6384F, 0.415F, 0.84F, GAR, 12, false, 20.0F, Tier.GIANT, "")
+        new Species("alligator_gar", "alligator_gar_spawn_egg", 1.33F, 1.4F, 0.6384F, 0.415F, 0.84F, GAR, 12, false, 20.0F, Tier.GIANT, "", "")
     );
 
     /** every fish by its id */
