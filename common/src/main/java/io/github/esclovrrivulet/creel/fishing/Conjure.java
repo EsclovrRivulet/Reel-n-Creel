@@ -19,8 +19,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-/** What bites a rod (docs/FISHING.md): from one reading of the water at the bobber, first one of the rod's two size tiers by its chance
- *  (FishingData: the lower 65, the upper 35, Luck of the Sea tilting toward the upper), counting only a tier with a species that suits
+/** What bites a rod (docs/FISHING.md): from one reading of the water at the bobber, first one of the rod's size tiers by its chance
+ *  (FishingData: on the five rods the lower 65, the upper 35; 0.21.0 the Ol' Mariner's six 24, 24, 22, 16, 9, 5; Luck of the Sea
+ *  tilting toward the upper ones, FishingData.biteWeight), counting only a tier with a species that suits
  *  the water; then a species of that tier by its habitat weight, as the spawner weighs them. Vanilla's salmon are one more kind of the
  *  salmon run, as in the spawner: wherever a salmon of ours suits the water they join the medium tier's draw with the spawner's weight
  *  for them. Nothing is looked up in the world but the reading: the fish is made, not found. */
@@ -78,12 +79,12 @@ public final class Conjure {
 
     /** the rod's tiers that something in this water belongs to (lower first); empty when nothing would bite */
     public static List<Tier> tiers(Habitat.Reading r, FishingData.RodData rod) {
-        List<Tier> out = new ArrayList<>(2);
+        List<Tier> out = new ArrayList<>(rod == null ? 0 : rod.classes().size());
         if (r.place() == null || rod == null) {
             return out;
         }
         boolean run = salmonRun(r);
-        for (Tier t : new Tier[] {rod.lower(), rod.upper()}) {
+        for (Tier t : rod.classes()) {                  // (0.21.0) every class of the rod, lowest first (were the lower and upper)
             if (!out.contains(t) && !options(r, t, run).isEmpty()) {
                 out.add(t);
             }

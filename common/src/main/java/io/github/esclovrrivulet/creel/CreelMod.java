@@ -42,6 +42,7 @@ import io.github.esclovrrivulet.creel.fish.Species;
 import io.github.esclovrrivulet.creel.fish.Size;
 import io.github.esclovrrivulet.creel.fish.Sizes;
 import io.github.esclovrrivulet.creel.item.FishBucketItem;
+import io.github.esclovrrivulet.creel.item.FishSpawnItem;
 import io.github.esclovrrivulet.creel.fishing.CastingRodItem;
 import io.github.esclovrrivulet.creel.fishing.FishermanTrades;
 import io.github.esclovrrivulet.creel.fishing.FishingData;
@@ -51,6 +52,12 @@ import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import io.github.esclovrrivulet.creel.block.FishSpawnBlock;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -66,7 +73,8 @@ import java.util.Map;
  *  allows: the registration steps each take a small Registrar for the actual "register this id"; the rest are plain accessors (the
  *  spawn placements, the attributes, the creative tab's contents, the data reload listeners) and plain event bodies (onServerStarting
  *  and the others) that the loader part wires to its own events. registerEntityTypes must run before registerItems (the spawn eggs
- *  need the types), and both before the accessors that read FISH or the items. */
+ *  need the types), and both before the accessors that read FISH or the items; registerBlocks (0.22.0) runs first of all, as the
+ *  game's own registries are filled (blocks before entity types and items). */
 public final class CreelMod {
     private CreelMod() {}
 
@@ -76,8 +84,12 @@ public final class CreelMod {
     public static Item FISH_MORSEL, COOKED_FISH_MORSEL, RAW_FISH, FISH_STEAK;
     /** one bucket for every fish of ours (item.FishBucketItem) */
     public static Item FISH_BUCKET;
-    /** the five rods (fishing.CastingRodItem), by id, lowest tier first */
+    /** the rods (fishing.CastingRodItem; five, 0.21.0 six with the Ol' Mariner), by id, lowest tier first */
     public static final Map<String, Item> RODS = new LinkedHashMap<>();
+    /** (0.22.0) the Fish Spawn block, creel:fish_spawn (docs/SPAWN.md) */
+    public static FishSpawnBlock FISH_SPAWN;
+    /** (0.23.0) its one item, for creative mode (item.FishSpawnItem): the species in its block_state component */
+    public static Item FISH_SPAWN_ITEM;
     /** every fish's spawn egg, in the table's order */
     public static final List<Item> EGGS = new ArrayList<>();
     /** the mod's one creative tab, creel:creel */
@@ -95,6 +107,17 @@ public final class CreelMod {
 
     /** the item step's registrar while registerItems runs (food(...) registers through it) */
     private static Registrar<Item> items;
+
+    /** (0.22.0) The mod's one block, Fish Spawn (block.FishSpawnBlock, docs/SPAWN.md), with frogspawn's properties as vanilla's Blocks
+     *  gives them (the 26.3 jar): the water's map colour, broken at once, no occlusion, no collision, frogspawn's sounds, popped by a
+     *  piston. Its loot table (data/creel/loot_table/blocks/fish_spawn.json) drops nothing, as frogspawn's; its one item (0.23.0, for
+     *  creative mode) is registered with the other items. */
+    public static void registerBlocks(Registrar<Block> registrar) {
+        Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, "fish_spawn");
+        FISH_SPAWN = new FishSpawnBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, id))
+            .mapColor(MapColor.WATER).instabreak().noOcclusion().noCollision().sound(SoundType.FROGSPAWN).pushReaction(PushReaction.POPPED));
+        registrar.register(id, FISH_SPAWN);
+    }
 
     /** Every fish's EntityType, in the table's order (filling FISH). Every fish is MISC, outside vanilla's spawner and every vanilla
      *  cap; they come from FishSpawner under their own budgets (docs/HABITAT.md section 4) and despawn as vanilla's fish do
@@ -128,8 +151,8 @@ public final class CreelMod {
         return out;
     }
 
-    /** Every item of the mod, in this order: the spawn eggs (the table's order), the fish bucket, the five rods, the four fish foods.
-     *  Needs registerEntityTypes first. */
+    /** Every item of the mod, in this order: the spawn eggs (the table's order), the fish bucket, the rods (0.21.0: six), the four fish foods,
+     *  the Fish Spawn's item (0.23.0). Needs registerBlocks and registerEntityTypes first. */
     public static void registerItems(Registrar<Item> registrar) {
         items = registrar;
         for (Species s : FishTable.ALL) {
@@ -146,7 +169,8 @@ public final class CreelMod {
             .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).setId(ResourceKey.create(Registries.ITEM, bucket)));
         registrar.register(bucket, FISH_BUCKET);
 
-        // the five rods (docs/FISHING.md; fishing.RodTable, generated): durability 64 to 192 by tier, vanilla's rod's enchantability; the
+        // the rods (docs/FISHING.md; fishing.RodTable, generated): durability 64 to 192 by tier (0.21.0: the Ol' Mariner, tier 6, 224),
+        // vanilla's rod's enchantability; the
         // fishing enchantments come from the item tags data/minecraft/tags/item/enchantable/{fishing,durability}.json; what each bites
         // and how far it casts is data, data/creel/fishing.json
         for (RodTable.Rod r : RodTable.ALL) {
@@ -167,6 +191,18 @@ public final class CreelMod {
         COOKED_FISH_MORSEL = food("cooked_fish_morsel", new Item.Properties().food(food(2, 0.6F), Consumables.DRIED_KELP));
         RAW_FISH = food("raw_fish", new Item.Properties().food(food(2, 0.1F)));
         FISH_STEAK = food("fish_steak", new Item.Properties().food(food(5, 0.6F)));
+
+        // (0.23.0) one item for Fish Spawn, made as vanilla's Items makes frogspawn's (Items.registerBlock with PlaceOnWaterBlockItem:
+        // the block's name, its feature flags, and the block-to-item map vanilla's registerItem fills; a loader that fills that map
+        // on registration has already done it, so it is put only when missing)
+        Identifier spawn = Identifier.fromNamespaceAndPath(MOD_ID, "fish_spawn");
+        FishSpawnItem spawnItem = new FishSpawnItem(FISH_SPAWN, new Item.Properties().useBlockDescriptionPrefix()
+            .requiredFeatures(FISH_SPAWN.requiredFeatures()).setId(ResourceKey.create(Registries.ITEM, spawn)));
+        registrar.register(spawn, spawnItem);
+        if (Item.BY_BLOCK.get(FISH_SPAWN) != spawnItem) {
+            spawnItem.registerBlocks(Item.BY_BLOCK, spawnItem);
+        }
+        FISH_SPAWN_ITEM = spawnItem;
         items = null;
     }
 
@@ -180,8 +216,8 @@ public final class CreelMod {
             .build());
     }
 
-    /** the creative tab's contents in order (new stacks each call): the five rods, the four fish foods, a bucket of each fish (ordinary
-     *  size), the spawn eggs, each in the manifest's order */
+    /** the creative tab's contents in order (new stacks each call): the rods (0.21.0: six), the four fish foods, a bucket of each fish (ordinary
+     *  size), (0.23.0) the Fish Spawn of each fish that breeds, the spawn eggs, each in the manifest's order */
     public static List<ItemStack> creativeTabContents() {
         List<ItemStack> out = new ArrayList<>();
         for (Item rod : RODS.values()) {
@@ -193,6 +229,11 @@ public final class CreelMod {
         out.add(new ItemStack(FISH_STEAK));
         for (Species s : FishTable.ALL) {
             out.add(FishBucketItem.of(s, Size.ORDINARY, 1.0F));       // every fish has a bucket
+        }
+        for (Species s : FishTable.ALL) {
+            if (s.breeds()) {
+                out.add(FishSpawnItem.of(s.id()));                    // one item, a stack per species (not one item each)
+            }
         }
         for (Item egg : EGGS) {
             out.add(new ItemStack(egg));

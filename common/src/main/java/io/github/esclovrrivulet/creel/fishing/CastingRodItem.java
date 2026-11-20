@@ -23,7 +23,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/** One of the mod's five rods (docs/FISHING.md; RodTable): each hooks fish of two size tiers only and casts its own distance.
+/** One of the mod's rods (docs/FISHING.md; RodTable): each hooks fish of its own size tiers only (two each for the five; 0.21.0: the
+ *  Ol' Mariner all six) and casts its own distance.
  *
  *  One rule: hold to act (0.12.0, after Cast n Chill).
  *  - No line out: holding use charges the cast, from nothing to full over the charge time, held at full as long as it is held, with a
@@ -36,7 +37,14 @@ import java.util.concurrent.ConcurrentHashMap;
  *  Not a FishingRodItem since 0.12.0: animation mods (Punchy) recognise vanilla's rod by that class and would animate ours as theirs;
  *  ours has its own animation (client.RodAnim). What vanilla's rod class gave us is replaced: the cast picture and the line's side come
  *  from FishingHookRenderer.getHoldingArm, which client mixin FishingHookRendererMixin extends to our rods; enchantments come from item
- *  tags, durability from the item's own properties, the statistics and the hook are ours. */
+ *  tags, durability from the item's own properties, the statistics and the hook are ours.
+ *
+ *  (0.19.1) Every sound the rod makes at the player (here, in CastingHook and in CatchInto) is played at the player's eyes, not at
+ *  the feet as vanilla's rod does. In a boat, or wading, the feet are inside a water block, and Sound Physics Remastered muffles any
+ *  sound whose source is in water as if it were heard under water (its underwater filter, 0.9 by default): the creak, the click and
+ *  the reel's tick, all quiet and high, were lost altogether (the owner, fishing from a boat). The rod is in the hands anyway.
+ *  (0.19.2) And our own four are louder, the owner finding them a bit soft: the charge's creak 0.45 (was 0.25), its click at full
+ *  0.65 (0.4), the reel's and the wind's creak 0.35 (0.2), the reel's tick 0.6 (fishing.json's click_volume, was 0.35). */
 public class CastingRodItem extends Item {
     private final RodTable.Rod rod;
 
@@ -84,7 +92,7 @@ public class CastingRodItem extends Item {
 
     private static void creak(Level level, Player player, float pitch) {
         Holder<SoundEvent> s = SoundEvents.CROSSBOW_LOADING_START;
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), s, SoundSource.PLAYERS, 0.25F, pitch);
+        level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), s, SoundSource.PLAYERS, 0.45F, pitch);
     }
 
     /** each tick of the hold, on the server: the charge's sounds, or one wind or one reel on the line */
@@ -100,7 +108,7 @@ public class CastingRodItem extends Item {
             if (held == Math.max(1, full / 2)) {
                 creak(level, player, 1.1F);                         // the creak rises as the charge builds
             } else if (held == full) {
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.TRIPWIRE_CLICK_ON, SoundSource.PLAYERS, 0.4F, 1.6F);
+                level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.TRIPWIRE_CLICK_ON, SoundSource.PLAYERS, 0.65F, 1.6F);
             }
             return;
         }
@@ -142,7 +150,7 @@ public class CastingRodItem extends Item {
         FishingData.Handling h = FishingData.handling();
         double power = h.power(heldTicks);
         float pitch = (0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)) * (0.85F + 0.3F * (float) h.charge(heldTicks));
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, pitch);
+        level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, pitch);
         int lure = (int) (EnchantmentHelper.getFishingTimeReduction(level, stack, player) * 20.0F);
         int luck = EnchantmentHelper.getFishingLuckBonus(level, stack, player);
         Projectile.spawnProjectile(new CastingHook(player, level, luck, lure, this.rod.id(), power), level, stack);

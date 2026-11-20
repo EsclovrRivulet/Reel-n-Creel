@@ -34,6 +34,15 @@ public final class HabitatData {
         return byId.size();
     }
 
+    /** (0.21.0) a test hook: the habitats in force replaced, returning the ones that were (to put back). No natural water holds fish of
+     *  all six classes, so the scene's check of the Ol' Mariner's bite shares gives one species of each class the water at its spot,
+     *  for the length of one command (test/creeltest, habitat.HabitatSwap). Nothing in the mod calls it */
+    static Map<String, FishHabitat> swap(Map<String, FishHabitat> m) {
+        Map<String, FishHabitat> was = byId;
+        byId = Map.copyOf(m);
+        return was;
+    }
+
     /** the id this data reload listener is registered under (CreelMod.dataReloadListeners) */
     public static final Identifier RELOAD_ID = Identifier.fromNamespaceAndPath(CreelMod.MOD_ID, "fish_habitat");
     /** reads the data at every data (re)load (the loader part registers it under RELOAD_ID) */

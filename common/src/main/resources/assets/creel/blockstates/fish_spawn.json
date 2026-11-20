@@ -1,0 +1,1054 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_2"
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_2",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_2",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "north": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "south": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_fringe_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_corner_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_corner_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_corner_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "rainbow_trout|steelhead|cutthroat_trout|brown_trout|brook_trout|tiger_trout|lake_trout|arctic_char|atlantic_salmon|king_salmon|coho_salmon|chum_salmon|pink_salmon|masu_salmon",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/orange_corner_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/orange_corner_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_2"
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_2",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_2",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "north": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "south": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_fringe_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_corner_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_corner_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_corner_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "smallmouth_bass|largemouth_bass|arctic_grayling|lake_whitefish|mountain_whitefish|bluegill_sunfish|rock_bass|crappie|northern_pike|muskie|channel_catfish|bullhead_catfish|white_sucker|shorthead_redhorse",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/amber_corner_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/amber_corner_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_2"
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_2",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_2",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "north": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "south": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_fringe_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_corner_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_corner_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_corner_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "perch|yellow_perch|walleye|yelloweye_rockfish|lingcod|burbot",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/cream_corner_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/cream_corner_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_2"
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_2",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_2",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "north": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "south": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_fringe_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_corner_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_corner_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_corner_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "northern_pikeminnow|creek_chub|longnose_dace|pacific_herring|american_shad|threadfin_shad|goldeye|capelin|mahi_mahi|barracuda",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/clear_corner_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/clear_corner_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/green_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/green_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/green_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/green_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/green_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/green_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/green_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/green_2"
+        },
+        {
+          "model": "creel:block/fish_spawn/green_2",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/green_2",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/green_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "north": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_fringe_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_fringe_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "south": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_fringe_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_fringe_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/green_fringe_2",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "north": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_corner_0"
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_1"
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "north": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_corner_0",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_1",
+          "y": 90
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_corner_0",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_1",
+          "y": 180
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "species": "white_bass|striped_bass|common_carp",
+        "south": "false",
+        "west": "false"
+      },
+      "apply": [
+        {
+          "model": "creel:block/fish_spawn/green_corner_0",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_1",
+          "y": 270
+        },
+        {
+          "model": "creel:block/fish_spawn/green_corner_2",
+          "y": 270
+        }
+      ]
+    }
+  ]
+}

@@ -48,6 +48,17 @@ public final class Sizes {
         return current.scale().get(s);
     }
 
+    /** the random spread round each factor (0.04: plus or minus 4%) */
+    public static float wobble() {
+        return current.wobble();
+    }
+
+    /** (0.22.0) the factor of a fish hatched from Fish Spawn: the smallest class at the low end of its wobble (block.FishSpawnBlock) */
+    public static float hatchling() {
+        Table t = current;
+        return t.scale().get(Size.SMALL) * (1.0F - t.wobble());
+    }
+
     /** one roll for a fish of that tier: the size class by weight, the factor with its wobble */
     public static Rolled roll(Tier tier, RandomSource r) {
         Table t = current;

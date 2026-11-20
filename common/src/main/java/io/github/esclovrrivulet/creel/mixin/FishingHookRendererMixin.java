@@ -7,6 +7,9 @@ import io.github.esclovrrivulet.creel.fishing.CastingRodItem;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import org.joml.Quaternionf;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.FishingHookRenderer;
@@ -21,12 +24,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import io.github.esclovrrivulet.creel.client.RodBobber;
 import io.github.esclovrrivulet.creel.client.RodLine;
 import io.github.esclovrrivulet.creel.client.RodLineState;
 
 /** Client only, and purely cosmetic: the fishing line of a player holding one of our rods (client.RodLine). Its start is moved to the
- *  rod's tip, and the line is drawn white, translucent and dashed. Any other rod's line is left exactly as vanilla (or another mod)
- *  draws it.
+ *  rod's tip, and the line is drawn white, translucent and dashed; (0.20.0) and its bobber is drawn solid (client.RodBobber). Any
+ *  other rod's line and bobber are left exactly as vanilla (or another mod) draws them, except (0.24.0) vanilla's own Fishing Rod
+ *  (exactly Items.FISHING_ROD), held in the hand as our model: its line leaves our model's tip guide and is drawn as ours, its bobber
+ *  is ours; its sag is vanilla's (RodLine.lineRod, vanillaRodHeld).
  *
  *  Rules, after 0.11.2 failed to load beside another mod that redirects the same call:
  *  - nothing here replaces a vanilla call outright (no @Redirect, no @Overwrite). The start is set by an @Inject at the end of
@@ -54,9 +60,11 @@ public abstract class FishingHookRendererMixin {
             return;
         }
         Player owner = hook.getPlayerOwner();
-        boolean ours = owner != null && RodLine.rodHeld(owner) != null && state.lineOriginOffset != null;
+        // (0.24.0) ours: one of our rods, or vanilla's own Fishing Rod (its line and bobber drawn as ours; RodLine.lineRod)
+        boolean rodOfOurs = owner != null && RodLine.rodHeld(owner) != null;
+        boolean ours = owner != null && (rodOfOurs || RodLine.vanillaRodHeld(owner)) && state.lineOriginOffset != null;
         mark.creel$setOurLine(ours);
-        mark.creel$setTaut(ours ? RodLine.taut(hook, partialTick) : 0.0F);
+        mark.creel$setTaut(ours && rodOfOurs ? RodLine.taut(hook, partialTick) : 0.0F);        // vanilla's rod: vanilla's slack curve
         if (!ours) {
             return;
         }
@@ -65,6 +73,31 @@ public abstract class FishingHookRendererMixin {
         Vec3 hand = hookPoint.add(state.lineOriginOffset);
         float swing = Mth.sin(Mth.sqrt(owner.getSwingAnimation(partialTick)) * Mth.PI);
         state.lineOriginOffset = RodLine.start(owner, swing, partialTick, hand).subtract(hookPoint);
+    }
+
+    /** (0.20.0) The first geometry vanilla submits is the bobber, one flat picture turned to the camera: for one of our rods' lines it
+     *  is client.RodBobber's four boxes instead, standing in the world, in vanilla's own render type (so with the game's own bobber
+     *  texture). The pose here is already scaled and turned to the camera by vanilla; the turn is taken back (its inverse) and the
+     *  model turned about the vertical so its front faces along the line toward the one fishing, who then sees the bobber as
+     *  vanilla's picture shows it, while anyone else sees it from where they stand. Any other rod's bobber: the original, untouched. */
+    @WrapOperation(method = "submit(Lnet/minecraft/client/renderer/entity/state/FishingHookRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitCustomGeometry(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;Lnet/minecraft/client/renderer/SubmitNodeCollector$CustomGeometryRenderer;)V",
+            ordinal = 0), require = 0, expect = 0)
+    private void creel$ourBobber(SubmitNodeCollector collector, PoseStack poseStack, RenderType type, SubmitNodeCollector.CustomGeometryRenderer renderer,
+                                 Operation<Void> original, @Local(argsOnly = true) FishingHookRenderState state,
+                                 @Local(argsOnly = true) CameraRenderState camera) {
+        if (!((Object) state instanceof RodLineState mark) || !mark.creel$ourLine() || state.lineOriginOffset == null || camera == null
+            || camera.orientation == null) {
+            original.call(collector, poseStack, type, renderer);
+            return;
+        }
+        int light = state.lightCoords;
+        float toOwner = (float) Math.atan2(state.lineOriginOffset.x, state.lineOriginOffset.z);
+        poseStack.pushPose();
+        poseStack.rotate(new Quaternionf(camera.orientation).conjugate());
+        poseStack.rotate(Axis.YP.rotation(toOwner));
+        collector.submitCustomGeometry(poseStack, type, (pose, out) -> RodBobber.draw(pose, out, light));
+        poseStack.popPose();
     }
 
     /** the second geometry vanilla submits is the line: ours when the line is one of our rods', else the original, untouched */

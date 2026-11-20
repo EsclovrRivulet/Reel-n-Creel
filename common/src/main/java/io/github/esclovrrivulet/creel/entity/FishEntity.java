@@ -33,12 +33,17 @@ import io.github.esclovrrivulet.creel.habitat.HabitatData;
 import net.minecraft.world.entity.ai.goal.FollowFlockLeaderGoal;
 import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 /** Any of the mod's fish; the species is its EntityType. Behaves as vanilla's schooling fish do (swims, schools with its own species
  *  only, see SameKindFlockGoal, flops on land); its own per-tick work is only the despawn check (vanilla's, with a nearer distance)
- *  and a landed fish's flop (at each flop only); the sounds are the cod's. Where it appears on its own is
+ *  and a landed fish's flop (at each flop only); breeding (0.22.0; 0.23.0 the pair's meeting, FishMating, and following seagrass,
+ *  SeagrassFollowGoal) adds one comparison per check for a fish not in love, and a look for a player once a second; the sounds are the cod's. Where it appears on its own is
  *  the habitat package's business (docs/HABITAT.md); here only the school size and the despawn. */
 public class FishEntity extends AbstractSchoolingFish {
     /** the size class, synced so the client shows the size word in the name */
@@ -74,6 +79,25 @@ public class FishEntity extends AbstractSchoolingFish {
         if (this.species().schools()) {
             this.goalSelector.addGoal(5, new SameKindFlockGoal(this));
         }
+        if (this.species().breeds()) {
+            // (0.23.0) a fish that breeds: the pair's meeting and laying, and following a player's seagrass (giants never have them);
+            // priority 1, over vanilla's avoiding of players (2), the schooling (5) and the random swimming (4), under panic (0)
+            this.goalSelector.addGoal(1, new FishMating.MatingGoal(this));
+            this.followGoal = new SeagrassFollowGoal(this);
+            this.goalSelector.addGoal(1, this.followGoal);
+        }
+    }
+
+    /** the follow goal of a fish that breeds, null for a giant */
+    private SeagrassFollowGoal followGoal;
+
+    /** (0.23.0) whether this fish follows players' seagrass at all (a fish that breeds), and the player it follows now, or null */
+    public boolean followsSeagrass() {
+        return this.followGoal != null;
+    }
+
+    public Player followingSeagrass() {
+        return this.followGoal == null ? null : this.followGoal.following();
     }
 
     /** The most fish one school holds: the top of the species' school size (its own in its habitat data, else its size class's,
@@ -192,6 +216,12 @@ public class FishEntity extends AbstractSchoolingFish {
         } else if (this.landing) {
             out.putBoolean("CreelLanding", true);
         }
+        if (this.loveUntil > 0) {
+            out.putLong("CreelLoveUntil", this.loveUntil);          // 0.22.0: love and the breeding cooldown, game-time stamps
+        }
+        if (this.cooldownUntil > 0) {
+            out.putLong("CreelBreedCooldown", this.cooldownUntil);
+        }
     }
 
     /** a saved fish keeps its size; a fish loaded without one (a /summon, which always loads, or a fish saved before 0.8) rolls it now */
@@ -203,6 +233,8 @@ public class FishEntity extends AbstractSchoolingFish {
         }
         this.landedAt = in.getLongOr("CreelLanded", NO_MARK);
         this.landing = in.getBooleanOr("CreelLanding", false);
+        this.setLoveUntil(in.getLongOr("CreelLoveUntil", 0L));
+        this.cooldownUntil = in.getLongOr("CreelBreedCooldown", 0L);
     }
 
     /** the name carries the size word: "Large King Salmon" (a custom name stays as given) */
@@ -231,6 +263,79 @@ public class FishEntity extends AbstractSchoolingFish {
     public void loadFromBucketTag(CompoundTag tag) {
         this.readSize(tag.getStringOr("CreelSize", ""), tag.getFloatOr("CreelScale", 0.0F));
         super.loadFromBucketTag(tag);
+    }
+
+    // ---- breeding (0.22.0, docs/SPAWN.md; entity.FishBreeding, entity.FishMating): seagrass feeds a fish; love and the cooldown are
+    //      game-time stamps, saved; the mating goal compares mateGate with the game time, nothing more, for a fish not in love ----
+
+    /** the game time until which this fish is in love, and until which it cannot be fed after a pairing; 0 for none */
+    private long loveUntil, cooldownUntil;
+    /** (0.23.0) the pairing this fish is in (FishMating), null when none: a plain field, not saved and not synced (a pairing in progress
+     *  is lost on a reload, and the fish is left with its love stamp) */
+    private FishMating.Pairing pairing;
+    /** the mating goal's gate: loveUntil, or never while in a pairing (love does not run out during one) */
+    private long mateGate;
+
+    /** (0.23.0) the mating goal's one comparison: a fish is neither in love nor paired when this is not after now */
+    public long mateGate() {
+        return this.mateGate;
+    }
+
+    public FishMating.Pairing pairing() {
+        return this.pairing;
+    }
+
+    void setPairing(FishMating.Pairing p) {
+        this.pairing = p;
+        this.mateGate = p != null ? Long.MAX_VALUE : this.loveUntil;
+    }
+
+    public boolean inLove(long now) {
+        return this.loveUntil > now;
+    }
+
+    public boolean onCooldown(long now) {
+        return this.cooldownUntil > now;
+    }
+
+    public long loveUntil() {
+        return this.loveUntil;
+    }
+
+    public long cooldownUntil() {
+        return this.cooldownUntil;
+    }
+
+    public void setLoveUntil(long until) {
+        this.loveUntil = until;
+        this.mateGate = this.pairing != null ? Long.MAX_VALUE : until;
+    }
+
+    public void setCooldownUntil(long until) {
+        this.cooldownUntil = until;
+    }
+
+    /** Seagrass feeds the fish (FishBreeding.feed: fed, refused or, on the client, left to the server); anything else is vanilla's
+     *  (the water bucket's pick-up). */
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (player.getItemInHand(hand).is(Items.SEAGRASS)) {
+            return FishBreeding.feed(this, player, hand);
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    /** the hearts of a fed or paired fish, drawn as vanilla's Animal draws them for the same event (18, unused by every class above) */
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == FishBreeding.HEARTS) {
+            for (int i = 0; i < 7; i++) {
+                double vx = this.random.nextGaussian() * 0.02, vy = this.random.nextGaussian() * 0.02, vz = this.random.nextGaussian() * 0.02;
+                this.level().addParticle(ParticleTypes.HEART, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), vx, vy, vz);
+            }
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     @Override
