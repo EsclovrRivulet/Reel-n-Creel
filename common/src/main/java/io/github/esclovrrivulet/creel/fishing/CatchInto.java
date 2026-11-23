@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Bucketable;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** (0.19.0, docs/FISHING.md "Landing") Where a landed fish goes when the hand without the rod holds something to take it, so that a
  *  fish landed from a boat at sea, which the arc would drop back into the water, is not lost. Called once, from CastingHook.land, on
@@ -58,7 +58,7 @@ public final class CatchInto {
         }
         ItemStack held = player.getItemInHand(other);
         if (held.is(Items.WATER_BUCKET)) {
-            return Bucketable.bucketMobPickup(player, other, fish).isPresent();
+            return Compat.bucketMobPickup(player, other, fish);
         }
         boolean bundle = held.is(ItemTags.BUNDLES);
         if (held.getCount() != 1 || !(bundle || held.is(ItemTags.SHULKER_BOXES))) {
@@ -117,7 +117,7 @@ public final class CatchInto {
 
     /** into a bundle as vanilla's bundle takes items (BundleContents.Mutable.tryInsert: by weight); returns what did not go in */
     private static List<ItemStack> intoBundle(ItemStack bundle, List<ItemStack> drops) {
-        BundleContents.Mutable contents = bundle.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).asMutable();
+        BundleContents.Mutable contents = Compat.mutable(bundle.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
         List<ItemStack> left = new ArrayList<>();
         boolean any = false;
         for (ItemStack s : drops) {

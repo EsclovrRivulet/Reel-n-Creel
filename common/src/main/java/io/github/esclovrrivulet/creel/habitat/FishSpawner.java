@@ -8,7 +8,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
@@ -25,6 +24,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** The mod's own fish spawner, the only way our fish appear on their own (docs/HABITAT.md section 4). Vanilla's spawner and spawn lists
  *  never see them: every fish of ours is in category MISC, which vanilla's spawner and caps ignore, and despawns as vanilla's fish do
@@ -126,7 +126,7 @@ public final class FishSpawner {
                 if (free) {
                     counted.merge(k, 1, Integer::sum);
                 }
-            } else if (a.getType() == EntityTypes.SALMON && free) {
+            } else if (a.getType() == Compat.SALMON && free) {
                 counted.merge(SizeClass.SALMON, 1, Integer::sum);     // vanilla's salmon share the salmon run's budget
             }
         }
@@ -178,7 +178,7 @@ public final class FishSpawner {
             if (n < b.schoolMin()) {
                 return null;
             }
-            int placed = placeSchool(level, EntityTypes.SALMON, best, n, r);
+            int placed = placeSchool(level, Compat.SALMON, best, n, r);
             return placed > 0 ? new Placed(k, null, best, placed) : null;
         }
         Species chosen = choose(bestReading, candidates, r);

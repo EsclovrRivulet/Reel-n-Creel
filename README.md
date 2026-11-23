@@ -4,7 +4,14 @@
 
 A fishing rehaul mod that adds various new fishes into the game, as well as introducing new fishing rods that uses a different fishing mechanic and makes it more engaging.
 
-Currently it adds 5 new fishing rod, 53 new fish for different biomes and 2 new fish meat into the game.
+Currently it adds 6 new fishing rod, 53 new fish for different biomes and 2 new fish meat into the game.
+
+### QOL change
+
+When fishing with the mod's rods:
+
+- Hold a Water Bucket in your other hand while you land a fish, and it goes into the bucket alive.
+- Hold a Shulker Box or a Bundle instead, and the fish's meat goes straight inside.
 
 ### Fish
 
@@ -128,12 +135,17 @@ Cast: the same as a vanilla rod. Durability: 192. Treasure chance: 5%.
 
 <img src="media/recipes/big_game_rod.png" alt="Crafting recipe">
 
+<img src="media/items/mariner_rod.png" width="32" height="32" alt="">  **Ol' Mariner**<br>
+Hooks every size of fish, from tiny to giant fish.<br>
+**Crafting:** a Fishing Rod, an Angler Pottery Sherd (you can get them as a treasure using other rods, except vanilla) and a Nautilus Shell.<br>
+Cast: the same as a vanilla rod. Durability: 224. Treasure chance: 3.5%.
+
 _Note:_
 
 - The recipes have no pattern: put the items anywhere in the crafting grid. They appear in the recipe book together with the vanilla Fishing Rod's.
 - The rods take the fishing enchantments. Luck of the Sea makes the larger size class more likely to bite and raises the treasure chance. Lure shortens the wait, as on a vanilla rod. Unbreaking and Mending work as well.
 - Durability: landing a fish costs 1, and a snapped line costs 3.
-- The vanilla Fishing Rod is unchanged and still works as it always has.
+- The vanilla Fishing Rod is given a 3D design but still works the same as vanilla.
 
 ### Fish meat
 
@@ -142,6 +154,7 @@ Fish drop meat by their size class. The smaller kinds give Fish Morsels and the 
 <img src="media/items/fish_morsel.png" width="32" height="32" alt="">  **Fish Morsel**<br>
 Restores 1 hunger.<br>
 Dropped by tiny fish (2) and small fish (2 to 4).<br>
+Also crafted from Raw Fish: one Raw Fish makes 2 Fish Morsel.<br>
 A fisherman villager pays 1 emerald for 4.
 
 <img src="media/items/cooked_fish_morsel.png" width="32" height="32" alt="">  **Cooked Fish Morsel**<br>
@@ -157,3 +170,13 @@ A fisherman villager pays 1 emerald for 1.
 <img src="media/items/fish_steak.png" width="32" height="32" alt="">  **Fish Steak**<br>
 Restores 5 hunger.<br>
 Made by cooking Raw Fish in a furnace, a smoker or on a campfire.
+
+### Breeding
+
+To breed fish, feed seagrass to 2 of the same kind of fish, and they'll create fish spawn at the water surface, similar to how frog spawn works, each of them will spawn between 1-3 fishes. The size of the fish will generally be on the smaller side.
+
+_Note:_
+
+- the six giants don't breed;
+- a pair has to wait 5 minutes before breeding again;
+- you can lure fishes using Seagrass.

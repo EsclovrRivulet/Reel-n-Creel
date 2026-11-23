@@ -630,17 +630,17 @@ public final class FishLayers {
     public static LayerDefinition northernPike() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(0, 21).addBox(-1F, -2F, 0F, 2F, 2F, 4F).texOffs(0, 27).addBox(-1F, -3F, 4F, 2F, 3F, 1F), PartPose.offset(0F, 23F, -13F));
-        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(16, 12).addBox(-1.5F, -4F, -3F, 3F, 4F, 3F), PartPose.offset(0F, 23F, -5F));
+        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(0, 27).addBox(-1.5F, -3F, 0F, 3F, 2F, 2F).texOffs(16, 21).addBox(-1.5F, -3F, 2F, 3F, 3F, 2F), PartPose.offset(0F, 23F, -13F));
+        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(16, 12).addBox(-1.5F, -4F, -4F, 3F, 4F, 4F), PartPose.offset(0F, 23F, -5F));
         PartDefinition bodyFront = root.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -4F, 0F, 3F, 4F, 8F), PartPose.offset(0F, 23F, -5F));
         PartDefinition bodyBack = root.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(0, 12).addBox(-1F, -4F, 0F, 2F, 3F, 6F), PartPose.offset(0F, 23F, 3F));
         PartDefinition tailFin = bodyBack.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(22, 0).addBox(0F, -3.5F, 0F, 0F, 7F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -2.5F, 6F));
-        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(12, 21).addBox(0F, -2F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -4F, 1F));
-        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(20, 21).addBox(0F, 0F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -1F, 1F));
-        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(6, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, 0F, 0F, 0F, 0.35F));
-        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(6, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, 0F, 0F, 0F, -0.35F));
-        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(10, 27).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-1.5F, 22F, -5F, 0F, 0F, -0.7854F));
-        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(10, 27).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(1.5F, 22F, -5F, 0F, 0F, 0.7854F));
+        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(0, 21).addBox(0F, -2F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -4F, 1F));
+        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(8, 21).addBox(0F, 0F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -1F, 1F));
+        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(10, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, 0F, 0F, 0F, 0.35F));
+        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(10, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, 0F, 0F, 0F, -0.35F));
+        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(14, 27).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-1.5F, 22F, -5F, 0F, 0F, -0.7854F));
+        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(14, 27).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(1.5F, 22F, -5F, 0F, 0F, 0.7854F));
         return LayerDefinition.create(mesh, 32, 32);
     }
 
@@ -648,17 +648,17 @@ public final class FishLayers {
     public static LayerDefinition muskie() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(0, 21).addBox(-1F, -2F, 0F, 2F, 2F, 4F).texOffs(0, 27).addBox(-1F, -3F, 4F, 2F, 3F, 1F), PartPose.offset(0F, 23F, -13F));
-        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(16, 12).addBox(-1.5F, -4F, -3F, 3F, 4F, 3F), PartPose.offset(0F, 23F, -5F));
+        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(0, 27).addBox(-1.5F, -3F, 0F, 3F, 2F, 2F).texOffs(16, 21).addBox(-1.5F, -3F, 2F, 3F, 3F, 2F), PartPose.offset(0F, 23F, -13F));
+        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(16, 12).addBox(-1.5F, -4F, -4F, 3F, 4F, 4F), PartPose.offset(0F, 23F, -5F));
         PartDefinition bodyFront = root.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -4F, 0F, 3F, 4F, 8F), PartPose.offset(0F, 23F, -5F));
         PartDefinition bodyBack = root.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(0, 12).addBox(-1F, -4F, 0F, 2F, 3F, 6F), PartPose.offset(0F, 23F, 3F));
         PartDefinition tailFin = bodyBack.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(22, 0).addBox(0F, -3.5F, 0F, 0F, 7F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -2.5F, 6F));
-        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(12, 21).addBox(0F, -2F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -4F, 1F));
-        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(20, 21).addBox(0F, 0F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -1F, 1F));
-        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(6, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, 0F, 0F, 0F, 0.35F));
-        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(6, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, 0F, 0F, 0F, -0.35F));
-        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(10, 27).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-1.5F, 22F, -5F, 0F, 0F, -0.7854F));
-        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(10, 27).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(1.5F, 22F, -5F, 0F, 0F, 0.7854F));
+        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(0, 21).addBox(0F, -2F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -4F, 1F));
+        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(8, 21).addBox(0F, 0F, 0F, 0F, 2F, 4F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -1F, 1F));
+        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(10, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, 0F, 0F, 0F, 0.35F));
+        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(10, 27).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, 0F, 0F, 0F, -0.35F));
+        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(14, 27).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-1.5F, 22F, -5F, 0F, 0F, -0.7854F));
+        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(14, 27).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(1.5F, 22F, -5F, 0F, 0F, 0.7854F));
         return LayerDefinition.create(mesh, 32, 32);
     }
 
@@ -1085,18 +1085,17 @@ public final class FishLayers {
     public static LayerDefinition barracuda() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(20, 16).addBox(-1F, -2F, 0F, 2F, 2F, 2F).texOffs(28, 16).addBox(-1F, -3F, 2F, 2F, 3F, 1F), PartPose.offset(0F, 23F, -14F));
+        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(52, 16).addBox(-1F, -2F, 0F, 2F, 1F, 1F).texOffs(38, 16).addBox(-1F, -2F, 1F, 2F, 2F, 1F).texOffs(16, 16).addBox(-1.5F, -3F, 2F, 3F, 3F, 2F), PartPose.offset(0F, 23F, -15F));
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-1.5F, -4F, -2F, 3F, 4F, 2F), PartPose.offset(0F, 23F, -9F));
         PartDefinition bodyFront = root.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -4F, 0F, 3F, 4F, 12F), PartPose.offset(0F, 23F, -9F));
         PartDefinition bodyBack = root.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(40, 0).addBox(-1F, -4F, 0F, 2F, 3F, 7F), PartPose.offset(0F, 23F, 3F));
         PartDefinition tailFin = bodyBack.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(30, 0).addBox(0F, -4.5F, 0F, 0F, 9F, 5F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -2.5F, 7F));
-        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(16, 16).addBox(0F, -3F, 0F, 0F, 3F, 2F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -4F, 1F));
-        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(34, 16).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -1F, 1F));
-        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(38, 16).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, -5F, 0F, 0F, 0.35F));
-        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(38, 16).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, -5F, 0F, 0F, -0.35F));
-        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(42, 16).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-1.5F, 22F, -9F, 0F, 0F, -0.7854F));
-        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(42, 16).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(1.5F, 22F, -9F, 0F, 0F, 0.7854F));
-        PartDefinition jaw = root.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(50, 16).addBox(-0.5F, -1F, -1F, 1F, 1F, 1F), PartPose.offset(0F, 23F, -14F));
+        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(26, 16).addBox(0F, -3F, 0F, 0F, 3F, 2F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -4F, 1F));
+        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(30, 16).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -1F, 1F));
+        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(34, 16).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, -5F, 0F, 0F, 0.35F));
+        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(34, 16).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, -5F, 0F, 0F, -0.35F));
+        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(44, 16).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-1.5F, 22F, -9F, 0F, 0F, -0.7854F));
+        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(44, 16).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(1.5F, 22F, -9F, 0F, 0F, 0.7854F));
         PartDefinition dorsalFront = root.addOrReplaceChild("dorsal_front", CubeListBuilder.create().texOffs(10, 16).addBox(0F, -3F, 0F, 0F, 3F, 3F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, 19F, -5F));
         return LayerDefinition.create(mesh, 64, 32);
     }
@@ -1105,18 +1104,18 @@ public final class FishLayers {
     public static LayerDefinition alligatorGar() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(30, 16).addBox(-1.5F, -2F, 0F, 3F, 2F, 6F).texOffs(12, 28).addBox(-1.5F, -3F, 6F, 3F, 3F, 1F), PartPose.offset(0F, 23F, -21F));
-        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(48, 16).addBox(-2F, -5F, -3F, 4F, 5F, 3F), PartPose.offset(0F, 23F, -11F));
+        PartDefinition snout = root.addOrReplaceChild("snout", CubeListBuilder.create().texOffs(18, 28).addBox(-1.5F, -3F, 0F, 3F, 2F, 2F).texOffs(6, 28).addBox(-2F, -3F, 2F, 4F, 3F, 2F).texOffs(46, 16).addBox(-2F, -4F, 4F, 4F, 4F, 2F), PartPose.offset(0F, 23F, -21F));
+        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(30, 16).addBox(-2F, -5F, -4F, 4F, 5F, 4F), PartPose.offset(0F, 23F, -11F));
         PartDefinition bodyFront = root.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-2F, -6F, 0F, 4F, 6F, 10F), PartPose.offset(0F, 23F, -11F));
         PartDefinition bodyMid = root.addOrReplaceChild("body_mid", CubeListBuilder.create().texOffs(28, 0).addBox(-2F, -6F, 0F, 4F, 6F, 10F), PartPose.offset(0F, 23F, -1F));
         PartDefinition bodyBack = root.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(10, 16).addBox(-1.5F, -6F, 0F, 3F, 4F, 7F), PartPose.offset(0F, 23F, 9F));
         PartDefinition tailFin = bodyBack.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(0, 16).addBox(0F, -3.5F, 0F, 0F, 7F, 5F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -4F, 7F));
-        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(0, 28).addBox(0F, -3F, 0F, 0F, 3F, 3F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -6F, 3F));
-        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(6, 28).addBox(0F, 0F, 0F, 0F, 3F, 3F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -2F, 2F));
-        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(20, 28).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, -1F, 0F, 0F, 0.35F));
-        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(20, 28).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, -1F, 0F, 0F, -0.35F));
-        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(24, 28).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-2F, 22F, -11F, 0F, 0F, -0.7854F));
-        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(24, 28).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(2F, 22F, -11F, 0F, 0F, 0.7854F));
+        PartDefinition dorsal = bodyBack.addOrReplaceChild("dorsal", CubeListBuilder.create().texOffs(58, 16).addBox(0F, -3F, 0F, 0F, 3F, 3F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -6F, 3F));
+        PartDefinition anal = bodyBack.addOrReplaceChild("anal", CubeListBuilder.create().texOffs(0, 28).addBox(0F, 0F, 0F, 0F, 3F, 3F, EnumSet.of(Direction.WEST)), PartPose.offset(0F, -2F, 2F));
+        PartDefinition pelvicRight = root.addOrReplaceChild("pelvic_right", CubeListBuilder.create().texOffs(28, 28).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(-0.75F, 23F, -1F, 0F, 0F, 0.35F));
+        PartDefinition pelvicLeft = root.addOrReplaceChild("pelvic_left", CubeListBuilder.create().texOffs(28, 28).addBox(0F, 0F, 0F, 0F, 2F, 2F, EnumSet.of(Direction.WEST)), PartPose.offsetAndRotation(0.75F, 23F, -1F, 0F, 0F, -0.35F));
+        PartDefinition pectoralRight = root.addOrReplaceChild("pectoral_right", CubeListBuilder.create().texOffs(32, 28).addBox(-2F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)), PartPose.offsetAndRotation(-2F, 22F, -11F, 0F, 0F, -0.7854F));
+        PartDefinition pectoralLeft = root.addOrReplaceChild("pectoral_left", CubeListBuilder.create().texOffs(32, 28).mirror().addBox(0F, 0F, 0F, 2F, 0F, 2F, EnumSet.of(Direction.DOWN)).mirror(false), PartPose.offsetAndRotation(2F, 22F, -11F, 0F, 0F, 0.7854F));
         return LayerDefinition.create(mesh, 64, 64);
     }
 }

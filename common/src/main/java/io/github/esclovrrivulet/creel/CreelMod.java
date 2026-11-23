@@ -56,13 +56,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import io.github.esclovrrivulet.creel.block.FishSpawnBlock;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** Creel: fish built from the real animals in vanilla's own model language. Every fish comes from the generated FishTable
  *  (tools/gen_fish.py): one EntityType and one spawn egg each. They appear on their own in water that suits them (docs/HABITAT.md):
@@ -115,7 +115,7 @@ public final class CreelMod {
     public static void registerBlocks(Registrar<Block> registrar) {
         Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, "fish_spawn");
         FISH_SPAWN = new FishSpawnBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, id))
-            .mapColor(MapColor.WATER).instabreak().noOcclusion().noCollision().sound(SoundType.FROGSPAWN).pushReaction(PushReaction.POPPED));
+            .mapColor(MapColor.WATER).instabreak().noOcclusion().noCollision().sound(SoundType.FROGSPAWN).pushReaction(Compat.POPPED));
         registrar.register(id, FISH_SPAWN);
     }
 

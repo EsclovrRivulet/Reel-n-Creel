@@ -3,33 +3,38 @@ plugins {
 }
 
 // The Fabric build of the mod: the loader-neutral code, assets and data in ../common, with the Fabric entry points and glue here,
-// compiled together into one jar.
+// compiled together into one jar, for one Minecraft version (-Pmc=<version>, default the base version; see ../gradle/versions.gradle).
+apply from: rootProject.file('gradle/versions.gradle')
 
-// The mod's version is set in one place: fabric/src/main/resources/fabric.mod.json.
-def modJson = new groovy.json.JsonSlurper().parse(file('src/main/resources/fabric.mod.json'))
-version = modJson.version
+// The mod's version is set in one place: fabric/src/main/resources/fabric.mod.json; this jar's is that plus "+<label>"
+// (versions/versions.properties).
+version = modVersion
 group = 'io.github.esclovrrivulet.creel'
 
 base {
 	archivesName = 'reel-n-creel-fabric'
 }
 
-sourceSets {
-	main {
-		java {
-			srcDir rootProject.file('common/src/main/java')
-		}
-		resources {
-			srcDir rootProject.file('common/src/main/resources')
-		}
-	}
-}
+useVersionSources(sourceSets.main, ['common', 'fabric'])
 
 dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	// To change the versions see versions/versions.properties (per Minecraft version) and gradle.properties
+	minecraft "com.mojang:minecraft:${mc}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${mcValue('fabric_api')}"
+}
+
+// fabric.mod.json in the jar: this jar's version, and the Minecraft versions it accepts (versions/versions.properties)
+def fabricMinecraft = mcValue('fabric_minecraft')
+processResources {
+	inputs.property 'modVersion', modVersion
+	inputs.property 'fabricMinecraft', fabricMinecraft
+	filesMatching('fabric.mod.json') {
+		filter { String line ->
+			line.replaceFirst(/("version":\s*)"[^"]*"/, '$1"' + modVersion + '"')
+				.replaceFirst(/("minecraft":\s*)"[^"]*"/, '$1"' + fabricMinecraft + '"')
+		}
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {

@@ -27,6 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import io.github.esclovrrivulet.creel.client.RodBobber;
 import io.github.esclovrrivulet.creel.client.RodLine;
 import io.github.esclovrrivulet.creel.client.RodLineState;
+import io.github.esclovrrivulet.creel.compat.ClientCompat;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** Client only, and purely cosmetic: the fishing line of a player holding one of our rods (client.RodLine). Its start is moved to the
  *  rod's tip, and the line is drawn white, translucent and dashed; (0.20.0) and its bobber is drawn solid (client.RodBobber). Any
@@ -71,7 +73,7 @@ public abstract class FishingHookRendererMixin {
         // the start as vanilla (or another mod) left it, then moved to our rod's tip: the same point vanilla measures it from
         Vec3 hookPoint = hook.getPosition(partialTick).add(0.0, 0.25, 0.0);
         Vec3 hand = hookPoint.add(state.lineOriginOffset);
-        float swing = Mth.sin(Mth.sqrt(owner.getSwingAnimation(partialTick)) * Mth.PI);
+        float swing = Mth.sin(Mth.sqrt(Compat.swingProgress(owner, partialTick)) * Mth.PI);
         state.lineOriginOffset = RodLine.start(owner, swing, partialTick, hand).subtract(hookPoint);
     }
 
@@ -94,8 +96,8 @@ public abstract class FishingHookRendererMixin {
         int light = state.lightCoords;
         float toOwner = (float) Math.atan2(state.lineOriginOffset.x, state.lineOriginOffset.z);
         poseStack.pushPose();
-        poseStack.rotate(new Quaternionf(camera.orientation).conjugate());
-        poseStack.rotate(Axis.YP.rotation(toOwner));
+        ClientCompat.rotate(poseStack, new Quaternionf(camera.orientation).conjugate());
+        ClientCompat.rotate(poseStack, Axis.YP.rotation(toOwner));
         collector.submitCustomGeometry(poseStack, type, (pose, out) -> RodBobber.draw(pose, out, light));
         poseStack.popPose();
     }

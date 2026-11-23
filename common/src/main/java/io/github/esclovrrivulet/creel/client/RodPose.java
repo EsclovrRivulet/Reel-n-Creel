@@ -18,6 +18,7 @@ import java.lang.reflect.Method;
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
+import io.github.esclovrrivulet.creel.compat.ClientCompat;
 
 /** Where the local player's rod tip was actually drawn (client only), so the line can leave from it while the rod is animated (by
  *  Punchy, by a swing, by anything). mixin.ItemLayerRenderStateMixin hands over the pose each of our held rods is drawn with, the very
@@ -92,7 +93,7 @@ public final class RodPose {
     private static boolean reflected;
 
     private static CameraRenderState camera(Minecraft mc) {
-        return mc.gameRenderer.gameRenderState().levelRenderState.cameraRenderState;
+        return ClientCompat.gameRenderState(mc.gameRenderer).levelRenderState.cameraRenderState;
     }
 
     /** the first-person hands start being submitted from this pose (null: they are done) */
@@ -244,7 +245,7 @@ public final class RodPose {
         if (cam == null || cam.viewRotationMatrix == null || cam.pos == null) {
             return null;
         }
-        double k = Math.tan(Math.toRadians(mc.gameRenderer.mainCamera().getFov()) / 2)
+        double k = Math.tan(Math.toRadians(ClientCompat.mainCamera(mc.gameRenderer).getFov()) / 2)
             / Math.tan(Math.toRadians(cam.hudFov > 0 ? cam.hudFov : RodLine.HAND_FOV) / 2);
         // this frame's bob on the hand's own pose (so a walk's bob does not lag a frame behind), scaled to the world's field of view,
         // and the world's bob taken off again
@@ -289,7 +290,7 @@ public final class RodPose {
             BOB_ARGS[0] = cam;
             BOB_ARGS[1] = stack;
             bobHurt.invoke(mc.gameRenderer, BOB_ARGS);
-            if (mc.gameRenderer.gameRenderState().optionsRenderState.bobView) {
+            if (ClientCompat.gameRenderState(mc.gameRenderer).optionsRenderState.bobView) {
                 bobView.invoke(mc.gameRenderer, BOB_ARGS);
             }
             return BOB.set(stack.last().pose());

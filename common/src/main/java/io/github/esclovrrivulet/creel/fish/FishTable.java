@@ -217,7 +217,7 @@ public final class FishTable {
         // Tarpon: the model 44 px long, its body 10 px deep
         new Species("tarpon", "tarpon_spawn_egg", 1.27F, 1.4F, 1.016F, 0.6604F, 0.84F, TARPON, 14, true, 20.0F, Tier.GIANT, "", ""),
         // Barracuda: the model 30 px long, its body 4 px deep
-        new Species("barracuda", "barracuda_spawn_egg", 1.33F, 1.4F, 0.4256F, 0.2766F, 0.84F, PIKE, 13, false, 12.0F, Tier.VERY_LARGE, "", "clear"),
+        new Species("barracuda", "barracuda_spawn_egg", 1.33F, 1.4F, 0.4256F, 0.2766F, 0.84F, PIKE, 12, false, 12.0F, Tier.VERY_LARGE, "", "clear"),
         // Alligator Gar: the model 42 px long, its body 6 px deep
         new Species("alligator_gar", "alligator_gar_spawn_egg", 1.33F, 1.4F, 0.6384F, 0.415F, 0.84F, GAR, 12, false, 20.0F, Tier.GIANT, "", "")
     );

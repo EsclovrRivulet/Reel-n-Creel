@@ -1,0 +1,91 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "creel:raw_fish",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 6
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 2,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "minecraft:nbt": "{CreelSize:\"trophy\"}"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": -2,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "minecraft:nbt": "{CreelSize:\"small\"}"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 2
+              }
+            },
+            {
+              "function": "minecraft:furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "minecraft:any_of",
+                  "terms": [
+                    {
+                      "condition": "minecraft:entity_properties",
+                      "entity": "this",
+                      "predicate": {
+                        "minecraft:flags": {
+                          "is_on_fire": true
+                        }
+                      }
+                    },
+                    {
+                      "condition": "minecraft:entity_properties",
+                      "entity": "direct_attacker",
+                      "predicate": {
+                        "minecraft:equipment": {
+                          "mainhand": {
+                            "predicates": {
+                              "minecraft:enchantments": [
+                                {
+                                  "enchantments": "#minecraft:smelts_loot"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "creel:entities/barracuda"
+}

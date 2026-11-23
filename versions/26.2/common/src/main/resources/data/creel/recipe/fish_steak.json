@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "experience": 0.35,
+  "ingredient": "creel:raw_fish",
+  "result": {
+    "id": "creel:fish_steak"
+  }
+}

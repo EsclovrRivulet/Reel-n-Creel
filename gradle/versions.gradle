@@ -1,0 +1,56 @@
+// Which Minecraft version this build is for, and the source for it (applied by fabric/build.gradle and neoforge/build.gradle).
+//
+//   ./gradlew build               the base version of versions/versions.properties
+//   ./gradlew build -Pmc=26.2     any version listed there
+//
+// The source is one tree for every version: common/, fabric/ and neoforge/ are the base version's. For an older version, the files in
+// versions/<version>/ (laid out as the main tree) replace the files at the same paths, and nothing else changes; see the table's
+// header. Sets on the project: mc, mcValue(key) (a value of the table for this version), modVersion ("<mod version>+<label>"),
+// modDescription, and useVersionSources(sourceSet, parts) (the main tree's parts with the version's files in their place).
+
+def versionTable = new Properties()
+rootProject.file('versions/versions.properties').withInputStream { versionTable.load(it) }
+def chosen = (project.findProperty('mc') ?: versionTable.getProperty('base')).toString()
+def known = versionTable.getProperty('versions').split(',')*.trim()
+if (!known.contains(chosen)) {
+	throw new GradleException("Minecraft ${chosen} is not one of the versions this mod is built for: ${known.join(', ')} (versions/versions.properties)")
+}
+ext.mc = chosen
+ext.mcValue = { String key ->
+	def v = versionTable.getProperty("${chosen}.${key}")
+	if (v == null) {
+		throw new GradleException("versions/versions.properties has no ${chosen}.${key}")
+	}
+	v.trim()
+}
+
+// The mod's version is set in one place: fabric/src/main/resources/fabric.mod.json; each jar's is that plus "+<label>", the game
+// version(s) the table names the jars for (26.1.2's jars, built against 26.1.2, serve all of 26.1.x and say 1.0.0+26.1).
+def modJson = new groovy.json.JsonSlurper().parse(rootProject.file('fabric/src/main/resources/fabric.mod.json'))
+ext.modVersion = "${modJson.version}+${ext.mcValue('label')}"
+ext.modDescription = modJson.description
+
+// parts: the main tree's folders this project compiles (e.g. ['common', 'fabric']). Each part's src/main/java and src/main/resources
+// are added, then the version's versions/<mc>/<part>/src/main/... beside them, with every main-tree file the version replaces left out.
+ext.useVersionSources = { SourceSet sourceSet, List<String> parts ->
+	['java', 'resources'].each { kind ->
+		def dirs = sourceSet."${kind}"
+		def replaced = [] as Set
+		parts.each { part ->
+			def mainDir = rootProject.file("${part}/src/main/${kind}")
+			if (mainDir != project.file("src/main/${kind}")) {
+				dirs.srcDir mainDir             // the project's own src/main is there already
+			}
+			def overlay = rootProject.file("versions/${chosen}/${part}/src/main/${kind}")
+			if (chosen != versionTable.getProperty('base') && overlay.isDirectory()) {
+				dirs.srcDir overlay
+				overlay.eachFileRecurse(groovy.io.FileType.FILES) { f ->
+					replaced << new File(mainDir, overlay.toPath().relativize(f.toPath()).toString()).canonicalPath
+				}
+			}
+		}
+		if (!replaced.isEmpty()) {
+			dirs.exclude { FileTreeElement e -> replaced.contains(e.file.canonicalPath) }
+		}
+	}
+}

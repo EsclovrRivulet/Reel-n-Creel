@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_vanilla_rod_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:fishing_rod"
+      }
+    },
+    "has_string": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:string"
+          }
+        ]
+      }
+    },
+    "has_fishing_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:fishing_rod"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_vanilla_rod_recipe",
+      "has_string",
+      "has_fishing_rod"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "creel:panfish_rod",
+      "creel:trout_rod",
+      "creel:salmon_rod",
+      "creel:surf_rod",
+      "creel:big_game_rod",
+      "creel:mariner_rod"
+    ]
+  }
+}

@@ -12,7 +12,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -42,6 +41,7 @@ import io.github.esclovrrivulet.creel.fish.Species;
 
 import java.util.ArrayList;
 import java.util.List;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** (0.22.0) Fish Spawn, creel:fish_spawn (docs/SPAWN.md): the eggs a pair of our fish lays on the water's surface when bred
  *  (entity.FishBreeding). It is vanilla's frogspawn in all it does (FrogspawnBlock, read from the 26.3 jar): it lies in the air block
@@ -147,7 +147,7 @@ public class FishSpawnBlock extends Block {
     /** frogspawn's: a falling block breaks it */
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effects, boolean first) {
-        if (entity.is(EntityTypes.FALLING_BLOCK)) {
+        if (entity.is(Compat.FALLING_BLOCK)) {
             level.destroyBlock(pos, false);
         }
     }

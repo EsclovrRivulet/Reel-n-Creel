@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.WeakHashMap;
+import io.github.esclovrrivulet.creel.compat.ClientCompat;
 
 /** The fishing line of our rods (client only; mixin.FishingHookRendererMixin): where it leaves the rod, and how it is drawn. (0.24.0:
  *  and of vanilla's own Fishing Rod, see the end.)
@@ -189,7 +190,7 @@ public final class RodLine {
     public static void draw(float x, float y, float z, double hx, double hy, double hz, int light, float tautNow, PoseStack.Pose pose, VertexConsumer out) {
         float taut = Mth.clamp(tautNow, 0.0F, 1.0F);
         Minecraft mc = Minecraft.getInstance();
-        Camera camera = mc.gameRenderer.mainCamera();
+        Camera camera = ClientCompat.mainCamera(mc.gameRenderer);
         Vec3 cam = camera.position();
         Quaternionf rot = ROT.set(camera.rotation());
         Quaternionf inv = INV.set(rot).conjugate();

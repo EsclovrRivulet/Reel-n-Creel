@@ -14,7 +14,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** One of the mod's rods (docs/FISHING.md; RodTable): each hooks fish of its own size tiers only (two each for the five; 0.21.0: the
  *  Ol' Mariner all six) and casts its own distance.
@@ -155,7 +155,7 @@ public class CastingRodItem extends Item {
         int luck = EnchantmentHelper.getFishingLuckBonus(level, stack, player);
         Projectile.spawnProjectile(new CastingHook(player, level, luck, lure, this.rod.id(), power), level, stack);
         InteractionHand hand = player.getMainHandItem() == stack ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-        player.swing(hand, SwingAnimation.DEFAULT, true);
+        Compat.swing(player, hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         stack.causeUseVibration(player, GameEvent.ITEM_INTERACT_START);
     }

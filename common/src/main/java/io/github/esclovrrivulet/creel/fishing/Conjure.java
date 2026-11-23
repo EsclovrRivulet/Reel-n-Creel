@@ -2,7 +2,6 @@ package io.github.esclovrrivulet.creel.fishing;
 
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import io.github.esclovrrivulet.creel.CreelMod;
 import io.github.esclovrrivulet.creel.fish.FishTable;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** What bites a rod (docs/FISHING.md): from one reading of the water at the bobber, first one of the rod's size tiers by its chance
  *  (FishingData: on the five rods the lower 65, the upper 35; 0.21.0 the Ol' Mariner's six 24, 24, 22, 16, 9, 5; Luck of the Sea
@@ -131,7 +131,7 @@ public final class Conjure {
                 break;
             }
         }
-        return got.species() == null ? new Catch(null, EntityTypes.SALMON, chosen)
+        return got.species() == null ? new Catch(null, Compat.SALMON, chosen)
             : new Catch(got.species(), CreelMod.FISH.get(got.species().id()), chosen);
     }
 }

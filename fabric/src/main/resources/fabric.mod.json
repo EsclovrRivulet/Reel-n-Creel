@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "id": "creel",
-  "version": "0.24.0+26.3",
+  "version": "1.0.0",
   "name": "Reel n Creel",
-  "description": "53 fish modelled on real species, each living in the water that suits it, in four sizes. Six fishing rods, each hooking live fish of its own size classes, and a fight you read from the bend of the rod: hold to reel, let go to give line. Fish meat, one bucket for every fish, a chance of treasure with a landed fish, and fishermen who buy your catch. Breed fish with seagrass and watch their spawn hatch. Vanilla's fishing rod works as it always has, with a new 3D look. Made with AI assistance under the author's supervision.",
+  "description": "53 fish modelled on real species, each living in the water that suits it, in four sizes. Six fishing rods, each hooking live fish of its own size classes, and a fight you read from the bend of the rod: hold to reel, let go to give line. Fish meat, one bucket for every fish, a chance of treasure with a landed fish, and fishermen who buy your catch. Breed fish with seagrass and watch their spawn hatch. Vanilla's fishing rod works as it always has, with a new 3D look.",
   "authors": ["EsclovrRivulet"],
   "license": "CC-BY-SA-4.0",
   "contact": {

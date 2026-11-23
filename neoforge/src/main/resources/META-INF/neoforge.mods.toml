@@ -1,5 +1,6 @@
 # The NeoForge build's mod file. The placeholders are filled in by neoforge/build.gradle: the version and the description from
-# fabric/src/main/resources/fabric.mod.json (set in one place for both loaders), the NeoForge and Minecraft versions from gradle.properties.
+# fabric/src/main/resources/fabric.mod.json (set in one place for both loaders; the version gains "+<minecraft version>"), the NeoForge
+# and Minecraft versions from versions/versions.properties, for the Minecraft version built.
 license="CC-BY-SA-4.0"
 issueTrackerURL="https://github.com/EsclovrRivulet/Reel-n-Creel/issues"
 

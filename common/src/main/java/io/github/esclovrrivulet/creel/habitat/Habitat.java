@@ -16,7 +16,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
-import net.minecraft.world.level.levelgen.densityfunction.SamplerContext;
 import io.github.esclovrrivulet.creel.CreelMod;
 import io.github.esclovrrivulet.creel.entity.FishEntity;
 
@@ -26,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** Reads a spot of water: its class (section 2), temperature band (section 3) and grade (section 1), and what a biome can offer before
  *  its water is seen. No biome is ever named: classes come from shared biome tags and the water itself, bands from the
@@ -148,7 +148,7 @@ public final class Habitat {
      *  source is not what is asked); flat and debug worlds have none and fall back to the biome's own temperature */
     public static Climate.Sampler sampler(ServerLevel level) {
         return SAMPLERS.computeIfAbsent(level.dimension(), k -> level.getChunkSource().getGenerator() instanceof NoiseBasedChunkGenerator
-            ? Optional.of(level.getChunkSource().randomState().createClimateSampler(SamplerContext.EMPTY_UNCACHED)) : Optional.empty()).orElse(null);
+            ? Optional.of(Compat.climateSampler(level.getChunkSource().randomState())) : Optional.empty()).orElse(null);
     }
 
     /** the band at a spot, and where it came from */
@@ -166,7 +166,7 @@ public final class Habitat {
         String source;
         double t;
         if (s != null) {
-            t = s.temperature().sampleValue(pos.getX(), pos.getY(), pos.getZ());
+            t = Compat.temperature(s, pos);
             band = Band.ofClimate(t);
             source = "climate";
         } else {

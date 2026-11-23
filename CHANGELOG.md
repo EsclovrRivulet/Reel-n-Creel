@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0, for Minecraft 26.3, 26.2, and 26.1, 26.1.1 and 26.1.2
+
+- The first full release. Reel n Creel now runs on Minecraft 26.3, 26.2, and 26.1, 26.1.1 and 26.1.2, on both Fabric and
+  NeoForge, with the same features on each: the same fish, rods, fight, foods, buckets, breeding, treasure and fishermen. Pick
+  the file made for your Minecraft version and your mod loader. The 26.1 file serves all three of 26.1, 26.1.1 and 26.1.2.
+- The mod's fish foods cook in a smoker exactly as fast as vanilla's fish do in your version of the game.
+
+## 0.24.1, for Minecraft 26.3
+
+- The Northern Pike, Muskie, Alligator Gar and Barracuda have reshaped heads. Their mouths no longer run flat along the
+  bottom to the tip: the chin now curves up under the snout. The pike, muskie and gar have a broad snout rising to the skull
+  instead of a long flat one, and the barracuda's lower jaw juts past the upper. Nothing else about these fish changes.
+
 ## 0.24.0, for Minecraft 26.3
 
 - Vanilla's Fishing Rod, Carrot on a Stick and Warped Fungus on a Stick have a new look in the hand: a dark wooden pole with

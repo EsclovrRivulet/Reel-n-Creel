@@ -10,6 +10,7 @@ import net.minecraft.util.Mth;
 import io.github.esclovrrivulet.creel.CreelMod;
 import io.github.esclovrrivulet.creel.entity.FishEntity;
 import io.github.esclovrrivulet.creel.fish.Species;
+import io.github.esclovrrivulet.creel.compat.ClientCompat;
 
 /** Any fish, as vanilla's cod renderer: the whole fish yaws against the tail's beat, and lies on its side out of water. The species
  *  gives the texture, the scale (the model is drawn as built and scaled about its feet) and the shadow. */
@@ -36,10 +37,10 @@ public class FishRenderer extends MobRenderer<FishEntity, LivingEntityRenderStat
     @Override
     protected void setupRotations(LivingEntityRenderState state, PoseStack pose, float bodyRot, float scale) {
         super.setupRotations(state, pose, bodyRot, scale);
-        pose.rotateDegrees(Axis.YP, this.species.rig().bodyYaw() * Mth.sin(this.species.rig().beat() * state.ageInTicks));
+        ClientCompat.rotateDegrees(pose, Axis.YP, this.species.rig().bodyYaw() * Mth.sin(this.species.rig().beat() * state.ageInTicks));
         if (!state.isInWater) {
             pose.translate(0.1F, 0.1F, -0.1F);
-            pose.rotateDegrees(Axis.ZP, 90.0F);
+            ClientCompat.rotateDegrees(pose, Axis.ZP, 90.0F);
         }
     }
 
