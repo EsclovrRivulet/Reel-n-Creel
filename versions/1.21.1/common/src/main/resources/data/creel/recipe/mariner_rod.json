@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:fishing_rod"
+    },
+    {
+      "item": "minecraft:nautilus_shell"
+    },
+    {
+      "item": "minecraft:angler_pottery_sherd"
+    }
+  ],
+  "result": {
+    "id": "creel:mariner_rod"
+  }
+}

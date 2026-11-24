@@ -1,0 +1,16 @@
+# Main-tree files the 1.21.1 build leaves out (tools/assemble.py and public/gradle/versions.gradle read this file; one path per line,
+# from the repository's top). 1.21.1 draws items and the fishing line with an older renderer that has no render states, no item
+# model resolver and no submit calls; these files are written for those. Their work is done on 1.21.1 by the overlay's own classes:
+# client.HeldRodModels (the held models, the mark), mixin.HeldItemModelMixin and HeldItemOwnerMixin (ItemRenderer.render and its
+# holder) and the overlay's FishingHookRendererMixin (the line and bobber, decided per call). Nothing of the game's rules is in these.
+#
+# 26.x's item render state marks and the bend property of its item definitions (1.21.1: client.HeldRodModels, its item properties)
+common/src/main/java/io/github/esclovrrivulet/creel/client/HeldRodMark.java
+common/src/main/java/io/github/esclovrrivulet/creel/client/RodBendProperty.java
+# 26.x's fishing hook render state mark (1.21.1 decides per call, in its FishingHookRendererMixin)
+common/src/main/java/io/github/esclovrrivulet/creel/client/RodLineState.java
+common/src/main/java/io/github/esclovrrivulet/creel/mixin/FishingHookRenderStateMixin.java
+# the item render state mixins (1.21.1: mixin.HeldItemModelMixin, HeldItemOwnerMixin)
+common/src/main/java/io/github/esclovrrivulet/creel/mixin/ItemLayerRenderStateMixin.java
+common/src/main/java/io/github/esclovrrivulet/creel/mixin/ItemModelResolverMixin.java
+common/src/main/java/io/github/esclovrrivulet/creel/mixin/ItemStackRenderStateMixin.java

@@ -301,7 +301,7 @@ public final class FishSpawner {
         SpawnGroupData data = null;
         int done = 0;
         for (BlockPos p : spots) {
-            T fish = type.create(level, EntitySpawnReason.NATURAL);
+            T fish = Compat.create(type, level, EntitySpawnReason.NATURAL);
             if (fish == null) {
                 break;
             }

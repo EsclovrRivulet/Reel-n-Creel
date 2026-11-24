@@ -1,0 +1,92 @@
+{
+  "parent": "creel:item/salmon_rod_held_bend_m2",
+  "overrides": [
+    {
+      "predicate": {
+        "creel:rod_bend": 0.171875
+      },
+      "model": "creel:item/salmon_rod_held_bend_m2"
+    },
+    {
+      "predicate": {
+        "creel:rod_bend": 0.203125
+      },
+      "model": "creel:item/salmon_rod_held_bend_m1"
+    },
+    {
+      "predicate": {
+        "creel:rod_bend": 0.234375
+      },
+      "model": "creel:item/salmon_rod_held"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_m2"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.171875
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_m2"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.203125
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_m1"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.234375
+      },
+      "model": "creel:item/salmon_rod_held_cast"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.265625
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_1"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.296875
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_2"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.328125
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_3"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.359375
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_4"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.390625
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_5"
+    },
+    {
+      "predicate": {
+        "creel:cast": 1,
+        "creel:rod_bend": 0.421875
+      },
+      "model": "creel:item/salmon_rod_held_cast_bend_6"
+    }
+  ]
+}

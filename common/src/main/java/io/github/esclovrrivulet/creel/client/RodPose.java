@@ -1,24 +1,18 @@
 package io.github.esclovrrivulet.creel.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
 import org.joml.Vector3f;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import io.github.esclovrrivulet.creel.fishing.RodTable;
 
-import java.lang.reflect.Method;
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
-import io.github.esclovrrivulet.creel.compat.ClientCompat;
 
 /** Where the local player's rod tip was actually drawn (client only), so the line can leave from it while the rod is animated (by
  *  Punchy, by a swing, by anything). mixin.ItemLayerRenderStateMixin hands over the pose each of our held rods is drawn with, the very
@@ -53,7 +47,6 @@ import io.github.esclovrrivulet.creel.compat.ClientCompat;
 public final class RodPose {
     private RodPose() {}
 
-    private static final Logger LOG = LoggerFactory.getLogger("creel");
     /** how long a captured pose stays good, in nanoseconds */
     public static final long FRESH_NANOS = 250_000_000L;
 
@@ -78,22 +71,21 @@ public final class RodPose {
 
     // scratch objects (render thread only)
     private static final Vector3f TIP = new Vector3f(), TIP_VIEW = new Vector3f();
-    private static final Matrix4f THIRD = new Matrix4f(), BOB = new Matrix4f(), BOB_INV = new Matrix4f(), VIEW_INV = new Matrix4f();
-    private static final PoseStack BOB_STACK = new PoseStack();
-    private static final Object[] BOB_ARGS = new Object[2];
+    private static final Matrix4f THIRD = new Matrix4f(), BOB_INV = new Matrix4f(), VIEW_INV = new Matrix4f();
 
     // the poses the drawing started from (render thread only): the inverse of each, while that drawing is under way
     private static final Matrix4f HAND_BASE_INV = new Matrix4f(), ENTITY_BASE_INV = new Matrix4f();
     private static boolean handBaseSet, entityBaseSet;
     private static double entityX, entityY, entityZ;
 
-    private static Method bobHurt, bobView;
     /** the bent step of the last capture, for the debug read-out */
     private static volatile int lastStep;
-    private static boolean reflected;
 
-    private static CameraRenderState camera(Minecraft mc) {
-        return ClientCompat.gameRenderState(mc.gameRenderer).levelRenderState.cameraRenderState;
+    /** the hand's field of view this frame (the game's fixed one when it has not set it); the camera is read through client.RodView,
+     *  which each Minecraft version has its own copy of (1.0.0) */
+    private static double handFov(Minecraft mc) {
+        float hud = RodView.hudFov(mc);
+        return hud > 0 ? hud : RodLine.HAND_FOV;
     }
 
     /** the first-person hands start being submitted from this pose (null: they are done) */
@@ -177,7 +169,7 @@ public final class RodPose {
      *  the tip it gives is on screen, as fractions of the half-width (right +) and half-height (up +) */
     public static String debugText() {
         Minecraft mc = Minecraft.getInstance();
-        CameraRenderState cam = camera(mc);
+        boolean cam = RodView.known(mc);
         StringBuilder sb = new StringBuilder();
         if (mc.player != null) {
             sb.append(RodFlex.debugText(mc.player)).append(", last drawn step ").append(lastStep).append("; ");
@@ -196,19 +188,19 @@ public final class RodPose {
             if (!c.firstPerson) {
                 sb.append(String.format(Locale.ROOT, ", tip from the player's feet x %.2f y %.2f z %.2f", c.fromX, c.fromY, c.fromZ));
             }
-            if (c.firstPerson && cam != null && c.view.z() < 0) {
-                double t = Math.tan(Math.toRadians(cam.hudFov > 0 ? cam.hudFov : RodLine.HAND_FOV) / 2);
+            if (c.firstPerson && cam && c.view.z() < 0) {
+                double t = Math.tan(Math.toRadians(handFov(mc)) / 2);
                 double aspect = mc.getWindow().getHeight() > 0 ? (double) mc.getWindow().getWidth() / mc.getWindow().getHeight() : 1;
                 Vector3f v = new Vector3f(c.view);
-                Matrix4f bob = bob(mc, cam);
+                Matrix4f bob = RodView.bob(mc);
                 if (bob != null) {
                     bob.transformPosition(v);
                 }
                 sb.append(String.format(Locale.ROOT, ", tip on screen x %.3f y %.3f", v.x() / -v.z() / t / aspect, v.y() / -v.z() / t));
             }
-            if (c.firstPerson && cam != null) {
+            if (c.firstPerson && cam) {
                 // without the bob: where the tip is at 16:9, and the extra forward tilt about the grip that would bring it to y 0.92
-                double t = Math.tan(Math.toRadians(cam.hudFov > 0 ? cam.hudFov : RodLine.HAND_FOV) / 2);
+                double t = Math.tan(Math.toRadians(handFov(mc)) / 2);
                 Vector3f v = c.hand.transformPosition(new Vector3f(c.rod.tipX() / 16.0F, c.rod.tipY() / 16.0F, c.rod.tipZ() / 16.0F));
                 sb.append(String.format(Locale.ROOT, ", unbobbed tip at 16:9 x %.3f y %.3f", v.x() / -v.z() / t / (16.0 / 9.0), v.y() / -v.z() / t));
                 float gx = c.rod.gripX() / 16.0F, gy = c.rod.gripY() / 16.0F, gz = c.rod.gripZ() / 16.0F;
@@ -241,16 +233,16 @@ public final class RodPose {
         if (!firstPerson) {
             return player.getPosition(partialTick).add(c.fromX, c.fromY, c.fromZ);
         }
-        CameraRenderState cam = camera(mc);
-        if (cam == null || cam.viewRotationMatrix == null || cam.pos == null) {
+        Matrix4fc viewRotation = RodView.viewRotation(mc);
+        Vec3 camPos = RodView.position(mc);
+        if (viewRotation == null || camPos == null) {
             return null;
         }
-        double k = Math.tan(Math.toRadians(ClientCompat.mainCamera(mc.gameRenderer).getFov()) / 2)
-            / Math.tan(Math.toRadians(cam.hudFov > 0 ? cam.hudFov : RodLine.HAND_FOV) / 2);
+        double k = Math.tan(Math.toRadians(RodView.fov(mc)) / 2) / Math.tan(Math.toRadians(handFov(mc)) / 2);
         // this frame's bob on the hand's own pose (so a walk's bob does not lag a frame behind), scaled to the world's field of view,
         // and the world's bob taken off again
         Vector3f v = TIP_VIEW.set(c.view);
-        Matrix4f bob = bob(mc, cam);
+        Matrix4f bob = RodView.bob(mc);
         if (bob != null) {
             bob.transformPosition(v);
         }
@@ -258,45 +250,7 @@ public final class RodPose {
         if (bob != null) {
             bob.invert(BOB_INV).transformPosition(v);
         }
-        VIEW_INV.set(cam.viewRotationMatrix).invert().transformPosition(v);
-        return cam.pos.add(v.x(), v.y(), v.z());
-    }
-
-    /** the world's bob and hurt tilt this frame, by the game's own methods; null when they cannot be called. The matrix returned is a
-     *  scratch one (render thread), good until the next call. The methods are reached by reflection, not an @Invoker, so that a
-     *  missing or changed method only drops the bob from the line's start (the fallback) instead of failing the mod. */
-    private static Matrix4f bob(Minecraft mc, CameraRenderState cam) {
-        if (!reflected) {
-            reflected = true;
-            try {
-                bobHurt = GameRenderer.class.getDeclaredMethod("bobHurt", CameraRenderState.class, PoseStack.class);
-                bobView = GameRenderer.class.getDeclaredMethod("bobView", CameraRenderState.class, PoseStack.class);
-                bobHurt.setAccessible(true);
-                bobView.setAccessible(true);
-            } catch (ReflectiveOperationException | RuntimeException e) {
-                LOG.warn("creel: cannot reach the view bobbing, the line's first-person start ignores it: {}", e.toString());
-                bobHurt = bobView = null;
-            }
-        }
-        if (bobHurt == null) {
-            return null;
-        }
-        try {
-            PoseStack stack = BOB_STACK;
-            while (!stack.isEmpty()) {
-                stack.popPose();            // nothing the game's methods do pushes, but a pose left pushed must not carry over
-            }
-            stack.setIdentity();
-            BOB_ARGS[0] = cam;
-            BOB_ARGS[1] = stack;
-            bobHurt.invoke(mc.gameRenderer, BOB_ARGS);
-            if (ClientCompat.gameRenderState(mc.gameRenderer).optionsRenderState.bobView) {
-                bobView.invoke(mc.gameRenderer, BOB_ARGS);
-            }
-            return BOB.set(stack.last().pose());
-        } catch (ReflectiveOperationException | RuntimeException e) {
-            bobHurt = null;
-            return null;
-        }
+        VIEW_INV.set(viewRotation).invert().transformPosition(v);
+        return camPos.add(v.x(), v.y(), v.z());
     }
 }

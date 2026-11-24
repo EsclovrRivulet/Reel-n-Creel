@@ -1,10 +1,16 @@
 plugins {
-	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	// Loom as two plugins: fabric-loom for a game that is not obfuscated (26.x), fabric-loom-remap for one that is (1.21.1: the jar
+	// is compiled against Mojang's names and written with Fabric's intermediary names, the names Fabric runs that game with). The
+	// version's table entry chooses (versions/versions.properties, <mc>.loom).
+	id 'net.fabricmc.fabric-loom' version "${loom_version}" apply false
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}" apply false
 }
 
 // The Fabric build of the mod: the loader-neutral code, assets and data in ../common, with the Fabric entry points and glue here,
 // compiled together into one jar, for one Minecraft version (-Pmc=<version>, default the base version; see ../gradle/versions.gradle).
 apply from: rootProject.file('gradle/versions.gradle')
+def remapped = mcOptional('loom') == 'remap'
+apply plugin: remapped ? 'net.fabricmc.fabric-loom-remap' : 'net.fabricmc.fabric-loom'
 
 // The mod's version is set in one place: fabric/src/main/resources/fabric.mod.json; this jar's is that plus "+<label>"
 // (versions/versions.properties).
@@ -20,31 +26,40 @@ useVersionSources(sourceSets.main, ['common', 'fabric'])
 dependencies {
 	// To change the versions see versions/versions.properties (per Minecraft version) and gradle.properties
 	minecraft "com.mojang:minecraft:${mc}"
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${mcValue('fabric_api')}"
+	if (remapped) {
+		mappings loom.officialMojangMappings()
+		modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+		modImplementation "net.fabricmc.fabric-api:fabric-api:${mcValue('fabric_api')}"
+	} else {
+		implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+		implementation "net.fabricmc.fabric-api:fabric-api:${mcValue('fabric_api')}"
+	}
 }
 
-// fabric.mod.json in the jar: this jar's version, and the Minecraft versions it accepts (versions/versions.properties)
+// fabric.mod.json in the jar: this jar's version, the Minecraft versions it accepts (versions/versions.properties), and the Java it
+// needs (the release it is compiled for)
 def fabricMinecraft = mcValue('fabric_minecraft')
 processResources {
 	inputs.property 'modVersion', modVersion
 	inputs.property 'fabricMinecraft', fabricMinecraft
+	inputs.property 'javaRelease', javaRelease
 	filesMatching('fabric.mod.json') {
 		filter { String line ->
 			line.replaceFirst(/("version":\s*)"[^"]*"/, '$1"' + modVersion + '"')
 				.replaceFirst(/("minecraft":\s*)"[^"]*"/, '$1"' + fabricMinecraft + '"')
+				.replaceFirst(/("java":\s*)"[^"]*"/, '$1">=' + javaRelease + '"')
 		}
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 25
+	it.options.release = javaRelease
 	it.options.encoding = 'UTF-8'
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_25
-	targetCompatibility = JavaVersion.VERSION_25
+	sourceCompatibility = JavaVersion.toVersion(javaRelease)
+	targetCompatibility = JavaVersion.toVersion(javaRelease)
 }
 
 jar {

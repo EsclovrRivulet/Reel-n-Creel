@@ -10,7 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
@@ -153,10 +152,10 @@ public class CastingRodItem extends Item {
         level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, pitch);
         int lure = (int) (EnchantmentHelper.getFishingTimeReduction(level, stack, player) * 20.0F);
         int luck = EnchantmentHelper.getFishingLuckBonus(level, stack, player);
-        Projectile.spawnProjectile(new CastingHook(player, level, luck, lure, this.rod.id(), power), level, stack);
+        Compat.spawnProjectile(new CastingHook(player, level, luck, lure, this.rod.id(), power), level, stack);
         InteractionHand hand = player.getMainHandItem() == stack ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
         Compat.swing(player, hand);
         player.awardStat(Stats.ITEM_USED.get(this));
-        stack.causeUseVibration(player, GameEvent.ITEM_INTERACT_START);
+        Compat.useVibration(stack, player, GameEvent.ITEM_INTERACT_START);
     }
 }

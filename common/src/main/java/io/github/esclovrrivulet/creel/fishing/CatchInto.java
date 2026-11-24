@@ -2,15 +2,11 @@ package io.github.esclovrrivulet.creel.fishing;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -18,11 +14,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.gamerules.GameRules;
-import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** (0.19.0, docs/FISHING.md "Landing") Where a landed fish goes when the hand without the rod holds something to take it, so that a
@@ -60,8 +54,8 @@ public final class CatchInto {
         if (held.is(Items.WATER_BUCKET)) {
             return Compat.bucketMobPickup(player, other, fish);
         }
-        boolean bundle = held.is(ItemTags.BUNDLES);
-        if (held.getCount() != 1 || !(bundle || held.is(ItemTags.SHULKER_BOXES))) {
+        boolean bundle = Compat.isBundle(held);
+        if (held.getCount() != 1 || !(bundle || Compat.isShulkerBox(held))) {
             return false;
         }
         // as vanilla's kill (LivingEntity.shouldDropLoot): no drops from a baby or with mob drops off; then it is landed alive instead
@@ -102,16 +96,11 @@ public final class CatchInto {
      *  attack, the player as the last to hurt it and their luck), into a list instead of the world */
     private static List<ItemStack> drops(ServerLevel level, Player player, AbstractFish fish) {
         List<ItemStack> out = new ArrayList<>();
-        Optional<ResourceKey<LootTable>> table = fish.getLootTable();
-        if (table.isPresent()) {
-            fish.setLastHurtByPlayer(player, LivingEntity.PLAYER_HURT_EXPERIENCE_TIME);
-            DamageSource kill = player.damageSources().playerAttack(player);
-            fish.dropFromLootTable(level, kill, true, table.get(), s -> {
-                if (!s.isEmpty()) {
-                    out.add(s);
-                }
-            });
-        }
+        Compat.killDrops(level, player, fish, s -> {
+            if (!s.isEmpty()) {
+                out.add(s);
+            }
+        });
         return out;
     }
 

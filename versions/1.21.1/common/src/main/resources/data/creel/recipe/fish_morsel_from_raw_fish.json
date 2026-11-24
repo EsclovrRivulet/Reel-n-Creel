@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "creel:raw_fish"
+    }
+  ],
+  "result": {
+    "id": "creel:fish_morsel",
+    "count": 2
+  }
+}

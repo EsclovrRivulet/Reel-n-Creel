@@ -1,0 +1,323 @@
+{
+  "parent": "creel:item/fish_bucket/perch",
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "creel:item/fish_bucket/perch"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "creel:item/fish_bucket/yellow_perch"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "creel:item/fish_bucket/walleye"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "creel:item/fish_bucket/smallmouth_bass"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 5
+      },
+      "model": "creel:item/fish_bucket/largemouth_bass"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 6
+      },
+      "model": "creel:item/fish_bucket/white_bass"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 7
+      },
+      "model": "creel:item/fish_bucket/striped_bass"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 8
+      },
+      "model": "creel:item/fish_bucket/yelloweye_rockfish"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 9
+      },
+      "model": "creel:item/fish_bucket/lingcod"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 10
+      },
+      "model": "creel:item/fish_bucket/rainbow_trout"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 11
+      },
+      "model": "creel:item/fish_bucket/steelhead"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 12
+      },
+      "model": "creel:item/fish_bucket/cutthroat_trout"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 13
+      },
+      "model": "creel:item/fish_bucket/brown_trout"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 14
+      },
+      "model": "creel:item/fish_bucket/brook_trout"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 15
+      },
+      "model": "creel:item/fish_bucket/tiger_trout"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 16
+      },
+      "model": "creel:item/fish_bucket/lake_trout"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 17
+      },
+      "model": "creel:item/fish_bucket/arctic_char"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 18
+      },
+      "model": "creel:item/fish_bucket/atlantic_salmon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 19
+      },
+      "model": "creel:item/fish_bucket/king_salmon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 20
+      },
+      "model": "creel:item/fish_bucket/coho_salmon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 21
+      },
+      "model": "creel:item/fish_bucket/chum_salmon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 22
+      },
+      "model": "creel:item/fish_bucket/pink_salmon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 23
+      },
+      "model": "creel:item/fish_bucket/masu_salmon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 24
+      },
+      "model": "creel:item/fish_bucket/arctic_grayling"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 25
+      },
+      "model": "creel:item/fish_bucket/lake_whitefish"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 26
+      },
+      "model": "creel:item/fish_bucket/mountain_whitefish"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 27
+      },
+      "model": "creel:item/fish_bucket/bluegill_sunfish"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 28
+      },
+      "model": "creel:item/fish_bucket/rock_bass"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 29
+      },
+      "model": "creel:item/fish_bucket/crappie"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 30
+      },
+      "model": "creel:item/fish_bucket/northern_pike"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 31
+      },
+      "model": "creel:item/fish_bucket/muskie"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 32
+      },
+      "model": "creel:item/fish_bucket/channel_catfish"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 33
+      },
+      "model": "creel:item/fish_bucket/bullhead_catfish"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 34
+      },
+      "model": "creel:item/fish_bucket/burbot"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 35
+      },
+      "model": "creel:item/fish_bucket/white_sucker"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 36
+      },
+      "model": "creel:item/fish_bucket/shorthead_redhorse"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 37
+      },
+      "model": "creel:item/fish_bucket/northern_pikeminnow"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 38
+      },
+      "model": "creel:item/fish_bucket/creek_chub"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 39
+      },
+      "model": "creel:item/fish_bucket/longnose_dace"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 40
+      },
+      "model": "creel:item/fish_bucket/common_carp"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 41
+      },
+      "model": "creel:item/fish_bucket/pacific_herring"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 42
+      },
+      "model": "creel:item/fish_bucket/american_shad"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 43
+      },
+      "model": "creel:item/fish_bucket/threadfin_shad"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 44
+      },
+      "model": "creel:item/fish_bucket/goldeye"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 45
+      },
+      "model": "creel:item/fish_bucket/capelin"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 46
+      },
+      "model": "creel:item/fish_bucket/white_sturgeon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 47
+      },
+      "model": "creel:item/fish_bucket/mahi_mahi"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 48
+      },
+      "model": "creel:item/fish_bucket/bluefin_tuna"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 49
+      },
+      "model": "creel:item/fish_bucket/yellowfin_tuna"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 50
+      },
+      "model": "creel:item/fish_bucket/sailfish"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 51
+      },
+      "model": "creel:item/fish_bucket/tarpon"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 52
+      },
+      "model": "creel:item/fish_bucket/barracuda"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 53
+      },
+      "model": "creel:item/fish_bucket/alligator_gar"
+    }
+  ]
+}

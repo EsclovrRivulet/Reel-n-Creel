@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** /creel (permission level 2), the mod's readings in words (docs/HABITAT.md section 8):
  *  water [pos]    the class, band and grade where the player stands or looks (or at pos), and the fish that could appear there, by size
@@ -47,7 +48,7 @@ public final class CreelCommands {
     private CreelCommands() {}
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("creel").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+        LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("creel").requires(Compat.gameMasters())
             .then(Commands.literal("water")
                 .executes(ctx -> water(ctx.getSource(), lookedAt(ctx.getSource())))
                 .then(Commands.argument("pos", BlockPosArgument.blockPos())

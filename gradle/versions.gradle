@@ -5,7 +5,8 @@
 //
 // The source is one tree for every version: common/, fabric/ and neoforge/ are the base version's. For an older version, the files in
 // versions/<version>/ (laid out as the main tree) replace the files at the same paths, and nothing else changes; see the table's
-// header. Sets on the project: mc, mcValue(key) (a value of the table for this version), modVersion ("<mod version>+<label>"),
+// header. Sets on the project: mc, mcValue(key) (a value of the table for this version), mcOptional(key) (the same, or null where the
+// table has none), javaRelease (the Java release compiled for: the table's <mc>.java, else 25), modVersion ("<mod version>+<label>"),
 // modDescription, and useVersionSources(sourceSet, parts) (the main tree's parts with the version's files in their place).
 
 def versionTable = new Properties()
@@ -23,6 +24,10 @@ ext.mcValue = { String key ->
 	}
 	v.trim()
 }
+ext.mcOptional = { String key ->
+	versionTable.getProperty("${chosen}.${key}")?.trim()
+}
+ext.javaRelease = (ext.mcOptional('java') ?: '25') as int
 
 // The mod's version is set in one place: fabric/src/main/resources/fabric.mod.json; each jar's is that plus "+<label>", the game
 // version(s) the table names the jars for (26.1.2's jars, built against 26.1.2, serve all of 26.1.x and say 1.0.0+26.1).
@@ -30,14 +35,49 @@ def modJson = new groovy.json.JsonSlurper().parse(rootProject.file('fabric/src/m
 ext.modVersion = "${modJson.version}+${ext.mcValue('label')}"
 ext.modDescription = modJson.description
 
+// 1.21.1: a version whose game is further from the base than an overlay of a few files can bridge has two more files beside its
+// overlay (tools/assemble.py, the private build, reads the same two):
+//   versions/<mc>/left_out.txt      main-tree files this version's build leaves out (one path per line, from the repository's top,
+//                                   e.g. common/src/main/java/.../RodLine.java): what the version cannot have, or has in other files
+//   versions/<mc>/java_renames.txt  the older names of the game's classes and methods: every main-tree .java file of the build is
+//                                   copied into build/versionSources/ with these rules applied in order, one per line, as
+//                                       <regular expression> => <replacement>
+//                                   or, for one file only (by its file name), [Name.java] <regular expression> => <replacement>
+//                                   ($1, $2 in a replacement are the expression's groups; an empty replacement removes what the
+//                                   expression found; lines starting with # are comments). The
+//                                   version's own overlay files are written for that version and are not rewritten.
+def versionDir = rootProject.file("versions/${chosen}")
+def leftOut = [] as Set
+def renames = []
+if (chosen != versionTable.getProperty('base')) {
+	def lo = new File(versionDir, 'left_out.txt')
+	if (lo.isFile()) {
+		lo.getText('UTF-8').readLines()*.trim().findAll { it && !it.startsWith('#') }.each { leftOut << rootProject.file(it).canonicalPath }
+	}
+	def rn = new File(versionDir, 'java_renames.txt')
+	if (rn.isFile()) {
+		rn.getText('UTF-8').readLines().findAll { it.trim() && !it.startsWith('#') }.each { line ->
+			def m = line =~ /^(?:\[([^\]]+)\]\s+)?(.+?) =>(?: (.*))?$/
+			if (!m.matches()) {
+				throw new GradleException("versions/${chosen}/java_renames.txt: not a rule: ${line}")
+			}
+			renames << [file: m.group(1), pattern: java.util.regex.Pattern.compile(m.group(2)), replacement: m.group(3) ?: '']
+		}
+	}
+}
+
 // parts: the main tree's folders this project compiles (e.g. ['common', 'fabric']). Each part's src/main/java and src/main/resources
-// are added, then the version's versions/<mc>/<part>/src/main/... beside them, with every main-tree file the version replaces left out.
+// are added, then the version's versions/<mc>/<part>/src/main/... beside them, with every main-tree file the version replaces or leaves
+// out left out. Where the version has renames, the main tree's Java is compiled from its rewritten copy in build/versionSources/.
 ext.useVersionSources = { SourceSet sourceSet, List<String> parts ->
 	['java', 'resources'].each { kind ->
 		def dirs = sourceSet."${kind}"
 		def replaced = [] as Set
+		replaced.addAll(leftOut)
+		def mainDirs = []
 		parts.each { part ->
 			def mainDir = rootProject.file("${part}/src/main/${kind}")
+			mainDirs << mainDir
 			if (mainDir != project.file("src/main/${kind}")) {
 				dirs.srcDir mainDir             // the project's own src/main is there already
 			}
@@ -49,7 +89,38 @@ ext.useVersionSources = { SourceSet sourceSet, List<String> parts ->
 				}
 			}
 		}
-		if (!replaced.isEmpty()) {
+		if (kind == 'java' && !renames.isEmpty()) {
+			// the main tree's Java, rewritten: its folders give way to the rewritten copy (the overlay is compiled as it is)
+			def out = project.layout.buildDirectory.dir("versionSources/${sourceSet.name}").get().asFile
+			def skip = new HashSet(replaced)
+			def roots = mainDirs.findAll { it.isDirectory() }
+			def task = project.tasks.register("versionSources${sourceSet.name.capitalize()}") {
+				inputs.files(roots)
+				inputs.file(new File(versionDir, 'java_renames.txt'))
+				outputs.dir(out)
+				doLast {
+					project.delete(out)
+					roots.each { root ->
+						root.eachFileRecurse(groovy.io.FileType.FILES) { f ->
+							if (skip.contains(f.canonicalPath) || !f.name.endsWith('.java')) {
+								return
+							}
+							def text = f.getText('UTF-8')
+							renames.each { r ->
+								if (r.file == null || r.file == f.name) {
+									text = r.pattern.matcher(text).replaceAll(r.replacement)
+								}
+							}
+							def to = new File(out, root.toPath().relativize(f.toPath()).toString())
+							to.parentFile.mkdirs()
+							to.setText(text, 'UTF-8')
+						}
+					}
+				}
+			}
+			dirs.srcDirs = dirs.srcDirs.findAll { d -> !mainDirs.any { it.canonicalPath == d.canonicalPath } }
+			dirs.srcDir(project.files(out).builtBy(task))
+		} else if (!replaced.isEmpty()) {
 			dirs.exclude { FileTreeElement e -> replaced.contains(e.file.canonicalPath) }
 		}
 	}

@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "io.github.esclovrrivulet.creel.neoforge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["ServerLevelEntityCallbacksMixin"],
+  "injectors": { "defaultRequire": 1 }
+}

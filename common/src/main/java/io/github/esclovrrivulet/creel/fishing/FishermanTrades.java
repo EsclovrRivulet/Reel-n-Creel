@@ -5,13 +5,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.npc.villager.Villager;
-import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** (0.17.0, docs/FISHING.md "Rewards") Every fisherman villager buys our meat for emeralds (the "trades" block of fishing.json: 1 raw
  *  fish, or 4 fish morsels, for 1 emerald) as offers EXTRA to vanilla's: vanilla's trade tags and trade sets are not touched, so ours
@@ -33,7 +33,7 @@ public final class FishermanTrades {
 
     /** whether that villager is a fisherman */
     static boolean isFisherman(Villager v) {
-        return v.getVillagerData().profession().is(VillagerProfession.FISHERMAN);
+        return Compat.isFisherman(v);
     }
 
     /** Adds to a fisherman (server side) whichever of our offers he does not have yet; returns how many were added. Any other villager,

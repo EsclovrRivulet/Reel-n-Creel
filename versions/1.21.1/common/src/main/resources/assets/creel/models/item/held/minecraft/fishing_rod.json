@@ -1,0 +1,11 @@
+{
+  "parent": "creel:item/stick/fishing_rod",
+  "overrides": [
+    {
+      "predicate": {
+        "creel:cast": 1
+      },
+      "model": "creel:item/stick/fishing_rod_cast"
+    }
+  ]
+}

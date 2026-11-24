@@ -33,6 +33,7 @@ import io.github.esclovrrivulet.creel.mixin.FishingHookAccessor;
 import io.github.esclovrrivulet.creel.mixin.MobAccessor;
 
 import java.lang.reflect.Field;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** The bobber of the mod's rods (docs/FISHING.md): vanilla's own fishing hook, of vanilla's own entity type, so the throw, the flight, the
  *  bobbing, the line drawn to the rod and the bobber riding a hooked entity are all vanilla's, on the server and on every client (a client
@@ -314,7 +315,7 @@ public class CastingHook extends FishingHook {
 
     /** vanilla's check with our rod in place of vanilla's: alive, the rod it was cast with in either hand, the bobber within 32 blocks */
     public boolean stopFishing(Player player) {
-        if (player.canInteractWithLevel() && this.rodHand(player) != null && this.distanceToSqr(player) <= LINE_LENGTH_SQR) {
+        if (Compat.canInteractWithLevel(player) && this.rodHand(player) != null && this.distanceToSqr(player) <= LINE_LENGTH_SQR) {
             return false;
         }
         this.discard();
@@ -465,7 +466,7 @@ public class CastingHook extends FishingHook {
         if (col == null) {
             return null;
         }
-        AbstractFish f = c.type().create(level, EntitySpawnReason.NATURAL);
+        AbstractFish f = Compat.create(c.type(), level, EntitySpawnReason.NATURAL);
         if (f == null) {
             return null;
         }
@@ -750,7 +751,7 @@ public class CastingHook extends FishingHook {
         snapSounds++;
         InteractionHand hand = this.rodHand(owner);
         if (hand != null && cfg.snapDamage() > 0) {
-            owner.getItemInHand(hand).hurtAndBreak(cfg.snapDamage(), owner, hand);
+            Compat.hurtAndBreak(owner.getItemInHand(hand), cfg.snapDamage(), owner, hand);
         }
         this.snappedOff = f;
         this.discard();
@@ -907,7 +908,7 @@ public class CastingHook extends FishingHook {
             Treasure.roll(level, this, f, player, hand != null ? player.getItemInHand(hand) : ItemStack.EMPTY);
         }
         if (hand != null) {
-            player.getItemInHand(hand).hurtAndBreak(1, player, hand);
+            Compat.hurtAndBreak(player.getItemInHand(hand), 1, player, hand);
         }
         player.awardStat(Stats.FISH_CAUGHT, 1);
         this.landed = f;
@@ -966,7 +967,7 @@ public class CastingHook extends FishingHook {
             Field f = null;
             Object fly = null, bob = null, hook = null;
             try {
-                f = FishingHook.class.getDeclaredField("currentState");
+                f = Compat.hookStateField();
                 f.setAccessible(true);
                 for (Object o : f.getType().getEnumConstants()) {
                     switch (((Enum<?>) o).name()) {

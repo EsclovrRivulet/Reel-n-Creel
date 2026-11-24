@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -62,7 +61,7 @@ public class FishSpawnBlock extends Block {
     public static final SpeciesProperty SPECIES = new SpeciesProperty("species");
     public static final BooleanProperty NORTH = PipeBlock.NORTH, EAST = PipeBlock.EAST, SOUTH = PipeBlock.SOUTH, WEST = PipeBlock.WEST;
     /** frogspawn's: a column 16 wide, 1.5 high */
-    private static final VoxelShape SHAPE = Block.column(16.0, 0.0, 1.5);
+    private static final VoxelShape SHAPE = Compat.column(16.0, 0.0, 1.5);
     /** frogspawn's hatch delay: RandomSource.nextInt(3600, 12000) */
     public static final int MIN_HATCH_DELAY = 3600, MAX_HATCH_DELAY = 12000;
     /** how many fish hatch: 1 to 3 (the owner's numbers; frogspawn gives 2 to 5 tadpoles) */
@@ -94,9 +93,8 @@ public class FishSpawnBlock extends Block {
     }
 
     private static boolean mayPlaceOn(BlockGetter level, BlockPos below) {
-        FluidState under = level.getFluidState(below);
         FluidState here = level.getFluidState(below.above());
-        return (under.is(FluidTags.SUPPORTS_FROGSPAWN) || level.getBlockState(below).is(BlockTags.SUPPORTS_FROGSPAWN)) && here.is(Fluids.EMPTY);
+        return Compat.supportsFrogspawn(level, below) && here.is(Fluids.EMPTY);
     }
 
     /** the hatch is scheduled once, when the block first appears: not again when only its sides change (a neighbour's spawn came or
@@ -147,7 +145,7 @@ public class FishSpawnBlock extends Block {
     /** frogspawn's: a falling block breaks it */
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effects, boolean first) {
-        if (entity.is(Compat.FALLING_BLOCK)) {
+        if (Compat.isType(entity, Compat.FALLING_BLOCK)) {
             level.destroyBlock(pos, false);
         }
     }
@@ -169,7 +167,7 @@ public class FishSpawnBlock extends Block {
         float factor = Sizes.hatchling();
         int n = random.nextInt(MIN_HATCH, MAX_HATCH + 1);
         for (int i = 0; i < n; i++) {
-            FishEntity fish = type.create(level, EntitySpawnReason.BREEDING);
+            FishEntity fish = Compat.create(type, level, EntitySpawnReason.BREEDING);
             if (fish == null) {
                 continue;
             }

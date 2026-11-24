@@ -6,6 +6,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** The water at a spot (docs/HABITAT.md section 1): its column (surface and floor) and its grade. Player-made water counts like any,
  *  and flowing water counts as water. */
@@ -41,12 +42,12 @@ public final class Water {
         }
         BlockPos.MutableBlockPos m = spot.mutable();
         int top = spot.getY();
-        int maxY = level.getMaxY();
+        int maxY = Compat.maxY(level);
         for (int i = 0; i < MAX_SCAN && top < maxY && isWater(level, m.setY(top + 1)); i++) {
             top++;
         }
         int bottom = spot.getY();
-        int minY = level.getMinY();
+        int minY = Compat.minY(level);
         for (int i = 0; i < MAX_SCAN && bottom > minY && isWater(level, m.setY(bottom - 1)); i++) {
             bottom--;
         }
@@ -61,7 +62,7 @@ public final class Water {
         }
         BlockPos.MutableBlockPos m = spot.mutable();
         int top = spot.getY();
-        int maxY = level.getMaxY();
+        int maxY = Compat.maxY(level);
         for (int i = 0; i < MAX_SCAN && top < maxY && isWater(level, m.setY(top + 1)); i++) {
             top++;
         }

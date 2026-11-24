@@ -1,0 +1,85 @@
+# The 1.21.1 build's rewriting of the main tree's Java (tools/assemble.py and public/gradle/versions.gradle apply it; the format is
+# described in public/gradle/versions.gradle). Each rule gives a name the main tree uses under 26.x the name 1.21.1 has for the same
+# class, field or method, or leaves out a call 1.21.1 has no counterpart for (each such rule says why): no rule changes what the code
+# does. Where 1.21.1 differs in more than a name, the code goes through compat/Compat.java (1.21.1's own copy is in
+# versions/1.21.1/common/src/main/java/.../compat/), or through a thin base class of this build's own (the rules below the line
+# "Base classes"). A rule that no longer finds what it looks for leaves a 26.x name in place, which 1.21.1 does not have, so the build
+# fails to compile: nothing goes wrong unseen.
+#
+# Packages and classes
+net\.minecraft\.resources\.Identifier\b => net.minecraft.resources.ResourceLocation
+\bIdentifier\b => ResourceLocation
+net\.minecraft\.world\.entity\.animal\.fish\. => net.minecraft.world.entity.animal.
+net\.minecraft\.world\.entity\.EntitySpawnReason\b => net.minecraft.world.entity.MobSpawnType
+\bEntitySpawnReason\b => MobSpawnType
+net\.minecraft\.world\.level\.gamerules\.GameRules\b => net.minecraft.world.level.GameRules
+net\.minecraft\.world\.entity\.npc\.villager\. => net.minecraft.world.entity.npc.
+net\.minecraft\.world\.item\.ItemUseAnimation\b => net.minecraft.world.item.UseAnim
+\bItemUseAnimation\b => UseAnim
+# Members
+\.identifier\(\) => .location()
+\.snapTo\( => .moveTo(
+\.entityTags\(\) => .getTags()
+\.noCollision\(\) => .noCollission()
+\.needsSync = true => .hasImpulse = true
+InteractionResult\.SUCCESS_SERVER\b => InteractionResult.SUCCESS
+getGameRules\(\)\.get\(GameRules\.MOB_DROPS\) => getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)
+getGameRules\(\)\.get\(GameRules\.SPAWN_MOBS\) => getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)
+ServerLevel level = player\.level\(\); => ServerLevel level = player.serverLevel();
+# a registry (26.x reads it through lookupOrThrow, which in 1.21.1 gives a lookup, not the registry)
+(Registry<\w+> \w+ = [\w().]*?)\.lookupOrThrow\(Registries\. => $1.registryOrThrow(Registries.
+(BuiltInRegistries\.\w+|stems)\.getValue\( => $1.get(
+\bregistry\.listElements\(\) => registry.holders()
+# a CompoundTag's value: 1.21.1's getString and getFloat give "" and 0 for a missing key, the defaults 26.x's callers give here
+\b(tag|copyTag\(\))\.getStringOr\(("[^"]*"), ""\) => $1.getString($2)
+\b(tag|copyTag\(\))\.getFloatOr\(("[^"]*"), 0\.0F\) => $1.getFloat($2)
+# Registration: 1.21.1 keeps no ids in the properties (the registry gives the id), and builds an entity type under its id as a string
+\.setId\(ResourceKey\.create\(Registries\.\w+, \w+\)\) =>
+\.build\(ResourceKey\.create\(Registries\.ENTITY_TYPE, (\w+)\)\) => .build($1.toString())
+# the rods' enchantability: 1.21.1's item gives it by a method, not the properties (compat.RodItemBase, vanilla's rod's 1)
+\.enchantable\(1\) =>
+# A fish's despawn in peace: 1.21.1's Mob.checkDespawn asks the mob (shouldDespawnInPeaceful), 26.x's asks its type (FishEntity copies it)
+[FishEntity.java] !this\.getType\(\)\.isAllowedInPeaceful\(\) => this.shouldDespawnInPeaceful()
+# the Fish Spawn's state property: 1.21.1's Property has no getInternalIndex to override (the method stays, unused by the game)
+[SpeciesProperty.java] @Override(\s+public int getInternalIndex) => $1
+# The rods in the hand, their line and animation (client/Rod*.java, stage 2): 1.21.1's names, and three calls of 26.x 1.21.1 has no
+# method for, sent to compat.ClientBridge (1.21.1's copy of what each does). The camera and the view bobbing are read through
+# client.RodView, which 1.21.1 has its own copy of.
+\.getDeltaTracker\(\) => .getTimer()
+(\w+)\.getItemHeldByArm\( => io.github.esclovrrivulet.creel.compat.ClientBridge.heldByArm($1,
+FishingHookRenderer\.getHoldingArm\( => io.github.esclovrrivulet.creel.compat.ClientBridge.fishingArm(
+[RodAnim.java] context\.leftHand\(\) => io.github.esclovrrivulet.creel.compat.ClientBridge.leftHand(context)
+# an item property's holder: 26.x's ItemOwner is 1.21.1's LivingEntity itself
+[RodFlex.java] import net\.minecraft\.world\.entity\.ItemOwner; => import net.minecraft.world.entity.LivingEntity;
+[RodFlex.java] ItemOwner owner => LivingEntity owner
+[RodFlex.java] owner\.asLivingEntity\(\) => owner
+[RodLine.java] camera\.position\(\) => camera.getPosition()
+[RodLine.java] camera\.getFov\(\) => RodView.fov(mc)
+# the action bar: 1.21.1's player shows a message there through displayClientMessage(message, true)
+[RodDebug.java] player\.sendOverlayMessage\((.*)\); => player.displayClientMessage($1, true);
+# (Fabric's two entry points are the overlay's own copies, versions/1.21.1/fabric/: 1.21.1's Fabric API differs in more than names)
+# NeoForge: 1.21.1's event for data reload listeners takes them without ids, in the order given
+net\.neoforged\.neoforge\.event\.AddServerReloadListenersEvent\b => net.neoforged.neoforge.event.AddReloadListenerEvent
+\(AddServerReloadListenersEvent e\) -> CreelMod\.dataReloadListeners\(\)\.forEach\(e::addListener\) => (AddReloadListenerEvent e) -> CreelMod.dataReloadListeners().values().forEach(e::addListener)
+#
+# Base classes: where 1.21.1's game calls a method of ours with other arguments (or another result), the class extends a thin class
+# of this build's own, in compat/, which takes the game's call and passes it on to the main tree's method, and 26.x's types those
+# methods take are stood in for by small classes there (ValueInput, ValueOutput, ScheduledTickAccess, InsideBlockEffectApplier)
+[FishEntity.java] extends AbstractSchoolingFish\b => extends io.github.esclovrrivulet.creel.compat.SchoolingFishBase
+net\.minecraft\.world\.level\.storage\.ValueInput\b => io.github.esclovrrivulet.creel.compat.ValueInput
+net\.minecraft\.world\.level\.storage\.ValueOutput\b => io.github.esclovrrivulet.creel.compat.ValueOutput
+[FishSpawnBlock.java] extends Block\b => extends io.github.esclovrrivulet.creel.compat.FishSpawnBlockBase
+net\.minecraft\.world\.level\.ScheduledTickAccess\b => io.github.esclovrrivulet.creel.compat.ScheduledTickAccess
+net\.minecraft\.world\.entity\.InsideBlockEffectApplier\b => io.github.esclovrrivulet.creel.compat.InsideBlockEffectApplier
+[FishBucketItem.java] extends MobBucketItem\b => extends io.github.esclovrrivulet.creel.compat.FishBucketBase
+[CastingRodItem.java] extends Item\b => extends io.github.esclovrrivulet.creel.compat.RodItemBase
+[CastingRodItem.java] public InteractionResult use\( => public InteractionResult useRod(
+[CastingRodItem.java] public boolean releaseUsing\( => public boolean releaseRod(
+#
+# The test code (test/creeltest, private): names only, as above; its calls that differ go through its own TestCompat
+net\.minecraft\.world\.entity\.vehicle\.boat\.Boat\b => net.minecraft.world.entity.vehicle.Boat
+MobSpawnType\.SPAWN_ITEM_USE\b => MobSpawnType.SPAWN_EGG
+getVillagerData\(\)\.level\(\) => getVillagerData().getLevel()
+[RewardsTest.java] ResourceKey<VillagerProfession> => VillagerProfession
+[CreelTestCommands.java] registry\.get\(ResourceKey\.create\( => registry.getHolder(ResourceKey.create(
+[CreelTestNeoForge.java] CommonHooks\.onInteractEntity\(player, entity, TestLoader\.HAND, entity\.position\(\)\) => CommonHooks.onInteractEntity(player, entity, TestLoader.HAND)

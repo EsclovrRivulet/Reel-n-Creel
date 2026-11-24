@@ -12,7 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
@@ -21,8 +20,8 @@ import io.github.esclovrrivulet.creel.entity.FishEntity;
 import io.github.esclovrrivulet.creel.fish.FishTable;
 import io.github.esclovrrivulet.creel.fish.Size;
 import io.github.esclovrrivulet.creel.fish.Species;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
-import java.util.List;
 
 /** One bucket for every fish of the mod (creel:fish_bucket): which fish it holds is in its bucket data, as vanilla keeps a bucketed
  *  fish's name and health there (CreelSpecies, CreelSize, CreelScale beside them). Its name is "Bucket of <fish>" with the size word
@@ -43,7 +42,7 @@ public class FishBucketItem extends MobBucketItem {
         });
         Component fish = size.name(Component.translatable("entity." + CreelMod.MOD_ID + "." + species.id()));
         stack.set(DataComponents.ITEM_NAME, Component.translatable("item.creel.fish_bucket.of", fish));
-        stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(species.id()), List.of()));
+        stack.set(DataComponents.CUSTOM_MODEL_DATA, Compat.modelData(species.id(), FishTable.ALL.indexOf(species) + 1));
     }
 
     /** a bucket holding a fresh fish of that species and size (the creative tab's example) */

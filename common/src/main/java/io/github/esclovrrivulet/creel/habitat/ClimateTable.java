@@ -14,11 +14,11 @@ import net.minecraft.world.level.dimension.LevelStem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Method;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** Which temperature bands each biome can have in the overworld: the span of the climate temperature over all the places the overworld
  *  generator puts it (its multi-noise parameter list). Used by /creel biomes, to show what each biome can offer. A biome the list does not hold (or a generator without one) has no entry. */
@@ -96,9 +96,7 @@ public final class ClimateTable {
                 return t;
             }
             // the parameter list is private to the biome source; 26.3 runs with Mojang's names, so it is read by name
-            Method m = MultiNoiseBiomeSource.class.getDeclaredMethod("parameters");
-            m.setAccessible(true);
-            Climate.ParameterList<Holder<Biome>> list = (Climate.ParameterList<Holder<Biome>>) m.invoke(source);
+            Climate.ParameterList<Holder<Biome>> list = Compat.biomeParameters((MultiNoiseBiomeSource) source);
             List<Pair<Climate.ParameterPoint, Holder<Biome>>> values = list.values();
             for (Pair<Climate.ParameterPoint, Holder<Biome>> p : values) {
                 p.getSecond().unwrapKey().ifPresent(key -> {

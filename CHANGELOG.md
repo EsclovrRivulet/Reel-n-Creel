@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0, for Minecraft 1.21.1
+
+- Reel n Creel now also runs on Minecraft 1.21.1, on both Fabric and NeoForge, with the same fish, rods, fight, foods,
+  buckets, breeding, treasure and fishermen as on the newer versions. It needs Java 21.
+- Bundles are an experiment in Minecraft 1.21.1, so catching a fish straight into a bundle works only in worlds made with
+  the Bundles experiment switched on. Shulker boxes and water buckets work in every world.
+
 ## 1.0.0, for Minecraft 26.3, 26.2, and 26.1, 26.1.1 and 26.1.2
 
 - The first full release. Reel n Creel now runs on Minecraft 26.3, 26.2, and 26.1, 26.1.1 and 26.1.2, on both Fabric and

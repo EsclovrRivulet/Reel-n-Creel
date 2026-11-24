@@ -33,8 +33,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.food.FoodProperties;
 import io.github.esclovrrivulet.creel.entity.FishEntity;
 import io.github.esclovrrivulet.creel.fish.FishTable;
@@ -157,7 +155,7 @@ public final class CreelMod {
         items = registrar;
         for (Species s : FishTable.ALL) {
             Identifier egg = Identifier.fromNamespaceAndPath(MOD_ID, s.egg());
-            Item item = new SpawnEggItem(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, egg)).spawnEgg(FISH.get(s.id())));
+            Item item = Compat.spawnEgg(FISH.get(s.id()), new Item.Properties().setId(ResourceKey.create(Registries.ITEM, egg)));
             registrar.register(egg, item);
             EGGS.add(item);
         }
@@ -186,9 +184,9 @@ public final class CreelMod {
         }
 
         // fish meat, named as in Don't Starve Together: raw fish and fish steak are vanilla cod's values;
-        // the cooked morsel is eaten in 0.8 s, as dried kelp is (Consumables.DRIED_KELP)
+        // the cooked morsel is eaten in 0.8 s, as dried kelp is (Compat.quickFood)
         FISH_MORSEL = food("fish_morsel", new Item.Properties().food(food(1, 0.1F)));
-        COOKED_FISH_MORSEL = food("cooked_fish_morsel", new Item.Properties().food(food(2, 0.6F), Consumables.DRIED_KELP));
+        COOKED_FISH_MORSEL = food("cooked_fish_morsel", Compat.quickFood(new Item.Properties(), food(2, 0.6F)));
         RAW_FISH = food("raw_fish", new Item.Properties().food(food(2, 0.1F)));
         FISH_STEAK = food("fish_steak", new Item.Properties().food(food(5, 0.6F)));
 
@@ -196,8 +194,8 @@ public final class CreelMod {
         // the block's name, its feature flags, and the block-to-item map vanilla's registerItem fills; a loader that fills that map
         // on registration has already done it, so it is put only when missing)
         Identifier spawn = Identifier.fromNamespaceAndPath(MOD_ID, "fish_spawn");
-        FishSpawnItem spawnItem = new FishSpawnItem(FISH_SPAWN, new Item.Properties().useBlockDescriptionPrefix()
-            .requiredFeatures(FISH_SPAWN.requiredFeatures()).setId(ResourceKey.create(Registries.ITEM, spawn)));
+        FishSpawnItem spawnItem = new FishSpawnItem(FISH_SPAWN, Compat.blockItem(new Item.Properties(), FISH_SPAWN)
+            .setId(ResourceKey.create(Registries.ITEM, spawn)));
         registrar.register(spawn, spawnItem);
         if (Item.BY_BLOCK.get(FISH_SPAWN) != spawnItem) {
             spawnItem.registerBlocks(Item.BY_BLOCK, spawnItem);

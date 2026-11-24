@@ -18,6 +18,7 @@ import io.github.esclovrrivulet.creel.fish.Sizes;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import io.github.esclovrrivulet.creel.compat.Compat;
 
 /** /creel summon (docs/SIZES.md), registered under /creel by habitat.CreelCommands (0.16.5: moved out of SizeCommands, whose test
  *  subcommands now live in the test-only jar, test/creeltest):
@@ -53,7 +54,7 @@ public final class SummonCommand {
             return 0;
         }
         ServerLevel level = source.getLevel();
-        FishEntity f = type.create(level, EntitySpawnReason.COMMAND);
+        FishEntity f = Compat.create(type, level, EntitySpawnReason.COMMAND);
         if (f == null) {
             return 0;
         }
