@@ -115,7 +115,7 @@ _Note:_
 
 - For convenience, the recipes have no specific pattern, you can put the items anywhere in the crafting grid. They appear in the recipe book together upon unlocking the vanilla fishing rod.
 - Fishing enchantments work on Reel n Creel's rod as well. Luck of the Sea makes the larger size class more likely to bite and raises the treasure chance. Lure shortens the wait and Unbreaking & Mending work as well.
-- Durability: landing a fish costs 1, and costs 3 if you snap the line, so don't play your rods, wait—
+- Durability: landing a fish costs 1, and costs 3 if you snap the line, so don't make too many mistakes
 - The vanilla Fishing Rod has been given a 3D design but still works the same as vanilla.
 
 ### Fish meat
